@@ -17,8 +17,13 @@ describe CitiesController do
     Gallery.all.each { |g| g.remove }
     @gallery = FactoryGirl.create :gallery
 
-    setup_sites
-    @request.host = 'piousbox.com'
+    setup_photos
+    @photo = Photo.all.first
+
+    setup_cities
+
+    verbosity = $-v
+    $-v = nil
   end
 
   describe 'index' do
@@ -81,7 +86,7 @@ describe CitiesController do
   end
 
   describe 'profile' do
-    it 'shows guide is there is a guide' do
+    it 'shows guide if there is a guide' do
       @city.guide = User.all.first
       @city.save
       u = User.all.first
@@ -94,7 +99,7 @@ describe CitiesController do
       assigns(:features).should_not be nil
     end
 
-    it 'should get home' do
+    it 'GETs home' do
       get :profile, :cityname => 'San_Francisco'
       response.should be_success
 
@@ -136,24 +141,20 @@ describe CitiesController do
       result['n_galleries'].should eql 0
     end
 
-  end
-
-  describe 'routes' do
-    it 'routes to /cities.json' do
-      expect(:get => '/cities.json').to route_to('cities#index', 'format' => 'json')
+    it 'redirects from city id to city name_seo' do
+      get :profile, :cityname => @city.id
+      response.should be_redirect
+      response.should redirect_to('/en/cities/travel-to/San_Francisco')
     end
   end
+  
+  describe 'routes' do
+    it 'has root route' do
+      expect( :get => '/' ).to route_to( 'cities#index' )
+    end
 
-  it 'redirects from city id to city name_seo' do
-    get :profile, :cityname => @city.id
-    response.should be_redirect
-    response.should redirect_to('/en/cities/travel-to/San_Francisco')
-  end
-
-  describe 'cities_2' do
-    it 'GETs' do
-      get :index_2
-      response.should render_template('cities/index_2')
+    it 'routes to /cities.json' do
+      expect(:get => '/cities.json').to route_to('cities#index', 'format' => 'json')
     end
   end
 
