@@ -8,10 +8,10 @@ Microsites2::Application.routes.draw do
       :registrations => 'users/registrations'
     }
 
-    get '/features', :to => 'sites#features', :as => :features
-    get '/features/page/:features_page', :to => 'sites#features'
-    get '/newsitems', :to => 'sites#newsitems', :as => :newsitems
-    get '/newsitems/page/:newsitems_page', :to => 'sites#newsitems'
+    get '/features', :to => 'cities#features', :as => :features
+    get '/features/page/:features_page', :to => 'cities#features'
+    get '/newsitems', :to => 'cities#newsitems', :as => :newsitems
+    get '/newsitems/page/:newsitems_page', :to => 'cities#newsitems'
 
     get '/about', :to => 'welcome#about', :as => :about
     get '/contact', :to => 'welcome#contact', :as => :contact

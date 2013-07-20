@@ -1,9 +1,4 @@
-
 $(document).ready ->
-
-  #
-  # definition of view cities/index
-  #
 
   Views.Cities.IndexItem = Backbone.Marionette.ItemView.extend
     model: Models.City

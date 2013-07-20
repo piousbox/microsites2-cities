@@ -93,10 +93,6 @@ class CitiesController < ApplicationController
     end
   end
 
-  def index_2
-    render :layout => false
-  end
-
   def venues
     @venues = Venue.all
     sett_empties
@@ -117,6 +113,21 @@ class CitiesController < ApplicationController
       format.html
       format.json do
         render :json => @events
+      end
+    end
+  end
+
+  def features
+  end
+
+  def newsitems
+    @newsitems = []
+    City.all.each do |city|
+      @newsitems += city.newsitems.limit(10) unless city.newsitems.blank?
+    end
+    respond_to do |format|
+      format.json do
+        render :json => @newsitems
       end
     end
   end

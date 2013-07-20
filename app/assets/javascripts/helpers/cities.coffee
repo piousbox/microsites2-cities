@@ -45,16 +45,16 @@ $(document).ready ->
   if $("body#cities_index").length > 0 || $("#spec_runner_pqf").length > 0
     CanvasOps.cities_index_initialize()
 
-    U.models.cities = new Models.Cities()
-    # U.models.site = new Models.Site({ domain: '', locale: '' })
+    MyApp.start()
 
+    U.models.cities = new Models.Cities()
+    U.models.newsitems = new Collections.Newsitems()
+    
     U.views.cities.index = new Views.Cities.Index()
     # U.views.cities.index_right_menu = new Views.Cities.IndexRightMenu()
     # U.views.sites.newsitems = new Views.Sites.Newsitems({ 'model': U.models.site })
 
     U.views.newsitems.index = new Views.Newsitems.Index()
-
-    MyApp.start()
 
     # this works perfectly fine
     #
@@ -69,7 +69,9 @@ $(document).ready ->
     #    MyApp.right_region.show( U.views.sites.newsitems )
 
     # MyApp.right_menu.show( U.views.cities.index_right_menu )
-    MyApp.right_region.show( U.views.newsitems.index )
+    U.models.newsitems.fetch
+      success: ->
+        MyApp.right_region.show( U.views.newsitems.index )
 
   if $("#cities_show_canvas").length > 0
     cityname = $( '#cities_show_canvas' ).attr( 'cityname' )
