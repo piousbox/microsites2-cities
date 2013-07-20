@@ -2,9 +2,7 @@
 //
 //= require jquery-1.7.1
 //= require jquery_ujs
-// 
 //= require jquery-ui.min
-//= require jquery-uploadify
 //
 //= require tinymce
 //= require tinymce/langs/en
@@ -16,8 +14,6 @@
 //= require backbone.marionette
 //
 //= require lightbox
-//= require jquery.infinitecarousel3
-//
 //
 //
 //= require ./global
