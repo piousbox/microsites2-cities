@@ -2,13 +2,11 @@
 U = {
   collections: {},
   views: {
-    addritems: {},
     cities: {},
-    days: {},
     galleries: {},
+    newsitems: {},
     places: {},
     reports: {},
-    sites: {},
     users: {},
     venues: {},
     videos: {},
@@ -37,14 +35,11 @@ HF = {}
 Models = {}
 Collections = {}
 Views = {
-  Addritems: {},
   Cities: {},
-  CitiesUsers: {},
-  Days: {},
+  Features: {},
   Galleries: {},
-  Places: {},
+  Newsitems: {},
   Reports: {},
-  Sites: {},
   Users: {},
   Venues: {},
   Videos: {}
@@ -64,12 +59,9 @@ App = {
   Collections: {},
   Routers: {},
   Views: {
-    Addritems: {},
     Cities: {}, 
     City: {},
-    CitiesUsers: {},
     Reports: {},
-    Sites: {},
     Users: {},
     Venues: {},
     Videos: {}
