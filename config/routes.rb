@@ -1,7 +1,5 @@
 Microsites2::Application.routes.draw do
 
-  root :to => 'cities#index'
-
   scope "/:locale", :constraints => { :locale => /en|ru|pt/ } do
     root :to => 'cities#index'
 
@@ -154,5 +152,6 @@ Microsites2::Application.routes.draw do
 
   # add scope
   match '*other' => redirect { |params, request| "/en/#{params[:other]}" }
+  match '/' => redirect { |params, request| "/en/" }
 
 end
