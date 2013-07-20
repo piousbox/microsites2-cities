@@ -10,6 +10,9 @@ Microsites2::Application.routes.draw do
 
     get '/features', :to => 'sites#features', :as => :features
     get '/features/page/:features_page', :to => 'sites#features'
+    get '/newsitems', :to => 'sites#newsitems', :as => :newsitems
+    get '/newsitems/page/:newsitems_page', :to => 'sites#newsitems'
+
     get '/about', :to => 'welcome#about', :as => :about
     get '/contact', :to => 'welcome#contact', :as => :contact
     get '/about-resumes', :to => 'users#about', :as => :resumes_about
@@ -114,6 +117,8 @@ Microsites2::Application.routes.draw do
     # venues
     #
     match '/venues/:venue_type/in/:cityname' => redirect { |params, request| "/en/cities/travel-to/#{params[:cityname]}" }
+
+    match '*other', :to => 'errors#five_hundred'
   end
   
   #
