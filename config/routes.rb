@@ -116,7 +116,8 @@ Microsites2::Application.routes.draw do
     # venues
     #
     match '/venues/:venue_type/in/:cityname' => redirect { |params, request| "/en/cities/travel-to/#{params[:cityname]}" }
-
+  end
+  
   #
   # important non-locale-scoped stuff
   #
