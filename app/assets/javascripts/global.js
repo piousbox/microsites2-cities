@@ -3,6 +3,7 @@ U = {
   collections: {},
   views: {
     cities: {},
+    features: {},
     galleries: {},
     newsitems: {},
     places: {},

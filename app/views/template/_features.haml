@@ -1,0 +1,12 @@
+
+%script#features_index-template{:type => "text/template"}
+  .newsitems
+    Features
+    
+%script#features_show_small-template{:type => "text/template"}
+  .features-item
+    <a href="<%= link_path %>" ><img class="thumb" src="<%= image_path %>" alt="" /></a>
+    %h3
+      <a href="<%= link_path %>" ><%= name %></a>
+    <%= subhead %>
+    .c

@@ -49,12 +49,14 @@ $(document).ready ->
 
     U.models.cities = new Models.Cities()
     U.models.newsitems = new Collections.Newsitems()
+    U.models.features = new Collections.Features()
     
     U.views.cities.index = new Views.Cities.Index()
     # U.views.cities.index_right_menu = new Views.Cities.IndexRightMenu()
     # U.views.sites.newsitems = new Views.Sites.Newsitems({ 'model': U.models.site })
 
     U.views.newsitems.index = new Views.Newsitems.Index()
+    U.views.features.index = new Views.Features.Index()
 
     # this works perfectly fine
     #
@@ -69,9 +71,14 @@ $(document).ready ->
     #    MyApp.right_region.show( U.views.sites.newsitems )
 
     # MyApp.right_menu.show( U.views.cities.index_right_menu )
-    U.models.newsitems.fetch
+
+    #U.models.newsitems.fetch
+    #  success: ->
+    #    MyApp.right_region.show( U.views.newsitems.index )
+
+    U.models.features.fetch
       success: ->
-        MyApp.right_region.show( U.views.newsitems.index )
+        MyApp.right_region.show( U.views.features.index )
 
   if $("#cities_show_canvas").length > 0
     cityname = $( '#cities_show_canvas' ).attr( 'cityname' )

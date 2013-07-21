@@ -30,7 +30,7 @@
       #left
         .left-menu
           %ul
-            %li= link_to 'Map', 'javascript:void(0)'
+            %li= link_to 'Map', 'javascript:void(0)', :class => :active
             
         .left-container
           - if notice
@@ -44,7 +44,7 @@
       #right
         .right-menu
           %ul
-            %li= link_to 'News', '#'
+            %li= link_to 'News', 'javascript:void(0)', :class => :active
             %li= link_to 'Cities', '#'
             
         .right-container

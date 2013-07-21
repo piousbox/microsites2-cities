@@ -118,6 +118,15 @@ class CitiesController < ApplicationController
   end
 
   def features
+    @features = []
+    City.all.each do |city|
+      @features += city.features.limit(4) unless city.features.blank?
+    end
+    respond_to do |format|
+      format.json do
+        render :json => @features
+      end
+    end
   end
 
   def newsitems
