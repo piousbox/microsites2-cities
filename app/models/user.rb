@@ -42,8 +42,6 @@ class User
   
   has_many :reports
   has_many :photos
-  has_many :user_profiles
-  has_many :days
   has_many :galleries
   has_many :cities_users
 
