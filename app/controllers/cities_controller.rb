@@ -136,7 +136,22 @@ class CitiesController < ApplicationController
     end
     respond_to do |format|
       format.json do
-        render :json => @newsitems
+        newsitems = []
+        @newsitems.each_with_index do |item, idx|
+          unless item.report.blank?
+            report = Report.find item.report_id
+            n = item
+            n[:link_path] = report_path(report.name_seo)
+            n[:title] = report.name
+            newsitems << n
+          end
+          unless item.gallery.blank?
+            item[:link_path] = gallery_path( item.gallery.galleryname, 0 )
+            item[:title] = item.gallery.name
+            newsitems << item
+          end
+        end
+        render :json => newsitems
       end
     end
   end

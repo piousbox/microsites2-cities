@@ -1,4 +1,6 @@
+
 class ReportsController < ApplicationController
+
   before_filter :load_features, :only => [ :show ]
   # caches_page :show, :index, :not_found, :venues
 
@@ -189,8 +191,7 @@ class ReportsController < ApplicationController
             end
             @city = @report.city
             @report_name_seo ||= @report.name_seo
-            layout = ( [ 'application', 'cities', 'resume' ].include?(@layout) ) ? 'application_mini' : @layout
-            render :layout => layout
+            render :layout => 'cities'
           end
         end
         format.json do

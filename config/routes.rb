@@ -118,6 +118,8 @@ Microsites2::Application.routes.draw do
     #
     match '/venues/:venue_type/in/:cityname' => redirect { |params, request| "/en/cities/travel-to/#{params[:cityname]}" }
 
+    get 'sites/:domainname', :to => 'sites#show'
+
     match '*other', :to => 'errors#five_hundred'
   end
   

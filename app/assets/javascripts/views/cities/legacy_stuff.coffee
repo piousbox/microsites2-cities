@@ -195,9 +195,9 @@ $(document).ready ->
     show_newsitems: (item) ->
       @deactivate_all()
       $(item.currentTarget).addClass('active')
-      U.models.site.fetch
+      U.models.newsitems.fetch
         success: ->
-          MyApp.right_region.show( U.views.sites.newsitems )
+          MyApp.right_region.show( U.views.newsitems )
 
     deactivate_all: (item) ->
       while $(".right-menu ul li a.active").length > 0

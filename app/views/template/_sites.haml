@@ -4,6 +4,8 @@
     <% _.each(newsitems, function(item) { %>
     .item
       <a href="<%= item.url %>"><%= item.name %></a>
+      <div><%= item.descr %></div>
+      <%= item.link_path %>
     <% }) %>
     
 %script#sites_newsitem-template{:type => "text/template"}

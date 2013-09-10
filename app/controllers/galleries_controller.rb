@@ -1,7 +1,7 @@
 class GalleriesController < ApplicationController
 
   # caches_page :index, :show
-  before_filter :redirect_mobile_user, :only => [ :show ]
+  # before_filter :redirect_mobile_user, :only => [ :show ]
 
   rescue_from Mongoid::Errors::DocumentNotFound do
     flash[:error] = 'Gallery not found.'
@@ -62,7 +62,8 @@ class GalleriesController < ApplicationController
       if @gallery = Gallery.where( :galleryname => params[:galleryname] ).first
         authorize! :show, @gallery
         @photos = @gallery.photos.where( :is_trash => false )
-        @related_galleries = Gallery.where( :is_trash => false, :tag => @gallery.tag, :is_public => true, :site => @site ).page( params[:related_galleries_page] )
+        @related_galleries = Gallery.where( :is_trash => false, :tag => @gallery.tag, :is_public => true,
+                                            :site => @site ).page( params[:related_galleries_page] )
         unless @gallery.city.blank?
           @city = @gallery.city
           @galleryname = @gallery.galleryname

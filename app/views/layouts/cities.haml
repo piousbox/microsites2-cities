@@ -43,9 +43,7 @@
                 #cities_index_canvas
       #right
         .right-menu
-          %ul
-            %li= link_to 'News', 'javascript:void(0)', :class => :active
-            %li= link_to 'Cities', '#'
+          = content_for :right_menu
             
         .right-container
           .inner
@@ -60,6 +58,7 @@
         = render 'set_layout'
         .clear
     = render 'template/all'
+    = render 'manager/template/all'
     .hide
       = render 'ads/large_rectangle'
     = render 'init_maps'
