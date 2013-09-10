@@ -20,7 +20,6 @@
 //
 //= require_directory ./models
 //= require_tree ./views
-// require_directory ./views/cities
 //= require_directory ./helpers
 //= require_directory ./piousbox
 //
