@@ -1,16 +1,7 @@
+
 class UsersController < ApplicationController
-  caches_page :resume, :show, :index, :reports, :report, :galleries, :gallery, :github_page
-  layout 'resume'
-  before_filter :set_tags_global, :only => [ :gallery, :galleries, :show, :reports, :report, :index, :github_page, :about ]
 
-  def gallery
-    @gallery = Gallery.where( :galleryname => params[:galleryname] ).first
-    authorize! :show, @gallery
-
-    @user = @gallery.user
-    set_galleries
-    @title = "Gallery #{@gallery.name} of #{@user.username}"
-  end
+  before_filter :set_tags_global, :only => [ :show, :index ]
 
   def edit
     @user = User.find current_user.id
@@ -27,9 +18,8 @@ class UsersController < ApplicationController
       authorize! :show, @user
       if @user.blank?
         render :not_found
-      else
 
-        @profile = UserProfile.where( :user => @user, :lang => @locale ).first
+      else
         @title = @user.username
 
         if params[:print]
@@ -37,52 +27,6 @@ class UsersController < ApplicationController
         else
           render
         end
-      end
-    end
-  end
-  
-  def galleries
-    @user = User.where( :username => params[:username] ).first
-    authorize! :galleries, @user
-    set_galleries
-    @title = "Galleries of #{@user.username}"
-  end
-
-  def scratchpad
-    s = params[:user][:scratchpad]
-    @current_user.scratchpad = s
-    authorize! :scratchpad, @current_user
-    
-    if @current_user.save
-      flash[:notice] = 'Success'
-    else
-      flash[:error] = 'No Luck'
-    end
-    redirect_to organizer_path
-  end
-
-  def report
-    @report = Report.where( :name_seo => params[:name_seo] ).first
-    @user = @report.user
-    authorize! :show, @report    
-  end
-
-  def github_page
-    @user = User.where( :username => params[:username] ).first
-    authorize! :github, @user
-    render :action => :github
-  end
- 
-  def reports
-    @user = User.where( :username => params[:username] ).first
-    authorize! :reports, @user
-
-    @reports = Report.where( :lang => @locale, :user => @user, :is_public => true, :is_trash => false, :site => @site ).order_by( :created_at => :desc ).page( params[:reports_page] )
-
-    respond_to do |format|
-      format.html
-      format.json do
-        render :json => @reports
       end
     end
   end
@@ -125,18 +69,6 @@ class UsersController < ApplicationController
     end
   end
   
-  def organizer
-    authorize! :organizer, @current_user
-
-    # @reports = Report.where( :user => (current_user || session['current_user']) ).page(1)
-    @newsitems = current_user.newsitems.all.order_by( :created_at => :descr ).page( params[:newsitems_page] )
-
-    @profiles = @current_user.user_profiles
-    
-    @layout = 'application_mini'
-    render :layout => @layout
-  end
-
   def update
     @user = User.find params[:id]
     old_group_id = @user.group_id
@@ -152,47 +84,7 @@ class UsersController < ApplicationController
     end   
   end
 
-  def new_profile
-    authorize! :new_profile, @current_user
-    @user_profile = UserProfile.new
-    render :layout => @layout
-    
-  end
-
-  def create_profile
-    authorize! :create_profile, @current_user
-
-    @user_profile = UserProfile.new params[:user_profile]
-    @user_profile.user = @current_user
-
-    if @user_profile.save
-      flash[:notice] = 'Success'
-      redirect_to organizer_path
-    else
-      flash[:error] = 'No Luck'
-      render :new_profile, :layout => @layout
-    end
-  end
-
-  def about
-    authorize! :about, User.new
-    @title = 'About Us'
-    render
-  end
-
-  def edit_profile
-    authorize! :edit_profile, @current_user
-    render :layout => 'application'
-  end
-
   private
-
-  def set_galleries
-    @galleries = Gallery.where( :user => @user, :is_trash => false, :is_public => true, :site => @site ).order_by( :created_at => :desc )
-    @galleries = @galleries.select do |g|
-      g.photos.where( :is_trash => false, :is_public => true ).length > 0
-    end
-  end
 
   def set_tags_global
     @tags_global = Tag.where( :is_trash => false, :is_public => true, :parent_tag => nil )
