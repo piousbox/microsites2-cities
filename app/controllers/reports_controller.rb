@@ -51,20 +51,7 @@ class ReportsController < ApplicationController
         flash[:notice] = 'Newsitem was not attempted to be saved. '
       end
 
-      # for homepage
-      if @report.is_public
-        n = Newsitem.new
-        n.report = @report
-        n.descr = 'shared a story on'
-        n.user = @report.user
-        @site.newsitems << n
-        if @site.save
-        else
-          flash[:error] = flash[:error] + 'City could not be saved (newsitem). '
-        end
-      end
-
-      # for city
+      # save newsitem for city? @TODO
 
       saved = @report.save
     end

@@ -3,8 +3,6 @@ class Gallery < AppModel2
   belongs_to :tag
   belongs_to :city
 
-  belongs_to :site
-
   belongs_to :user
   validates :user, :presence => true
   field :username, :type => String
@@ -49,24 +47,6 @@ class Gallery < AppModel2
   set_callback(:create, :before) do |doc|
     doc.username = doc.user.username
     doc.galleryname = doc.name.to_simple_string
-
-    if 0 == Site.where( :domain => 'piousbox.com', :lang => doc.lang ).length
-      site = Site.new :domain => 'piousbox.com', :lang => doc.lang
-      site.save
-    end
-
-    # for the homepage
-    if doc.is_public
-      n = Newsitem.new {}
-      n.gallery = doc
-      n.username = doc.user.username
-      site = Site.where( :lang => doc.lang, :domain => 'piousbox.com' ).first
-      site.newsitems << n
-      flag = site.save
-      if !flag
-        puts! site.errors
-      end
-    end
 
     # for the city
     if !doc.city_id.blank? && doc.is_public

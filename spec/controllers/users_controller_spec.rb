@@ -115,35 +115,6 @@ describe UsersController do
     end
   end
 
-  describe 'profiles' do
-    it 'should GET new profile' do
-      sign_in :user, @user
-      get :new_profile
-      response.should be_success
-      response.should render_template('users/new_profile')
-
-      assigns(:user_profile).should_not eql nil
-    end
-
-    it 'sets current user as the owner of the profile when creating' do
-      sign_in :user, @user
-      @user.user_profiles.each { |p| p.remove }
-      profile = { :education => 'education', :objectives => 'objectives', :lang => 'ru' }
-      post :create_profile, :user_profile => profile
-      User.find( @user.id ).user_profiles.length.should eql 1
-    end
-
-    it 'GETs edit profile' do
-      sign_in :user, @user
-      @user.user_profiles << UserProfile.new( :lang => :en, :about => 'A little about me' )
-      @user.save.should eql true
-
-      get :edit_profile, :username => @user.username, :profile_id => @user.user_profiles[0].id
-      response.should be_success
-      # todo
-    end
-  end
-
   describe 'gallery' do
     it 'should have list of this users galleries' do
       get :galleries, :username => @user.username

@@ -8,7 +8,6 @@ U = {
     newsitems: {},
     places: {},
     reports: {},
-    sites: {},
     users: {},
     venues: {},
     videos: {},
@@ -42,7 +41,6 @@ Views = {
   Galleries: {},
   Newsitems: {},
   Reports: {},
-  Sites: {},
   Users: {},
   Venues: {},
   Videos: {}
