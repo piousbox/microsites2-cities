@@ -105,3 +105,7 @@ def setup_cities
   @nyc = FactoryGirl.create :nyc
 end
 
+def setup_photos
+end
+
+

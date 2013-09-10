@@ -25,12 +25,7 @@ class GalleriesController < ApplicationController
 
     respond_to do |format|
       format.html do
-        if params[:my]
-          render :layout => @layout # , :action => 'my_index'
-        else
-          layout = ( @layout == 'application' ) ? 'application_mini' : @layout
-          render :layout => layout
-        end
+        render
       end
       format.json do
         @g = []
@@ -76,14 +71,13 @@ class GalleriesController < ApplicationController
           respond_to do |format|
             format.html do
               action = Gallery.actions.include?( params[:style] ) ? params[:style] : 'show'
-              # layout = 'cities' == @layout ? 'application' : @layout
-              render :action => action, :layout => 'application'
+              render :action => action
             end
             format.mobile do
-              render :action => 'show_long', :layout => 'organizer'
+              render :action => 'show_long'
             end
             format.tablet do
-              render :action => 'show_long', :layout => 'organizer'
+              render :action => 'show_long'
             end
               format.json do
               photos = []
@@ -119,7 +113,7 @@ class GalleriesController < ApplicationController
 
     respond_to do |format|
       format.html do
-        render :layout => @layout
+        render
       end
       format.json { render :json => @gallery }
     end
@@ -171,7 +165,7 @@ class GalleriesController < ApplicationController
     
     @galleries = Gallery.where( :user => current_user, :name => /#{params[:q]}/i ).page( params[:galleries_page] )
     
-    render :action => :index, :layout => 'organizer'
+    render :action => :index
   end
 
   def set_show_style

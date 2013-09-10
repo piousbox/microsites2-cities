@@ -117,22 +117,9 @@ describe ReportsController do
       end
     end
 
-    it "shows reports for the site only" do
-      get :index
-      response.should be_success
-      assigns(:reports).each do |report|
-        report.site.should_not eql nil
-        report.site.domain.should eql @request.host
-      end
-    end
   end
 
   describe 'show' do
-#    it 'does not show cities layout' do
-#      get :show, :name_seo => @r1.name_seo, :layout => 'cities'
-#      response.should render_template('layouts/application')
-#    end
-
     it 'renders layouts application' do
       get :show, :name_seo => @r1.name_seo, :layout => 'application'
       response.should render_template('layouts/application')

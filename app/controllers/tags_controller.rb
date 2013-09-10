@@ -9,8 +9,7 @@ class TagsController < ApplicationController
     @tags = Tag.all.where( :parent_tag => nil ).reject { |t| @feature_tags.include? t }
     @tags = @tags.reject { |r| r.reports.length == 0 && r.galleries.length == 0 }
 
-    layout = ( @layout == 'application' ) ? 'application_mini' : @layout
-    render :layout => layout
+    render
   end
   
   def show

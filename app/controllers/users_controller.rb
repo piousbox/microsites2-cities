@@ -18,15 +18,8 @@ class UsersController < ApplicationController
       authorize! :show, @user
       if @user.blank?
         render :not_found
-
       else
         @title = @user.username
-
-        if params[:print]
-          render :print, :layout => 'print'
-        else
-          render
-        end
       end
     end
   end
@@ -58,9 +51,9 @@ class UsersController < ApplicationController
       format.html do
         if params[:cityname]
           @features = []
-          render :layout => 'application_cities', :action => :list
+          render :action => :list
         else
-          render :layout => 'resume' # @layout
+          render
         end
       end
       format.json do
@@ -80,7 +73,7 @@ class UsersController < ApplicationController
       redirect_to organizer_path
     else
       flash[:error] = 'No Luck. ' + @user.errors.inspect
-      render :action => :edit, :layout => 'organizer'
+      render :action => :edit
     end   
   end
 
