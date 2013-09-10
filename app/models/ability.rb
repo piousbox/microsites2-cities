@@ -6,25 +6,8 @@ class Ability
     # signed in user
     #
     unless user.blank?
-
-      can [ :create, :index, :new, :search ], Addressbookitem
-      can :manage, Addressbookitem do |a|
-        a.user == user
-      end
-
-      can [ :create, :new, :index ], CitiesUser
-      can :manage, CitiesUser do |cu|
-        cu.user == user
-      end
       
       can [ :set_city ], City
-
-      can [ :new, :create ], Community
-
-      can [ :new, :create, :search, :index ], Day
-      can :manage, Day do |day|
-        day.user == user
-      end
 
       can [ :create, :new ], Gallery
       can [ :edit, :update ], Gallery do |g|
@@ -70,37 +53,20 @@ class Ability
       #
       if user[:group_id] <= 2
         
-        can [ :manage ], Cac
-        can [ :manage ], CitiesUser
         can [ :manage ], City
-        can [ :manage ], Community
         can [ :manage ], Country
-        can [ :manage ], Day
-        can [ :manage ], Edge
         can [ :manage ], Event
         can [ :manage ], Feature
         can [ :manage ], Gallery
-        can [ :manage ], Message
         can [ :manage ], Newsitem
-        can [ :manage ], Node
         can [ :manage ], Photo
         can [ :manage ], Report
-        can [ :manage ], Site
-        can [ :manage ], Subscription
         can [ :manage ], Tag
         can [ :manage ], User
-        can [ :manage ], UserProfile
         can [ :manage ], Venue
         can [ :manage ], Video
         can [ :manage ], Welcome
         can [ :manage ], Manager
-        can [ :manage ], ManagerCity
-        can [ :manage ], ManagerGallery
-        can [ :manage ], ManagerPhoto
-        can [ :manage ], ManagerReport
-        can [ :manage ], ManagerTag
-        can [ :manage ], ManagerUser
-        can [ :manage ], ManagerVenue
       end
 
       #
@@ -117,8 +83,6 @@ class Ability
     ###
     ### applies to all users
     ###
-
-    can [ :show, :home, :news, :slider, :about, :services, :team, :contact, :portfolio, :privacy ], Cac
     
     can [ :profile, :index, :show, :map, :events, :galleries, :videos, 
       :reports, :people, :users, :venues, :places, :temp, :not_found ], City
@@ -127,8 +91,6 @@ class Ability
     can [ :show ], Gallery do |g|
       g.is_public && !g.is_trash
     end
-
-    can [ :create ], Message
 
     # has to be outside user auth b/c the uploading component is ajax.
     can [ :new, :create, :index, :do_upload, :not_found ], Photo

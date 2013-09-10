@@ -121,6 +121,11 @@ Microsites2::Application.routes.draw do
     match '*other', :to => 'errors#five_hundred'
   end
   
+  scope 'spec_runner', :as => :spec_runner do
+    root :to => 'manager/spec_runner#all'
+    get ':which', :to => 'manager/spec_runner#which', :as => :which
+  end
+
   #
   # important non-locale-scoped stuff
   #

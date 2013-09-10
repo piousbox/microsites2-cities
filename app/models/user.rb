@@ -29,11 +29,6 @@ class User
   
   field :group_id, :type => Integer, :default => 3
 
-  field :scratchpad, :type => String
-  field :github_path, :type => String
-  field :facebook_path, :type => String
-  field :stackoverflow_path, :type => String
-
   field :is_feature, :type => Boolean, :default => false
   field :is_trash, :type => Boolean, :default => false
 
@@ -43,7 +38,6 @@ class User
   has_many :reports
   has_many :photos
   has_many :galleries
-  has_many :cities_users
 
   has_many :owned_venues, :class_name => 'Venue', :inverse_of => :owner
   has_one :profile_photo, :class_name => 'Photo', :inverse_of => :profile_user
