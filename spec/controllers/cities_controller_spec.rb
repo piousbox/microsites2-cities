@@ -26,6 +26,19 @@ describe CitiesController do
     $-v = nil
   end
 
+  describe 'set city' do
+    it 'sets city' do
+      sign_in :user, @user
+      get :about
+      get :help
+      cookies[:current_city].should eql nil
+      assigns(:list_citynames).should_not eql nil
+      post :set_city, :user => { :cityname => 'New_York_City' }
+      assert_response :redirect
+      # assert_equal 'New_York_City', assigns(:current_user).current_city.cityname
+    end
+  end
+
   describe '#index' do
     it 'GETs english index' do
       get :index

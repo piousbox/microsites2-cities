@@ -44,12 +44,14 @@ describe UsersController do
 
   describe 'settings' do
     it 'gets settings' do
+      sign_in :user, @user
       get :edit
       response.should be_success
       response.should render_template('users/edit')
     end
 
     it 'POSTs to settings' do
+      sign_in :user, @user
       post :update, :user => { }
       response.should be_redirect
       response.should redirect_to( :action => :organizer )

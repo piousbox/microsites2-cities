@@ -43,26 +43,13 @@ describe WelcomeController do
     end
   end
 
-  describe 'set city' do
-    it 'sets city' do
-      sign_in :user, @user
-      get :about
-      get :help
-      cookies[:current_city].should eql nil
-      assigns(:list_citynames).should_not eql nil
-      post :set_city, :user => { :cityname => 'New_York_City' }
-      assert_response :redirect
-      # assert_equal 'New_York_City', assigns(:current_user).current_city.cityname
-    end
-  end
-
   describe 'exctact layout' do
     it 'sets application layout' do
       hosts = [ 'test.host' ]
       hosts.each do |host|
         @request.host = host
         get :about
-        response.should render_template('layouts/application')
+        response.should render_template('layouts/cities')
       end
     end
 
@@ -71,7 +58,7 @@ describe WelcomeController do
       hosts.each do |host|
         @request.host = host
         get :about
-        response.should render_template('layouts/organizer')
+        response.should render_template('layouts/cities')
       end
     end
   end

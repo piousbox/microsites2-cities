@@ -6,7 +6,7 @@
     .item
       .inner
         %h3
-          = link_to u.username.capitalize, user_resume_path(u.username)
+          = link_to u.username.capitalize, user_path(u.username)
           %span{ :class => :n_items }
             (#{u.reports.length})
             (#{u.galleries.length})
