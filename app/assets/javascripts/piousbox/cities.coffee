@@ -46,7 +46,7 @@ $(document).ready ->
     CanvasOps.cities_index_initialize()
 
     U.models.cities = new Models.Cities()
-    U.models.site = new Models.Site({ domain: '', locale: '' })
+    # U.models.site = new Models.Site({ domain: '', locale: '' })
     U.models.newsitems = new Collections.Newsitems()
 
     U.views.cities.index = new Views.Cities.Index()

@@ -23,13 +23,14 @@ class City
   field :y, :type => Float
   
   belongs_to :country
-  
-  has_many :reports
-  has_many :galleries
+ 
   has_many :communities
-  has_many :venues
-  has_many :events
+  has_many :events 
+  has_many :galleries 
   has_many :photos
+  has_many :reports
+  has_many :venues
+  has_many :videos
 
   has_one :profile_photo, :class_name => 'Photo', :inverse_of => :profile_city
   has_one :guide, :class_name => 'User', :inverse_of => :guide_city

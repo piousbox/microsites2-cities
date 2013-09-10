@@ -50,13 +50,12 @@ class CitiesController < ApplicationController
       @n_reports = @reports.length
       @n_galleries = @galleries.length
       @n_users = @city.current_users.length
-      @n_videos = 0
+      @n_videos = @city.videos.length
       @n_venues = @city.venues.length
       
       respond_to do |format|
         format.html do
-          # layout = (['organizer', 'cities'].include?(@layout))? 'cities' : 'application_cities'
-          # render :layout => layout
+          render :action => 'empty'
         end
         format.json do
           @city[:n_galleries] = @city.galleries.length
@@ -86,7 +85,7 @@ class CitiesController < ApplicationController
         @galleries = []
         @report = []
         
-        render :layout => 'cities'
+        render :action => 'empty'
       end
       format.json do
         @cities = City.all
