@@ -26,3 +26,17 @@ describe "Cities Views Spec", ->
     it 'shows newsitems', ->
       specimen = new Views.Cities.IndexRightMenu()
       expect( specimen.show_newsitems($ 'body' ) ).toBeDefined()
+
+  describe 'city left menu', ->
+    it 'has the marionette view', ->
+      expect( false ).toBeTruthy()
+      
+    it 'instantiates the marionette view upon an event', ->
+      expect( false ).toBeTruthy()
+      
+    it 'has the template', ->
+      expect( false ).toBeTruthy()
+      
+      
+      
+      
