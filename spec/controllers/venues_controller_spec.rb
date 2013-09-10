@@ -18,8 +18,6 @@ describe VenuesController do
     Gallery.all.each { |g| g.remove }
     @gallery = FactoryGirl.create :gallery
     @pi_gallery = FactoryGirl.create :pi_gallery
-
-    setup_sites
   end
 
   describe 'show' do

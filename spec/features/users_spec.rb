@@ -3,12 +3,6 @@ describe "cities", :type => :feature do
   before :each do
     User.all.each { |f| f.remove }
     @user = FactoryGirl.create :user
-    
-    setup_sites
-    @site = Site.all.first
-    @site.domain = 'example.com'
-    @site.lang = 'en'
-    @site.save
   end
 
 #  it 'renders sign-in page' do

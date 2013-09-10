@@ -1,6 +1,9 @@
+
 class CitiesController < ApplicationController
+
   skip_authorization_check
-  # caches_page :profile, :users, :venues, :index
+
+  layout 'cities'
 
   def set_city
     next_cityname = params[:user][:cityname]
@@ -36,10 +39,9 @@ class CitiesController < ApplicationController
       @city.name = @city['name_'+@locale.to_s]
       @features = @city.features.all.sort_by{ |f| [ f.weight, f.created_at ] }.reverse[0...4]
       @newsitems = @city.newsitems.order_by( :created_at => :desc ).page( params[:newsitems_page] )
-      @reports = Report.all.where(
-                                  :lang => @locale,
-                                  :city => @city
-                                  ).order_by( :created_at => :desc ).page( params[:reports_page] )
+      @reports = Report.all.where( :lang => @locale,
+                                   :city => @city
+                                   ).order_by( :created_at => :desc ).page( params[:reports_page] )
       @galleries = []
       @greeter = @city.guide
       @today = {}
@@ -53,8 +55,8 @@ class CitiesController < ApplicationController
       
       respond_to do |format|
         format.html do
-          layout = (['organizer', 'cities'].include?(@layout))? 'cities' : 'application_cities'
-          render :layout => layout
+          # layout = (['organizer', 'cities'].include?(@layout))? 'cities' : 'application_cities'
+          # render :layout => layout
         end
         format.json do
           @city[:n_galleries] = @city.galleries.length
@@ -158,6 +160,7 @@ class CitiesController < ApplicationController
 
   private
  
+  # @deprecated, @TODO remove
   def sett_empties
     @cities = []
     @feature_cities = []

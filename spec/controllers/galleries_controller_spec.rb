@@ -32,11 +32,6 @@ describe GalleriesController do
     @ph2 = Photo.create :user => @user, :name => 'ph2'
     @ph3 = Photo.create :user => @user, :name => 'ph3'
 
-    Site.all.each { |s| s.remove }
-    @site = FactoryGirl.create :test_site
-    request.host = 'test.host'
-
-    setup_sites
   end
 
   describe 'not found' do
@@ -144,34 +139,9 @@ describe GalleriesController do
       end
     end
 
-    it "only shows galleries of this site" do
-      get :index
-      response.should be_success
-      assigns(:galleries).each do |gallery|
-        gallery.site.domain.should eql @request.host
-      end
-    end
   end
 
   describe 'create' do
-    it 'creates newsitem for site' do
-      @request.host = 'pi.local'
-      
-      sign_in :user, @user
-      
-      old_n_newsitems = Site.where( :lang => 'en', :domain => 'piousbox.com' ).first.newsitems.all.length
-
-      g = { :is_public => true, :name => 'Name', :galleryname => 'galleryname', :user => User.all.first }
-      post :create, :gallery => g
-
-      # non-public, should not increment newsitem count
-      g = { :is_public => false, :name => 'Name1', :galleryname => 'galleryname1', :user => User.all.first }
-      post :create, :gallery => g
-
-      new_n_newsitems = Site.where( :lang => 'en', :domain => 'piousbox.com' ).first.newsitems.all.length
-      ( new_n_newsitems - 1 ).should eql old_n_newsitems
-    end
-
     it 'creates newsitem for city' do
       sign_in :user, @user
 

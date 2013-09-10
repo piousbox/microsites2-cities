@@ -1,11 +1,6 @@
 require 'spec_helper'
 describe 'reports', :type => :feature do
   before :each do
-    setup_sites
-    @site = Site.all.first
-    @site.domain = 'example.com'
-    @site.save
-
     City.all.each { |c| c.remove }
     @sf = FactoryGirl.create :sf
 

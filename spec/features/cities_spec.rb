@@ -15,12 +15,6 @@ describe "cities", :type => :feature do
 
     Gallery.all.each { |g| g.remove }
     @gallery = FactoryGirl.create :gallery
-
-    setup_sites
-    @site = Site.all.first
-    @site.domain = 'example.com'
-    @site.lang = 'en'
-    @site.save
   end
 
   it 'renders OK a city profile' do

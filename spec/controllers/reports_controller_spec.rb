@@ -20,15 +20,6 @@ describe ReportsController do
     @r9.save
 
     sign_in @user
-
-    setup_sites
-    @site = Site.where( :domain => 'test.host', :lang => 'en' ).first
-
-    Report.all.each do |report|
-      report.site = @site
-      report.save
-    end
-
   end
 
   describe 'new/create' do
@@ -58,15 +49,6 @@ describe ReportsController do
       assert_equal 0, @city.newsitems.all.length
       post :create, :report => { :city_id => @city.id, :is_public => true, :name => 'bhal bbgf' }
       assert_equal 1, City.find( @city.id ).newsitems.all.length
-    end
-
-    it 'adds newsitem to homepage, upon create' do
-      old_n_newsitems = @site.newsitems.all.length
-      post :create, :report => { :is_public => true, :name => 'bhal bbgf' }
-      # and non-public
-      post :create, :report => { :is_public => false, :name => 'bhal bbgfasdf s' }
-      new_n_newsitems = Site.find( @site.id ).newsitems.all.length
-      ( new_n_newsitems - 1 ).should eql old_n_newsitems
     end
 
     it 'lets you mark the report in a tag' do

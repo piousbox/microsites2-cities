@@ -23,11 +23,6 @@ describe PhotosController do
     Gallery.all.each { |g| g.remove }
     @gallery = FactoryGirl.create :gallery
     
-    Site.all.each { |r| r.remove }
-    setup_sites
-    @request.host = 'test.host'
-    @site = Site.where( :domain => 'test.host', :lang => 'en' ).first
-    
     @photo = { :descr => '24twebfvsdfg' }
   end
 
@@ -73,22 +68,6 @@ describe PhotosController do
       ( Site.find(@site.id).newsitems.length ).should eql site_n_newsitems
       post :create, :photo => { :descr => 'blah', :is_public => true, :create_newsitems => 1 }
       ( Site.find(@site.id).newsitems.length - 1 ).should eql site_n_newsitems
-    end
-
-    it 'should add a newsitem to the site' do
-      sign_in :user, @user
-      site_n_newsitems = @site.newsitems.length
-      post :create, :photo => { :descr => 'blah blah', :is_public => true, :create_newsitems => 1 }
-      @site = Site.find @site.id
-      ( @site.newsitems.length - 1 ).should eql site_n_newsitems
-    end
-
-    it 'should not add a newsitem to the site, if the box is unchecked' do
-      sign_in :user, @user
-      site_n_newsitems = @site.newsitems.length
-      post :create, :photo => { :descr => 'blah blah', :is_public => true, :create_newsitems => 0 }
-      @site = Site.find @site.id
-      ( @site.newsitems.length ).should eql site_n_newsitems
     end
 
   end
