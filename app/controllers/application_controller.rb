@@ -17,6 +17,8 @@ class ApplicationController < ActionController::Base
 
   has_mobile_fu
 
+  layout 'cities'
+
   private
   
   def after_sign_in_path_for resource

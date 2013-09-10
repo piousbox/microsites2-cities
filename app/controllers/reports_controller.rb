@@ -116,7 +116,7 @@ class ReportsController < ApplicationController
   
   def index
     authorize! :index, Report.new
-    @reports = Report.all.where( :site => @site )
+    @reports = Report.where( :is_trash => false, :is_public => true )
     if params[:cityname]
       @city = City.where( :cityname => params[:cityname] ).first
       @reports = @reports.where( :city => @city )

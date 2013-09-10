@@ -26,8 +26,6 @@ class TagsController < ApplicationController
     @features = @tag.features
     @children_tags = @tag.children_tags
 
-    layout = ( @layout == 'application' ) ? 'application_mini' : @layout
-    render :layout => layout
   end
 
 end
