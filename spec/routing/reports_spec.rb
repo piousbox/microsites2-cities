@@ -1,10 +1,5 @@
-
 require 'spec_helper'
-
 describe WelcomeController do
-
-  render_views
-
   before :each do
     User.all.each { |f| f.remove }
     @user = FactoryGirl.create :user
