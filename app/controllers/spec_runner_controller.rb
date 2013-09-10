@@ -1,5 +1,5 @@
 
-class Manager::SpecRunnerController < Manager::ManagerController
+class SpecRunnerController < ApplicationController
 
   layout false
   
