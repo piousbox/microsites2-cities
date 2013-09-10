@@ -26,7 +26,7 @@ describe CitiesController do
     $-v = nil
   end
 
-  describe 'index' do
+  describe '#index' do
     it 'GETs english index' do
       get :index
       response.should render_template('cities/index')
@@ -77,10 +77,10 @@ describe CitiesController do
       flag.should eql true
     end
 
-    it 'responds with the json request' do
+    it 'GETs json' do
       get :index, :format => :json
       response.should be_success
-      JSON.parse(response.body).length.should eql 1
+      JSON.parse(response.body).length.should >= 1
     end
 
   end
@@ -95,8 +95,8 @@ describe CitiesController do
       
       get :profile, :cityname => 'San_Francisco'
       response.should be_success
-      assigns(:city).guide.should_not be nil
-      assigns(:features).should_not be nil
+      assigns( :city ).guide.should_not be nil
+      assigns( :features ).should_not be nil
     end
 
     it 'GETs home' do
@@ -145,16 +145,6 @@ describe CitiesController do
       get :profile, :cityname => @city.id
       response.should be_redirect
       response.should redirect_to('/en/cities/travel-to/San_Francisco')
-    end
-  end
-  
-  describe 'routes' do
-    it 'has root route' do
-      expect( :get => '/' ).to route_to( 'cities#index' )
-    end
-
-    it 'routes to /cities.json' do
-      expect(:get => '/cities.json').to route_to('cities#index', 'format' => 'json')
     end
   end
 
