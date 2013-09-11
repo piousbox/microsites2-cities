@@ -20,6 +20,5 @@
 //
 //= require_directory ./models
 //= require_tree ./views
-//= require_directory ./helpers
-//= require_directory ./piousbox
+//= require_directory ./init
 //

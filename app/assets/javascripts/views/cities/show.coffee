@@ -4,7 +4,12 @@ $(document).ready ->
     model: Models.City
     template: '#cities_show-template'
     
-  Views.City.IndexLeftMenu = Backbone.Marionette.ItemView.extend
+  Views.City.LeftMenu = Backbone.Marionette.ItemView.extend
     model: Models.City
-    template: '#city_index_left_menu-template'
-    
+    template: '#city_left_menu-template'
+
+  Views.City.RightMenu = Backbone.Marionette.ItemView.extend
+    model: Models.City
+    template: '#city_right_menu-template'
+
+

@@ -124,8 +124,8 @@ Microsites2::Application.routes.draw do
   end
   
   scope 'spec_runner', :as => :spec_runner do
-    root :to => 'manager/spec_runner#all'
-    get ':which', :to => 'manager/spec_runner#which', :as => :which
+    root :to => 'spec_runner#all'
+    get ':which', :to => 'spec_runner#which', :as => :which
   end
 
   #

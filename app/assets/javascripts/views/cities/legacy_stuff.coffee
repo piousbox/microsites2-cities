@@ -51,7 +51,7 @@ $(document).ready ->
             infowindow.open U.map, marker
             open_infowindow = infowindow
 
-  Views.Cities.Galleries = Backbone.View.extend      
+  # Views.Cities.Galleries = Backbone.View.extend      
     
   Views.Cities.Calendar = Backbone.Marionette.ItemView.extend
     template: '#city_calendar-template'
@@ -171,7 +171,7 @@ $(document).ready ->
           item = $(".right-menu ul li a.active").eq(value)
           item.removeClass('active')
 
-  Views.Cities.IndexRightMenu = Backbone.Marionette.ItemView.extend
+  Views.Cities.RightMenu = Backbone.Marionette.ItemView.extend
     template: '#cities_index_right_menu-template'
     # I think this is unnecessary if I set the @model in the initializer?
     # model: Models.City

@@ -8,6 +8,8 @@ $(document).ready ->
     template: '#cities_index-template'
     itemView: Views.Cities.IndexItem
 
+    sanity: true
+
     events:
       'click a.cities-show-link': 'show_city'
 
@@ -23,6 +25,11 @@ $(document).ready ->
           U.views.city.left_menu = new Views.City.LeftMenu
           MyApp.right_region.show( U.views.city )
           MyApp.left_menu.show( U.views.city.left_menu )
+
+  Views.Cities.Map = Backbone.Marionette.ItemView.extend
+    model: Models.Cities
+    template: '#cities_map-template'
+    sanity: true
         
         
               

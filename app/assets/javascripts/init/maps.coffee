@@ -25,7 +25,7 @@ CanvasOps.cities_index_initialize = ->
     $.each data, (idx, val) ->
       if val["x"] isnt null and val["y"] isnt null
         myLatlng = new google.maps.LatLng(val["x"], val["y"])
-        contentString = "<div class='blah blah'>" + "<h4><a href='/cities/travel-to/" + val["cityname"] + "'>" + val["name"] + "</a></h4>" + "</div>"
+        contentString = "<div class='blah blah'><h4><a href='javascript:void(0)' class='city_link' cityname='" + val["cityname"] + "'>" + val["name"] + "</a></h4></div>"
         infowindow = new google.maps.InfoWindow(content: contentString)
         marker = new google.maps.Marker(
           position: myLatlng

@@ -43,15 +43,17 @@ $(document).ready ->
           U.views.cities.right_menu.finish_rendering()
 
   if $("body#cities_index").length > 0 || $("#spec_runner_pqf").length > 0
-    CanvasOps.cities_index_initialize()
+    # CanvasOps.cities_index_initialize()
 
     U.models.cities = new Models.Cities()
     # U.models.site = new Models.Site({ domain: '', locale: '' })
-    U.models.newsitems = new Collections.Newsitems()
+    # U.models.newsitems = new Collections.Newsitems()
 
     U.views.cities.index = new Views.Cities.Index()
-    U.views.cities.index_right_menu = new Views.Cities.IndexRightMenu()
-    U.views.newsitems = new Views.Newsitems.Index({ 'model': U.models.newsitems })
+    U.views.cities.map = new Views.Cities.Map()
+    U.views.cities.right_menu = new Views.Cities.RightMenu()
+    U.views.cities.left_menu = new Views.Cities.LeftMenu()
+    # U.views.newsitems = new Views.Newsitems.Index({ 'model': U.models.newsitems })
    
     MyApp.start()
 
@@ -67,7 +69,10 @@ $(document).ready ->
     #  success: ->
     #    MyApp.right_region.show( U.views.sites.newsitems )
 
-    MyApp.right_menu.show( U.views.cities.index_right_menu )
+    MyApp.right_menu.show( U.views.cities.right_menu )
+    MyApp.left_menu.show( U.views.cities.left_menu )
+    MyApp.right_region.show( U.views.cities.index )
+    MyApp.left_region.show( U.views.cities.map )
 
   if $("#cities_show_canvas").length > 0
     cityname = $( '#cities_show_canvas' ).attr( 'cityname' )
