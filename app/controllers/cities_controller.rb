@@ -99,7 +99,7 @@ class CitiesController < ApplicationController
   end
 
   def users
-    @users = User.
+    @users = User.all
     render :controller => :users, :action => :index
   end
 

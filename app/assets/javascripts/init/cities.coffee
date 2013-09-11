@@ -50,9 +50,9 @@ $(document).ready ->
     # U.models.newsitems = new Collections.Newsitems()
 
     U.views.cities.index = new Views.Cities.Index()
-    U.views.cities.map = new Views.Cities.Map()
-    U.views.cities.right_menu = new Views.Cities.RightMenu()
-    U.views.cities.left_menu = new Views.Cities.LeftMenu()
+    U.views.cities.map = new Views.Cities.Map({ model: U.models.cities })
+    U.views.cities.right_menu = new Views.Cities.RightMenu({ model: U.models.cities })
+    U.views.cities.left_menu = new Views.Cities.LeftMenu({ model: U.models.cities })
     # U.views.newsitems = new Views.Newsitems.Index({ 'model': U.models.newsitems })
    
     MyApp.start()

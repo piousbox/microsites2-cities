@@ -62,7 +62,7 @@ describe "Cities Views", ->
 
     describe 'map', ->
       it 'is instantiable', ->
-        map_view = new Views.Cities.Map()
+        map_view = new Views.Cities.Map({ model: new Models.Cities() })
         expect( map_view ).toBeDefined()
         expect( map_view.sanity ).toBeTruthy()
 
