@@ -24,7 +24,6 @@ class City
   
   belongs_to :country
  
-  has_many :communities
   has_many :events 
   has_many :galleries 
   has_many :photos

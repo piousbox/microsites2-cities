@@ -3,6 +3,7 @@ U = {
   collections: {},
   views: {
     cities: {},
+    city: {},
     features: {},
     galleries: {},
     newsitems: {},
@@ -37,6 +38,7 @@ Models = {}
 Collections = {}
 Views = {
   Cities: {},
+  City: {},
   Features: {},
   Galleries: {},
   Newsitems: {},
