@@ -15,7 +15,6 @@ Microsites2::Application.routes.draw do
 
     get '/about', :to => 'welcome#about', :as => :about
     get '/contact', :to => 'welcome#contact', :as => :contact
-    get '/about-resumes', :to => 'users#about', :as => :resumes_about
     get '/privacy', :to => 'welcome#privacy', :as => :privacy
     get '/help', :to => 'welcome#help', :as => :help
     
@@ -27,33 +26,33 @@ Microsites2::Application.routes.draw do
   
     get 'tags/view/:name_seo', :to => 'tags#show', :as => :tag
     get 'tags/view/:name_seo/galleriespage/:galleries_page', :to => 'tags#show'
-
+    resources :tags
+    
     get '/users', :to => 'users#index', :as => :users
     get '/users/show/:username', :to => 'users#show', :as => :user
     put '/users/:id/update', :to => 'users#update', :as => :user_update
-    get '/users/:username/articles', :to => 'users#reports'
-    get '/users/:username/articles/page/:reports_page', :to => 'users#reports'
     get '/users/:username/reports', :to => 'users#reports', :as => :user_reports
     get '/users/:username/reports/show/:name_seo', :to => 'users#report', :as => :user_report
     get '/users/:username/galleries', :to => 'users#galleries', :as => :user_galleries
-    match '/users/scratchpad', :to => 'users#scratchpad', :as => :scratchpad
     get '/users/sign_in', :to => 'users#sign_in', :as => :sign_in
-    get '/users/organizer', :to => 'users#organizer', :as => :organizer
     put '/users/show/:id', :to => 'users#update'
-    get '/users/new_profile', :to => 'users#new_profile', :as => :new_user_profile
-    get '/users/:username/profiles/:profile_id/edit', :to => 'users#edit_profile', :as => :edit_user_profile
     get '/users/gallery/:galleryname', :to => 'users#gallery', :as => :user_gallery
     get '/users/in-city/:cityname', :to => 'users#index', :as => :users_in_city
     match '/users/search', :to => 'users#index', :as => :users_search
-    get '/users/:username/github', :to => 'users#github_page', :as => :user_github
     get '/settings', :to => 'users#edit', :as => :settings
 
+    #
+    # venues
+    #
+    match '/venues/:venue_type/in/:cityname' => redirect { |params, request| "/en/cities/travel-to/#{params[:cityname]}" }
     get '/venues/show/:name_seo', :to => 'venues#show', :as => :venue
     get '/venues/in-city/:cityname', :to => 'venues#index', :as => :venues_in_city
     get '/venues/show/:name_seo/news', :to => 'venues#news', :as => :venue_news
     get '/venues/:venuename/reports/show/:reportname', :to => 'venues#report', :as => :venue_report
     get '/venues/:venuename/galleries/show/:galleryname', :to => 'venues#gallery', :as => :venue_gallery
-
+    resources :venues
+    
+    get 'cities', :to => 'cities#index', :as => :cities
     get 'cities/travel-to/:cityname', :to => 'cities#profile', :as => :city
     get 'cities/travel-to/:cityname/reports', :to => 'reports#index', :as => :reports_in_city
     get 'cities/travel-to/:cityname/galleries', :to => 'galleries#index', :as => :galleries_in_city
@@ -64,19 +63,17 @@ Microsites2::Application.routes.draw do
     scope 'cities/travel-to/:cityname' do
       get 'today', :to => 'cities#today', :as => :today
     end
-    get 'cities', :to => 'cities#index', :as => :cities
 
     get 'reports/view/:name_seo', :to => 'reports#show', :as => :report
     match 'reports/promo/:name_seo' => redirect { |params, request| "reports/view/#{params[:name_seo]}" }
     get 'reports/show/:name_seo', :to => 'reports#show'
     get 'reports/in-city/:cityname', :to => 'reports#index'
     post 'reports/search', :to => 'reports#search', :as => :search_reports
-    post 'reports/search', :to => 'reports#search', :as => :my_search_reports, :defaults => { :my => true }
     get 'reports/search/:search_keyword', :to => 'reports#search'
     get 'reports/page/:reports_page', :to => 'reports#index'
-    get 'reports/:name_seo/venues', :to => 'reports#venues'
     put '/reports/:id', :to => 'reports#update', :as => :update_report
-
+    resources :reports
+    
     ##
     ## galleries
     ##
@@ -91,41 +88,30 @@ Microsites2::Application.routes.draw do
     get 'my/galleries', :to => 'galleries#index', :defaults => { :my => true }, :as => :my_galleries
     get 'galleries/:id/edit', :to => 'galleries#edit', :as => :edit_gallery
     post 'galleries/:id', :to => 'galleries#update', :as => :update_gallery
-
+    resources :galleries
+    
     ##
     ## videos
     ##
     get 'videos/in-city/:cityname', :to => 'videos#index', :as => :videos_in_city
     get 'videos/view/:youtube_id', :to => 'videos#show', :as => :video
     get 'videos/in-tag/:tagname', :to => 'videos#index', :as => :videos_in_tag
-
+    resources :videos
+    
     # get 'set_locale', :to => 'welcome#set_locale', :as => :set_locale
     post 'set_city', :to => 'welcome#set_city', :as => :set_city
 
     get 'events/in-city/:cityname', :to => 'events#index', :as => :events_in_city
-    
     resources :events
-    resources :galleries
-    resources :reports
-    resources :tags
-    resources :videos
-    resources :venues
-
-    get 'v', :to => 'utils/utils#version', :as => :version
     
-    #
-    # venues
-    #
-    match '/venues/:venue_type/in/:cityname' => redirect { |params, request| "/en/cities/travel-to/#{params[:cityname]}" }
-
-    get 'sites/:domainname', :to => 'sites#show'
+    get 'v', :to => 'utils/utils#version', :as => :version
 
     match '*other', :to => 'errors#five_hundred'
   end
   
   scope 'spec_runner', :as => :spec_runner do
-    root :to => 'manager/spec_runner#all'
-    get ':which', :to => 'manager/spec_runner#which', :as => :which
+    root :to => 'spec_runner#all'
+    get ':which', :to => 'spec_runner#which', :as => :which
   end
 
   #
