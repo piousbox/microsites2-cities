@@ -66,11 +66,13 @@ $(document).ready ->
             open_infowindow = infowindow
         
     show_city: (item) ->
+      U.views.cities.index.show_city( item )
+      return []
       # console.log item.currentTarget.attributes.cityname
       U.models.city = new Models.City({ cityname: item.cityname })
       U.models.city.fetch
         success: ->
-          U.views.city = new Views.Cities.Show
+          U.views.city = new Views.City.Show
             model: U.models.city
           U.views.city.left_menu = new Views.City.LeftMenu
           MyApp.right_region.show( U.views.city )
