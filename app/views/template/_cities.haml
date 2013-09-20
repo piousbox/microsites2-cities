@@ -65,7 +65,7 @@
       %h4 Events
       %ul
         <% _.each( events, function(event) { %>
-        %li <a href="javascript:alert('Not implemented.')"><%= event.name %></a>
+        %li <%= event.date.substring(0, 10) %> <a href="javascript:void(0)" name_seo="<%= event.name_seo %>" class="event-link"><%= event.name %></a>
         <% }) %>
     .venues
       %h4 Venues

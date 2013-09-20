@@ -39,6 +39,8 @@ Collections = {}
 Views = {
   Cities: {},
   City: {},
+  Event: {},
+  Events: {},
   Features: {},
   Galleries: {},
   Newsitems: {},

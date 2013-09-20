@@ -87,6 +87,8 @@ class Ability
     can [ :profile, :index, :show, :map, :events, :galleries, :videos, 
       :reports, :people, :users, :venues, :places, :temp, :not_found ], City
     
+    can [ :index, :show ], Event
+
     can [ :index, :search, :not_found, :set_show_style ], Gallery
     can [ :show ], Gallery do |g|
       g.is_public && !g.is_trash

@@ -102,6 +102,7 @@ Microsites2::Application.routes.draw do
     post 'set_city', :to => 'welcome#set_city', :as => :set_city
 
     get 'events/in-city/:cityname', :to => 'events#index', :as => :events_in_city
+    get 'events/show/:eventname', :to => 'events#show', :as => :event
     resources :events
     
     get 'v', :to => 'utils/utils#version', :as => :version
