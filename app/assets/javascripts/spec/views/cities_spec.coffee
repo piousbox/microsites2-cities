@@ -32,45 +32,50 @@ describe "Cities Views", ->
     $(".map-container").remove()
 
   describe "templates", ->
-    it 'map', ->
+    it 'everything', ->
       expect( $('#cities_map-template').length ).toEqual( 1, 'Cities Map template must be defined' )
+      expect( $('#city_map-template').length ).toEqual( 1, 'City Map template must be defined' )
+      expect( $('#city_show-template').length ).toEqual( 1, 'City Show template must be defined' )      
 
   describe 'cities', ->
     describe 'right menu', ->
+      it 'shows cities', ->
+        U.models.newsitems = new Collections.Newsitems()
+        specimen = new Views.Cities.RightMenu({ model: U.models.city })
+        expect( specimen.show_cities($ 'body' ) ).toBeDefined()
+        expect( specimen.show_newsitems($ 'body' ) ).toBeDefined( 'Show newsitems is defined' )
+        
       it 'has function deactiveate_all()', ->
-        specimen = new Views.Cities.RightMenu()
+        expect( U.models.city).toBeDefined()
+        specimen = new Views.Cities.RightMenu({ model: U.models.city })
         expect( specimen.deactivate_all() ).toBeDefined()
 
     describe 'left menu', ->
       it 'has the marionette view', ->
-        new_view = new Views.Cities.LeftMenu()
+        new_view = new Views.Cities.LeftMenu({ model: U.models.city })
         expect( new_view ).toBeDefined()
-
-    it 'shows cities', ->
-      specimen = new Views.Cities.RightMenu()
-      expect( specimen.show_cities($ 'body' ) ).toBeDefined()
-
-    it 'shows newsitems', ->
-      specimen = new Views.Cities.RightMenu()
-      expect( specimen.show_newsitems($ 'body' ) ).toBeDefined()
 
     describe 'index', ->
       it 'is instantiable', ->
         index_view = new Views.Cities.Index()
         expect( index_view ).toBeDefined()
-        expect( index_view.sanity ).toBeTruthy()
+        expect( index_view.sanity ).toBeTruthy( 'Saaanity' )
 
     describe 'map', ->
       it 'is instantiable', ->
         map_view = new Views.Cities.Map({ model: new Models.Cities() })
         expect( map_view ).toBeDefined()
-        expect( map_view.sanity ).toBeTruthy()
+        expect( map_view.sanity ).toBeTruthy( 'Saaanity of map view' )
 
   describe 'city', ->
     describe 'right menu', -> 
       it 'is defined', ->
         one = new Views.City.RightMenu({ 'model': new Models.City('San_Francisco') })
-        expect( one ).toBeDefined()   
+        expect( one ).toBeDefined()
+    describe 'city#show', ->
+      it 'is defined', ->
+        result = new Views.City.Show()
+        expect( result ).toBeDefined()
       
   describe "views", ->
     it 'deactivates all', ->
@@ -93,7 +98,7 @@ describe "Cities Views", ->
       U.models.city.fetch
         success: ->
           U.views.cities.right_menu = new Views.Cities.RightMenu( 'model': U.models.city )
-          U.views.cities.right_menu.finish_rendering()
+          # U.views.cities.right_menu.finish_rendering()
         
       waits(500)
       runs ->

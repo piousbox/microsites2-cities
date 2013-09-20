@@ -1,8 +1,12 @@
 $(document).ready ->
 
-  Views.Cities.Show = Backbone.Marionette.ItemView.extend
+  Views.City.Map = Backbone.Marionette.ItemView.extend
     model: Models.City
-    template: '#cities_show-template'
+    template: '#city_map-template'
+
+  Views.City.Show = Backbone.Marionette.ItemView.extend
+    model: Models.City
+    template: '#city_show-template'
 
   Views.City.LeftMenu = Backbone.Marionette.ItemView.extend
     model: Models.City
