@@ -12,6 +12,7 @@ $(document).ready ->
         return "/" + @locale + "/events.json"
 
     initialize: (item) ->
+      # console.log( 'init model event' )
       @locale = 'en'
       if item.eventname
         @eventname = item.eventname
