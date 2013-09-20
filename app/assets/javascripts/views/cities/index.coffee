@@ -20,7 +20,7 @@ $(document).ready ->
       U.models.city = new Models.City({ cityname: item.currentTarget.attributes.cityname.value })
       U.models.city.fetch
         success: ->
-          U.views.city = new Views.Cities.Show
+          U.views.city = new Views.City.Show
             model: U.models.city
           U.views.city.left_menu = new Views.City.LeftMenu
           MyApp.right_region.show( U.views.city )
