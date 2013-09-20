@@ -58,6 +58,7 @@ class CitiesController < ApplicationController
           render :action => 'empty'
         end
         format.json do
+          @city[:events] = @city.events.to_a
           @city[:n_galleries] = @city.galleries.length
           @city[:n_reports] = @city.reports.length
           render :json => @city

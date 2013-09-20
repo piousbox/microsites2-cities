@@ -16,8 +16,8 @@ $(document).ready ->
       this.collection = U.models.cities
 
     show_city: (item) ->
-      # console.log item.currentTarget.attributes.cityname
-      U.models.city = new Models.City({ cityname: item.cityname })
+      console.log item.currentTarget.attributes.cityname.value
+      U.models.city = new Models.City({ cityname: item.currentTarget.attributes.cityname.value })
       U.models.city.fetch
         success: ->
           U.views.city = new Views.Cities.Show

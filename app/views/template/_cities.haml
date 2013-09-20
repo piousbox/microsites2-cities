@@ -58,11 +58,17 @@
 
 %script#cities_show-template{ :type => 'text/template' }
   .item
-    %h3 Cities Show Template
+    %h3 <%= name %>
     .guide Guide
     .today Today
-    .events Events
-    .venues Venues
+    .events-list
+      %h4 Events
+      %ul
+        <% _.each( events, function(event) { %>
+        %li <a href="javascript:alert('Not implemented.')"><%= event.name %></a>
+        <% }) %>
+    .venues
+      %h4 Venues
     .newsitems Newsitems
     .features Features
     .ad Ad

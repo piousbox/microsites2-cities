@@ -4,15 +4,17 @@ $(document).ready ->
     locale: 'en'
 
     url: ->
-      if this.cityname
-        return "/"+@locale+"/cities/travel-to/" + this.cityname + ".json"
+      if @cityname
+        return "/"+@locale+"/cities/travel-to/" + @cityname + ".json"
       else
         return "/"+@locale+"/cities.json"
         
     initialize: (item) ->
+      @locale = 'en'
       @cityname = item.cityname
       @fetch
         success: ->
+          # console.log( 'fetched Models.City' )
           # U.views.cities.home.render()
           # U.views.cities.index.render()
           a = 'a' # nothing
