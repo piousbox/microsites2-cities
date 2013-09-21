@@ -35,7 +35,8 @@ describe "Cities Views", ->
     it 'everything', ->
       expect( $('#cities_map-template').length ).toEqual( 1, 'Cities Map template must be defined' )
       expect( $('#city_map-template').length ).toEqual( 1, 'City Map template must be defined' )
-      expect( $('#city_show-template').length ).toEqual( 1, 'City Show template must be defined' )      
+      expect( $('#city_show-template').length ).toEqual( 1, 'City Show template must be defined' )
+      expect( $('#cities_right_menu-template').length ).toEqual( 1, 'cities right menu template is defined' )
 
   describe 'cities', ->
     describe 'right menu', ->
@@ -111,7 +112,7 @@ describe "Cities Views", ->
       U.views.cities.right_menu = new Views.Cities.RightMenu( model: rio )
       
     it "should show calendar", ->
-      U.views.cities.calendar = new Views.Cities.Calendar('rio')
+      U.views.cities.calendar = new Views.City.Calendar('rio')
       result = $(".calendar-container")
       expect( result.length > 0 ).toBeTruthy('calendar container should show up')
 

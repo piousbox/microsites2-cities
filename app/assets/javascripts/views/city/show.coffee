@@ -10,6 +10,10 @@ $(document).ready ->
     events:
       'click a.event-link': 'show_event'
 
+    initialize: (item) ->
+      # console.log( 'init city show ' + item )
+      # @model = U.models.city
+
     show_event: (item) ->
       # console.log( 'showing event ' + item.currentTarget.attributes.name_seo.value )
       eventname = item.currentTarget.attributes.name_seo.value

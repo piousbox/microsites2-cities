@@ -46,10 +46,19 @@ describe "Cities & City Models", ->
     it 'should setup all the globals', ->
       expect( $('.ids').attr('cityname') ).toEqual( 'San_Francisco' )
 
-  describe 'everything loaded', ->
-    it 'models should be loaded', ->
-      expect( U.models.galleries ).toBeDefined( 'models.galleries should be loaded')
+#  describe 'everything loaded', ->
+#    it 'models should be loaded', ->
+#      expect( U.models.galleries ).toBeDefined( 'models.galleries should be loaded')
 
   it 'should have the model object', ->
     expect( U.models.city ).toBeDefined()
-	
+
+  describe 'initialization on pageload', ->
+    it 'instantiates views', ->
+      expect( U.views.cities.index ).toBeDefined()
+      expect( U.views.cities.map ).toBeDefined()
+      expect( U.views.cities.right_menu ).toBeDefined()
+      expect( U.views.cities.left_menu ).toBeDefined()
+
+    it 'instantiates models', ->
+      expect( U.models.cities ).toBeDefined()

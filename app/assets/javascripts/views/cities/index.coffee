@@ -10,21 +10,20 @@ $(document).ready ->
     sanity: true
 
     events:
-      'click a.cities-show-link': 'show_city'
+      'click a.city-link': 'show_city'
 
     initialize: (item) ->
       this.collection = U.models.cities
 
     show_city: (item) ->
-      console.log item.currentTarget.attributes.cityname.value
+      # console.log item.currentTarget.attributes.cityname.value
       U.models.city = new Models.City({ cityname: item.currentTarget.attributes.cityname.value })
       U.models.city.fetch
         success: ->
-          U.views.city = new Views.City.Show
-            model: U.models.city
-          U.views.city.left_menu = new Views.City.LeftMenu
-          MyApp.right_region.show( U.views.city )
-          MyApp.left_menu.show( U.views.city.left_menu )
+          U.views.city = new Views.City.Show({ model: U.models.city })
+          # U.views.city.left_menu = new Views.City.LeftMenu
+          MyApp.left_region.show( U.views.city )
+          # MyApp.left_menu.show( U.views.city.left_menu )
 
   Views.Cities.Map = Backbone.Marionette.ItemView.extend
     # model: Models.Cities
@@ -67,16 +66,15 @@ $(document).ready ->
         
     show_city: (item) ->
       U.views.cities.index.show_city( item )
-      return []
       # console.log item.currentTarget.attributes.cityname
-      U.models.city = new Models.City({ cityname: item.cityname })
-      U.models.city.fetch
-        success: ->
-          U.views.city = new Views.City.Show
-            model: U.models.city
-          U.views.city.left_menu = new Views.City.LeftMenu
-          MyApp.right_region.show( U.views.city )
-          MyApp.left_menu.show( U.views.city.left_menu )
+      # U.models.city = new Models.City({ cityname: item.cityname })
+      # U.models.city.fetch
+      #   success: ->
+      #     U.views.city = new Views.City.Show
+      #       model: U.models.city
+      #     U.views.city.left_menu = new Views.City.LeftMenu
+      #     MyApp.right_region.show( U.views.city )
+      #     MyApp.left_menu.show( U.views.city.left_menu )
 
     show_map_venue: (agrs) ->
       myOptions =

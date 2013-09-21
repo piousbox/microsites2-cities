@@ -23,7 +23,7 @@
     %li.hide
       = link_to t('videos.list'), "javascript:void(0);", :class => :videos_link
 
-%script#cities_index_right_menu-template{:type => "text/template"}
+%script#cities_right_menu-template{:type => "text/template"}
   %ul
     %li.newsitems-link
       = link_to t('newsitems.list'), "javascript:void(0);"
@@ -31,11 +31,11 @@
       = link_to t('cities.list'), "javascript:void(0);"
       
 -# @deprecated - should be removed. There is the cities_index, and the cities_profile.
-%script#home-template{:type => "text/template"}
-  %h2 Welcome to <%= name %>
-  -# .home-ad
-  - unless @newsitems.blank?
-    = render 'newsitems/list', :newsitems => @newsitems
+-# %script#home-template{:type => "text/template"}
+-#   %h2 Welcome to <%= name %>
+-#   -# .home-ad
+-#   - unless @newsitems.blank?
+-#     = render 'newsitems/list', :newsitems => @newsitems
 
 %script#city_calendar-template{:type => "text/template"}
   .calendar
@@ -54,24 +54,24 @@
 
 %script#cities_index_item-template{ :type => 'text/template' }
   .cities-index-item
-    <a href="javascript:void(0)" cityname="<%= cityname %>" class="cities-show-link" ><%= name %></a>
+    <a href="javascript:void(0)" cityname="<%= cityname %>" class="city-link" ><%= name %></a>
 
 %script#city_show-template{ :type => 'text/template' }
   .item
-    %h3 <%= name %>
-    .guide Guide
-    .today Today
+    %h3.city-name <%= name %>
+    -# .guide Guide
+    -# .today Today
     .events-list
       %h4 Events
       %ul
         <% _.each( events, function(event) { %>
         %li <%= event.date.substring(0, 10) %> <a href="javascript:void(0)" name_seo="<%= event.name_seo %>" class="event-link"><%= event.name %></a>
         <% }) %>
-    .venues
-      %h4 Venues
-    .newsitems Newsitems
-    .features Features
-    .ad Ad
+    -# .venues
+    -#   %h4 Venues
+    -# .newsitems Newsitems
+    -# .features Features
+    -# .ad Ad
 
 
 
