@@ -26,50 +26,32 @@ describe CitiesController do
     $-v = nil
   end
 
-  describe 'set city' do
-    it 'sets city' do
-      sign_in :user, @user
-      get :about
-      get :help
-      cookies[:current_city].should eql nil
-      assigns(:list_citynames).should_not eql nil
-      post :set_city, :user => { :cityname => 'New_York_City' }
-      assert_response :redirect
-      # assert_equal 'New_York_City', assigns(:current_user).current_city.cityname
-    end
-  end
-
   describe '#index' do
     it 'GETs english index' do
       get :index
-      response.should render_template('cities/index')
+      response.should be_success
+      response.should render_template( 'empty' )
     end
 
-    it 'GETs english index with set locale' do
-      get :index, :locale => :en
-      response.should render_template('cities/index')
-    end
-
-    it 'displays only pt reports when locale is pt' do
-      get :index, :locale => 'pt'
-      assigns(:locale).should eql 'pt'
-      feature_reports = assigns(:feature_reports)
-      feature_reports.should_not be nil
-      feature_reports.each do |r|
-        r.lang.should eql 'pt'
+    it 'GETs json' do
+      get :index, :format => :json
+      response.should be_success
+      results = JSON.parse(response.body)
+      results.length.should >= 1
+      results.each_with_index do |item, idx|
+        unless results.length == idx+1
+          results[idx]['name'].should <= results[idx+1]['name']
+        end
       end
     end
 
-    it 'displays only ru reports when locale is ru' do
-      get :index, :locale => :ru
-      assigns(:locale).should eql 'ru'
-      feature_reports = assigns(:feature_reports)
-      feature_reports.should_not be nil
-      feature_reports.each do |r|
-        r.lang.should eql 'ru'
-      end
-    end
+  end
 
+  #
+  # below, hidden
+  #
+  proc do # hidden
+  describe '#index' do
     it 'displays cities with 0 reports and non-0 galleries' do
       # there must be a non-feature city with no reports and yes galleries
       new_city = FactoryGirl.create :city_cccq
@@ -79,7 +61,7 @@ describe CitiesController do
       g.save
       new_city = City.where( :is_feature => false ).first
  
-      get :index, :locale => 'en'
+      get :index
       assigns(:cities).should_not eql []
       flag = false
       assigns(:cities).each do |city|
@@ -90,12 +72,30 @@ describe CitiesController do
       flag.should eql true
     end
 
-    it 'GETs json' do
-      get :index, :format => :json
-      response.should be_success
-      JSON.parse(response.body).length.should >= 1
+    it "displays only locale'd reports" do
+      locales = [ 'en', 'ru', 'pt' ]
+      locales.each do |locale|
+        get :index, :locale => locale
+        response.should be_success
+        assigns(:locale).should eql locale
+        feature_reports = assigns(:feature_reports)
+        feature_reports.should_not be nil
+        feature_reports.each do |r|
+          r.lang.should eql locale
+        end
+      end
     end
+  end
 
+  describe 'set city' do
+    it 'sets city' do
+      sign_in :user, @user
+      cookies[:current_city].should eql nil
+      assigns(:list_citynames).should_not eql nil
+      post :set_city, :user => { :cityname => 'New_York_City' }
+      assert_response :redirect
+      # assert_equal 'New_York_City', assigns(:current_user).current_city.cityname
+    end
   end
 
   describe 'profile' do
@@ -160,5 +160,6 @@ describe CitiesController do
       response.should redirect_to('/en/cities/travel-to/San_Francisco')
     end
   end
+  end # above, hidden
 
 end

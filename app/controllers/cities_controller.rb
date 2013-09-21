@@ -88,7 +88,7 @@ class CitiesController < ApplicationController
         render :action => 'empty'
       end
       format.json do
-        @cities = City.all
+        @cities = City.all.order_by( :name => :asc )
         render :json => @cities
       end
     end
