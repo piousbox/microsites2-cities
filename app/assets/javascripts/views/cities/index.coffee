@@ -22,7 +22,7 @@ $(document).ready ->
         success: ->
           U.views.city = new Views.City.Show({ model: U.models.city })
           # U.views.city.left_menu = new Views.City.LeftMenu
-          MyApp.left_region.show( U.views.city )
+          MyApp.right_region.show( U.views.city )
           # MyApp.left_menu.show( U.views.city.left_menu )
 
   Views.Cities.Map = Backbone.Marionette.ItemView.extend

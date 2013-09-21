@@ -54,6 +54,7 @@ $(document).ready ->
     show_cities: (item) ->
       @deactivate_all()
       $(item.currentTarget).addClass('active')
+      U.views.cities.index = new Views.Cities.Index()
       U.models.cities.fetch
         success: ->
           MyApp.right_region.show U.views.cities.index
