@@ -69,6 +69,9 @@ class CitiesController < ApplicationController
   
   def index
     respond_to do |format|
+      format.tablet do
+        render :action => 'empty'
+      end
       format.html do
         # @feature_cities = City.where( :is_feature => true ).order_by( :name => :asc)
         # feature_city_ids = @feature_cities.map { |c| c._id }

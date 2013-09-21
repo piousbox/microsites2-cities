@@ -5,10 +5,8 @@
       = link_to t('g.map'), "javascript:void(0);", :class => :map_link
     %li
       = link_to t('g.calendar'), "javascript:void(0);", :class => :calendar_link
-    %li
-      = link_to t('photos.new'), new_photo_path, :class => :new_photo_link
-    %li
-      = link_to t('reports.new'), new_report_path, :class => :new_report_link
+    -# %li= link_to t('photos.new'), new_photo_path, :class => :new_photo_link
+    -# %li= link_to t('reports.new'), new_report_path, :class => :new_report_link
 
 %script#right_menu-template{:type => "text/template"}
   %ul
