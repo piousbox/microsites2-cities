@@ -24,9 +24,6 @@ class GalleriesController < ApplicationController
     @galleries = @galleries.page( params[:galleries_page] )
 
     respond_to do |format|
-      format.html do
-        render
-      end
       format.json do
         @g = []
         @galleries.each do |gallery|
@@ -105,61 +102,6 @@ class GalleriesController < ApplicationController
     end
   end
   
-  def new
-    @gallery = Gallery.new
-    authorize! :new, @gallery
-
-    @venues_list = Venue.all.list
-
-    respond_to do |format|
-      format.html do
-        render
-      end
-      format.json { render :json => @gallery }
-    end
-  end
-
-  def create
-    @gallery = Gallery.new(params[:gallery])
-    @gallery.user = @current_user
-    authorize! :create, @gallery
-
-    if @gallery.save
-      flash[:notice] = 'Success'
-      redirect_to my_galleries_path
-    else
-      flash[:error] = 'No Luck.'
-      @venues_list = Venue.all.list
-      render :action => :new
-    end
-
-    
-  end
-
-  def edit
-    if params[:id]
-      @gallery = Gallery.find( params[:id] )
-    else
-      @gallery = Gallery.where( :galleryname => params[:galleryname] ).first
-    end
-    authorize! :edit, @gallery
-    
-    @cities = City.list
-    @venues_list = Venue.all.list
-  end
-
-  def update
-    @g = Gallery.find params[:id]
-    authorize! :update, @g
-    
-    if @g.update_attributes params[:gallery]
-      flash[:notice] = 'Success'
-    else
-      flash[:error] = 'No Luck'
-    end
-    redirect_to galleries_path
-  end
-  
   def search
     authorize! :search, Gallery.new
     
@@ -168,13 +110,6 @@ class GalleriesController < ApplicationController
     render :action => :index
   end
 
-  def set_show_style
-    authorize! :set_show_style, Gallery.new
-    cookies[:galleries_show_style] = params[:style]
-    flash[:notice] = 'Attempted setting display style for galleries/show'
-    redirect_to request.referrer
-  end
-  
 end
 
 
