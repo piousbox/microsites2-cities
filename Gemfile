@@ -76,4 +76,5 @@ group :development, :test do
   gem 'thin'
   gem 'delayed_job_mongoid'
   gem 'hpricot'
+  gem 'simplecov', :require => false
 end
