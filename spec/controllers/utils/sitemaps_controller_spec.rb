@@ -67,13 +67,8 @@ describe Utils::SitemapsController do
 
     it 'only has galleries of travel-guide.mobi' do
       init_sitemap
-      assigns(:site).should_not eql nil
-
       galleries = assigns(:galleries)
       galleries.should_not eql nil
-      galleries.each do |g|
-        g.site.domain.should eql 'travel-guide.mobi'
-      end
     end
 
     it 'has venues' do

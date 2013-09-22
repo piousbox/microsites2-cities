@@ -44,13 +44,6 @@ describe ReportsController do
     end
   end
 
-  describe 'show' do
-    it 'renders layouts application' do
-      get :show, :name_seo => @r1.name_seo, :layout => 'application'
-      response.should be_success
-    end
-  end
-
   describe 'venues for the map' do
     it 'GETs the json of venues for the map' do
       get :venues, :name_seo => @r1.name_seo, :format => :json
