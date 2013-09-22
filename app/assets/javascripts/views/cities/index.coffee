@@ -1,4 +1,8 @@
 $(document).ready ->
+ 
+  Views.Cities.Home = Backbone.Marionette.ItemView.extend
+    # model: Models.Cities
+    template: '#cities_home-template'
 
   Views.Cities.IndexItem = Backbone.Marionette.ItemView.extend
     model: Models.City

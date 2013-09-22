@@ -9,6 +9,7 @@ $(document).ready ->
     U.views.cities.map = new Views.Cities.Map({ model: U.models.cities })
     U.views.cities.right_menu = new Views.Cities.RightMenu({ model: U.models.cities })
     U.views.cities.left_menu = new Views.Cities.LeftMenu({ model: U.models.cities })
+    U.views.cities.home = new Views.Cities.Home()
     # U.views.newsitems = new Views.Newsitems.Index({ 'model': U.models.newsitems })
    
     MyApp.start()
@@ -22,7 +23,7 @@ $(document).ready ->
 #        MyApp.left_region.show( U.views.cities.map )
 
     MyApp.right_menu.show( U.views.cities.right_menu )
-    MyApp.right_region.show( U.views.cities.index )
+    MyApp.right_region.show( U.views.cities.home )
     MyApp.left_menu.show( U.views.cities.left_menu )
     MyApp.left_region.show( U.views.cities.map )
 

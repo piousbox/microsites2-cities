@@ -6,6 +6,7 @@ class UsersController < ApplicationController
   def edit
     @user = User.find current_user.id
     authorize! :edit, @user
+    render :layout => 'application'
   end
 
   def show

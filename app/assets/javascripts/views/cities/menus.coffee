@@ -7,20 +7,22 @@ $(document).ready ->
     # model: Models.City
 
     events:
-      'click a.map_link': 'show_map'
-      'click a.calendar_link': 'show_calendar'
+      'click .map-link a': 'show_map'
+      'click .calendar-link a': 'show_calendar'
+      'click .cities-link a': 'show_cities'
 
     initialize: (item) ->
       @model = item.model
-      _.bindAll @, 'deactivate_all', 'show_map', 'show_calendar'
+      _.bindAll @, 'deactivate_all', 'show_map', 'show_calendar', 'show_cities'
 
     show_map: (item) ->
+      console.log( 'showing cities map' )
       @deactivate_all()
       $(item.currentTarget).addClass('active')
-      U.models.city.fetch
+      U.models.cities.fetch
         success: ->
           MyApp.left_region.show new Views.Cities.Map
-            model: U.models.city
+            model: U.models.cities
 
     show_calendar: (item) ->
       @deactivate_all()
@@ -30,6 +32,13 @@ $(document).ready ->
           MyApp.left_region.show new Views.Cities.Calendar
             model: U.models.city
 
+    show_cities: (item) ->
+      @deactivate_all()
+      $(item.currentTarget).addClass('active')
+      U.models.cities.fetch
+        success: ->
+          MyApp.left_region.show( U.views.cities.index )
+      
     deactivate_all: (item) ->
       while $(".left-menu ul li a.active").length > 0
         _.each $(".left-menu ul li a.active"), (key, value) ->
@@ -42,14 +51,14 @@ $(document).ready ->
     # I think this is unnecessary if I set the @model in the initializer?
     # model: Models.City
     events:
-      'click li.newsitems-link a': 'show_newsitems'
+      # 'click li.newsitems-link a': 'show_newsitems'
       'click li.cities-link a': 'show_cities'
 
     initialize: (item) ->
       # so far I think I have no model for this view.
       #
       # @model = item.model
-      _.bindAll @, 'show_cities', 'show_newsitems'
+      _.bindAll @, 'show_cities' # , 'show_newsitems'
 
     show_cities: (item) ->
       @deactivate_all()
@@ -59,12 +68,12 @@ $(document).ready ->
         success: ->
           MyApp.right_region.show U.views.cities.index
         
-    show_newsitems: (item) ->
-      @deactivate_all()
-      $(item.currentTarget).addClass('active')
-      U.models.newsitems.fetch
-        success: ->
-          MyApp.right_region.show( U.views.newsitems )
+    # show_newsitems: (item) ->
+    #   @deactivate_all()
+    #   $(item.currentTarget).addClass('active')
+    #   U.models.newsitems.fetch
+    #     success: ->
+    #       MyApp.right_region.show( U.views.newsitems )
 
     deactivate_all: (item) ->
       while $(".right-menu ul li a.active").length > 0
