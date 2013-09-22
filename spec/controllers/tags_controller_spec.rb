@@ -27,16 +27,6 @@ describe TagsController do
   end
 
   describe 'index' do
-    it 'should GET list of topics' do
-      get :index
-      response.should be_success
-    end
-
-    it 'should have non-feature topics' do
-      get :index
-      assigns( :tags ).should_not eql nil
-    end
-
     it 'only has public tags' do
       get :index
       assigns( :tags ).each do |tag|
@@ -56,30 +46,12 @@ describe TagsController do
         tag.parent_tag.should eql nil
       end
     end
-
-    it 'should display at least one child tag' do
-      get :index
-      response.should render_template('tags/index')
-    end
-    
-    it 'displays application_mini layout by default' do
-      get :index
-      response.should render_template('layouts/application_mini')
-    end
   end
 
   describe 'show' do
     it 'GETs show' do
-      get :show, :name_seo => @tt.name_seo
+      get :show, :name_seo => @tt.name_seo, :format => :json
       response.should be_success
-      response.should render_template('tags/show')
-      assigns(:tag).should_not be nil
-      assigns(:newsitems).should_not be nil
-      assigns(:features).should_not be nil
-      assigns(:videos).should_not be nil
-      assigns(:reports).should_not be nil
-      assigns(:galleries).should_not be nil
-      assigns(:children_tags).should_not be nil
     end
 
     it 'displays galleries in reverse chrono order' do
@@ -91,12 +63,6 @@ describe TagsController do
         end
       end
     end
-
-    it 'displays application_mini layout by default' do
-      get :show, :name_seo => @tt.name_seo
-      response.should render_template('layouts/application_mini')
-    end
-    
   end
 
 end

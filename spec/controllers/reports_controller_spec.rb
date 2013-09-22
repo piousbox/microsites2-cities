@@ -22,70 +22,6 @@ describe ReportsController do
     sign_in @user
   end
 
-  describe 'new/create' do
-    it 'does not create without recaptcha' do
-      ReportsController.any_instance.expects(:verify_recaptcha).returns(false)
-      sign_out :user
-      session[:current_user] = nil
-      n_old = Report.all.length
-      report = { :name => '24twebfvsdfg', :name_seo => '1235fff', :descr => 'lssfllll' }
-      post :create, :report => report
-      n_new = Report.all.length
-      ( n_new - n_old ).should eql 0
-    end
-    
-    it 'created with recaptcha' do
-      ReportsController.any_instance.expects(:verify_recaptcha).returns(true)
-      sign_out :user
-      session[:current_user] = nil
-      n_old = Report.all.length
-      report = { :name => '24twebfvsdfg', :name_seo => '1235fff', :descr => 'lssfllll' }
-      post :create, :report => report
-      n_new = Report.all.length
-      ( n_new - n_old ).should eql 1
-    end
-
-    it 'adds newsitem if a new public report is created in the city' do
-      assert_equal 0, @city.newsitems.all.length
-      post :create, :report => { :city_id => @city.id, :is_public => true, :name => 'bhal bbgf' }
-      assert_equal 1, City.find( @city.id ).newsitems.all.length
-    end
-
-    it 'lets you mark the report in a tag' do
-      get :new
-      assigns(:tags_list).should_not eql nil
-    end
-    it 'should create newsitems for venues' do
-      vs = Venue.all.to_a
-      vs.length.should_not eql 0
-      venue_ids = []
-      vs.each do |v|
-        venue_ids << v.id
-      end
-      post :create, :report => { :name => 'Test Name', :descr => 'blah blah blah', :venue_ids => venue_ids, :is_public => true, 
-        :user => User.all.first, :username => 'username' }
-      result = Report.where( :name => 'Test Name' ).first
-      venues = Venue.all
-      venues.each_with_index do |venue, idx|
-        ( venue.newsitems.length - 1 ).should eql vs[idx].newsitems.length
-      end
-    end
-  end
-
-  describe 'search' do
-    it 'should work' do
-      get :search, :my => true, :keyword => 'blah'
-      rs = assigns(:reports)
-      rs.should_not eql nil
-      rs.each do |r|
-        flag = r.name.include?('blah')
-        flag.should eql true
-      end
-      
-    end
-
-  end
-
   describe 'index' do
     it 'displays json index of reports, with usernames' do
       get :index, :format => :json
@@ -97,16 +33,6 @@ describe ReportsController do
       end
     end
     
-    it 'displays my reports' do
-      get :index, :my => true
-      response.should be_success
-
-      rs = assigns(:reports)
-      rs.each do |r|
-        r.user.should eql @user
-      end
-    end
-
     it 'scopes by city' do
       get :index, :cityname => 'rio', :format => :json
       response.should be_success
@@ -116,23 +42,12 @@ describe ReportsController do
         report['city_id'].should eq( @city._id.to_s )
       end
     end
-
   end
 
   describe 'show' do
     it 'renders layouts application' do
       get :show, :name_seo => @r1.name_seo, :layout => 'application'
-      response.should render_template('layouts/application')
-    end
-
-    it 'renders layouts application_mini' do
-      get :show, :name_seo => @r1.name_seo, :layout => 'application_mini'
-      response.should render_template('layouts/application')
-    end
-
-    it 'defaults to layout application_mini' do
-      get :show, :name_seo => @r1.name_seo
-      response.should render_template('layouts/application_mini')
+      response.should be_success
     end
   end
 
@@ -140,7 +55,6 @@ describe ReportsController do
     it 'GETs the json of venues for the map' do
       get :venues, :name_seo => @r1.name_seo, :format => :json
       response.should be_success
-      
     end
   end
 
