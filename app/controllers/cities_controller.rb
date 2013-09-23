@@ -68,8 +68,18 @@ class CitiesController < ApplicationController
   end
   
   def index
-    # @cities = City.all.order_by( :name => :asc )
-    @cities = @feature_cities = City.where( :is_feature => true ).order_by( :name => :asc)
+    @cities = City.all.order_by( :name => :asc )
+    # @cities = @feature_cities = City.where( :is_feature => true ).order_by( :name => :asc)
+
+    #
+    # only cities with some galleries or reports will show up.
+    #
+    @cities = @cities.delete_if do |c|
+      # false == c.is_feature
+      ( 0 == c.galleries.length ) ||
+      ( 0 == c.reports.length )
+    end
+      
     # feature_city_ids = @feature_cities.map { |c| c._id }
     # @cities = City.not_in( :_id => feature_city_ids ).order_by( :name => :asc)
     # @cities = @cities.reject do |city|
