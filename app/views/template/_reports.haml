@@ -1,7 +1,7 @@
 //
 // show
 //
-%script#report-template{:type => "text/template"}
+%script#report_show-template{:type => "text/template"}
   .report
     .vote
       <a class='up' name_seo="<%= name_seo %>" href='javascript:void(0);'><img src='/assets/icons/32x32/thumbs_up.png' width=16 alt='thumbs up' /></a>
@@ -31,10 +31,3 @@
     .meta By <%= username %>
     <div class='bg-image'><img src="<%= photo_url %>" alt='' /></div>
     .subhead <%= subhead %>
-
-//
-// ??
-//
-%script#reports-template{:type => "text/template"}
-  .reports
-    .items

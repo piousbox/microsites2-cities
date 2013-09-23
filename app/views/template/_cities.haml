@@ -17,7 +17,8 @@
 
 %script#cities_right_menu-template{:type => "text/template"}
   %ul
-    %li.newsitems-link= link_to t('newsitems.list'), "javascript:void(0);"
+    -# %li.newsitems-link= link_to 'Home', "javascript:alert('Not Implemented.');"
+    %li.home-link= link_to 'Home', "javascript:alert('Not Implemented.');"
 
 %script#city_calendar-template{:type => "text/template"}
   .calendar
@@ -46,12 +47,30 @@
     %h3 <%= name %>
     -# .guide Guide
     -# .today Today
+    <% if ( events.length > 0 ) { %>
     .events-list
       %h4 Events
       %ul
         <% _.each( events, function(event) { %>
         %li <%= event.date.substring(0, 10) %> <a href="javascript:void(0)" name_seo="<%= event.name_seo %>" class="event-link"><%= event.name %></a>
         <% }) %>
+    <% } %>
+    <% if ( reports.length > 0 ) { %>
+    .reports-list
+      %h4 Reports
+      %ul
+        <% _.each( reports, function(item) { %>
+        %li <a href="javascript:void(0)" name_seo="<%= item.name_seo %>" class="report-link"><%= item.name %></a>
+        <% }) %>
+    <% } %>
+    <% if ( galleries.length > 0 ) { %>
+    .galleries-list
+      %h4 Galleries
+      %ul
+        <% _.each( galleries, function(gallery) { %>
+        %li <a href="javascript:alert('not implemented')" name_seo="<%= gallery.name_seo %>" class="gallery-link"><%= gallery.name %></a>
+        <% }) %>
+    <% } %>
     -# .venues
     -#   %h4 Venues
     -# .newsitems Newsitems

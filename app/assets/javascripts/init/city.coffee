@@ -3,7 +3,7 @@ $(document).ready ->
 
     if $( ".ids" ).length > 0
       cityname = $( '.ids' ).attr( 'cityname' )
-      console.log( 'not triggered' )
+
       #
       # Models & Collections
       #

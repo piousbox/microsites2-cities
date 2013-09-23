@@ -51,8 +51,17 @@ describe CitiesController do
         end
       end
     end
-
   end
 
+  describe '#profile (show)' do
+    it 'has reports, events, galleries' do
+      get :profile, :cityname => @city.cityname, :format => :json
+      response.should be_success
+      result = JSON.parse( response.body )
+      result['galleries'].should eql []
+      result['events'].should eql []
+      result['reports'].should eql []
+    end
+  end
 
 end

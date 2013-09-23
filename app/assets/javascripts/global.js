@@ -44,6 +44,7 @@ Views = {
   Features: {},
   Galleries: {},
   Newsitems: {},
+  Report: {},
   Reports: {},
   Users: {},
   Venues: {},

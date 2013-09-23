@@ -34,8 +34,6 @@ describe "Cities Views", ->
   describe "templates", ->
     it 'everything', ->
       expect( $('#cities_map-template').length ).toEqual( 1, 'Cities Map template must be defined' )
-      expect( $('#city_map-template').length ).toEqual( 1, 'City Map template must be defined' )
-      expect( $('#city_show-template').length ).toEqual( 1, 'City Show template must be defined' )
       expect( $('#cities_right_menu-template').length ).toEqual( 1, 'cities right menu template is defined' )
 
   describe 'cities', ->
