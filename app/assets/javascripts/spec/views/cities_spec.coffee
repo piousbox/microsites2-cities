@@ -44,7 +44,7 @@ describe "Cities Views", ->
         U.models.newsitems = new Collections.Newsitems()
         specimen = new Views.Cities.RightMenu({ model: U.models.city })
         expect( specimen.show_cities($ 'body' ) ).toBeDefined()
-        expect( specimen.show_newsitems($ 'body' ) ).toBeDefined( 'Show newsitems is defined' )
+        # expect( specimen.show_newsitems($ 'body' ) ).toBeDefined( 'Show newsitems is defined' )
         
       it 'has function deactiveate_all()', ->
         expect( U.models.city).toBeDefined()
