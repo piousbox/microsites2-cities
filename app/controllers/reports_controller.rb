@@ -1,119 +1,6 @@
 
 class ReportsController < ApplicationController
 
-  before_filter :load_features, :only => [ :show ]
-  # caches_page :show, :index, :not_found, :venues
-
-  def new
-    @report = Report.new
-    authorize! :new, @report
-    @cities = City.list
-    @tags_list = Tag.all.where( :is_public => true ).list
-
-    respond_to do |format|
-      format.html do
-        render 
-      end
-      format.json { render :json => @report }
-    end
-  end
-
-  def create
-    @report = Report.new params[:report]
-    @report.user = @current_user || User.where( :username => 'anon' ).first
-    @report.username = @report.user.username
-    @report[:lang] = @locale
-    @report.name_seo ||= @report.name.to_simple_string
-    @report.is_feature = false
-    authorize! :create, @report
-
-    verified = true
-    saved = false
-    if @current_user.blank?
-      verified = verify_recaptcha( :model => @report, :message => 'There is a problem with recaptcha.' )
-    end
-
-    if verified
-      # for city
-      if @report.is_public && !@report.city.blank?
-        n = Newsitem.new
-        n.report = @report
-        n.descr = 'shared a story on'
-        n.user = current_user
-        city = City.find @report.city.id
-        city.newsitems << n
-        if @report.city.save
-          flash[:notice] = 'newsitem saved. '
-        else
-          flash[:error] = 'City could not be saved (newsitem). '
-        end
-      else
-        flash[:notice] = 'Newsitem was not attempted to be saved. '
-      end
-
-      # save newsitem for city? @TODO
-
-      saved = @report.save
-    end
-
-    respond_to do |format|
-      if saved
-        format.html { redirect_to report_path(@report.name_seo), :notice => 'Report was successfully created (but newsitem, no information.' }
-        format.json { render :json => @report, :status => :created, :location => @report }
-      else
-        format.html do
-          # puts! @report.errors
-          flash[:error] = @report.errors.inspect
-          render :action => "new"
-        end
-        format.json { render :json => @report.errors, :status => :unprocessable_entity }
-      end
-    end
-  end
-
-  def edit
-    @report = Report.find(params[:id])
-    authorize! :edit, @report
-    @cities_list = City.list
-    @tags_list = Tag.list
-    @venues_list = Venue.list
-
-    respond_to do |f|
-      f.html
-      f.json
-    end
-  end
-  
-  def update
-    @report = Report.find(params[:id])
-    authorize! :update, @report
-
-    respond_to do |format|
-      if @report.update_attributes(params[:report])
-        format.html do
-          redirect_to report_path(@report.name_seo), :notice => 'Report was successfully updated.'
-        end
-        format.json { head :ok }
-      else
-        format.html { render :action => "edit" }
-        format.json { render :json => @report.errors, :status => :unprocessable_entity }
-      end
-    end
-  end
-  
-  def search
-    authorize! :search, Report.new
-    @reports = Report.where( :name => /#{params[:keyword]}/i )
-
-    if params[:my]
-      @reports = @reports.where( :user => current_user)
-    end
-
-    @reports = @reports.page( params[:reports_page] )
-    
-    render :action => :index
-  end
-  
   def index
     authorize! :index, Report.new
     @reports = Report.where( :is_trash => false, :is_public => true )
@@ -191,16 +78,6 @@ class ReportsController < ApplicationController
           @report.username ||= ''
           render :json => @report
         end
-      end
-    end
-  end
-
-  def venues
-    @report = Report.where( :name_seo => params[:name_seo] ).first
-    authorize! :show, @report
-    respond_to do |format|
-      format.json do
-        render :json => @report.venues.to_a
       end
     end
   end

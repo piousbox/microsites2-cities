@@ -1,8 +1,5 @@
 class GalleriesController < ApplicationController
 
-  # caches_page :index, :show
-  # before_filter :redirect_mobile_user, :only => [ :show ]
-
   rescue_from Mongoid::Errors::DocumentNotFound do
     flash[:error] = 'Gallery not found.'
     redirect_to galleries_path
@@ -104,9 +101,7 @@ class GalleriesController < ApplicationController
   
   def search
     authorize! :search, Gallery.new
-    
     @galleries = Gallery.where( :user => current_user, :name => /#{params[:q]}/i ).page( params[:galleries_page] )
-    
     render :action => :index
   end
 
