@@ -1,6 +1,6 @@
 
 
-%script#gallery-template{:type => "text/template"}
+%script#gallery_show-template{:type => "text/template"}
   .gallery
     %h2 <a href='javascript:void(0)' name_seo="<$= galleryname %>" ><%= name %></a>
     .meta By <%= username %> on <%= created_at %>
@@ -11,10 +11,10 @@
 
 %script#gallery_small-template{:type => "text/template"}
   .gallery-small
-    %h3 <a class='show-gallery' href='javascript:void(0)' name_seo="<%= galleryname %>" ><%= name %></a>
+    %h3 <a class='show-gallery' href='javascript:void(0)' galleryname="<%= galleryname %>" ><%= name %></a>
     .meta By <%= username %> on <%= created_at %>
     <img src="<%= photo_url %>" alt='<%= name %>' />
 
-%script#galleries-template{:type => "text/template"}
+%script#galleries_index-template{:type => "text/template"}
   .galleries
     .items

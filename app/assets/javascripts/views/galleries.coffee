@@ -1,10 +1,11 @@
 $(document).ready ->
 
-  Views.Galleries.Show = Backbone.Marionette.ItemView.extend
-    template: '#gallery-template'
+  Views.Gallery.Show = Backbone.Marionette.ItemView.extend
+    template: '#gallery_show-template'
     model: Models.Gallery
     # tagName: 'div'
     # className: 'report'
+
 
   Views.Galleries.ShowSmall = Backbone.Marionette.ItemView.extend
     template: '#gallery_small-template'

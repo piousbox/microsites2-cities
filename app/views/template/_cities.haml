@@ -68,7 +68,7 @@
       %h4 Galleries
       %ul
         <% _.each( galleries, function(gallery) { %>
-        %li <a href="javascript:alert('not implemented')" name_seo="<%= gallery.name_seo %>" class="gallery-link"><%= gallery.name %></a>
+        %li <a href="javascript:void(0)" galleryname="<%= gallery.galleryname %>" class="gallery-link"><%= gallery.name %></a>
         <% }) %>
     <% } %>
     -# .venues

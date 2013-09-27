@@ -37,6 +37,12 @@ $(document).ready ->
 
     show_gallery: (item) ->
       a = 'a'
+      name_seo = item.currentTarget.attributes.galleryname.value
+      U.models.gallery = new Models.Gallery({ galleryname: name_seo })
+      U.views.gallery = new Views.Gallery.Show({ model: U.models.gallery })
+      U.models.gallery.fetch
+        success: ->
+          MyApp.left_region.show( U.views.gallery )
 
   Views.City.LeftMenu = Backbone.Marionette.ItemView.extend
     model: Models.City
