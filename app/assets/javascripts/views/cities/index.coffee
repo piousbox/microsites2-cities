@@ -4,6 +4,14 @@ $(document).ready ->
     # model: Models.Cities
     template: '#cities_home-template'
 
+    initialize: (options) ->
+      @on('render', @afterRender)
+      # _.bindAll @, "beforeRender", "render", "afterRender"
+
+    afterRender: ->
+      ad_content = $('.ad-large-rectangle')[0].innerHTML
+      this.$el.append( ad_content )
+
   Views.Cities.IndexItem = Backbone.Marionette.ItemView.extend
     model: Models.City
     template: '#cities_index_item-template'
@@ -18,6 +26,11 @@ $(document).ready ->
 
     initialize: (item) ->
       this.collection = U.models.cities
+      # @on('render', @afterRender)
+
+    # afterRender: ->
+    #   ad_content = $('.ad-large-rectangle')[0].innerHTML
+    #   this.$el.append( ad_content )
 
     show_city: (item) ->
       # console.log item.currentTarget.attributes.cityname.value

@@ -6,6 +6,13 @@ $(document).ready ->
     # tagName: 'div'
     # className: 'report'
 
+    initialize: ->      
+      @on('render', @afterRender)
+
+    afterRender: ->
+      ad_content = $('.ad-large-rectangle')[0].innerHTML
+      this.$el.append( ad_content )
+
 
   Views.Galleries.ShowSmall = Backbone.Marionette.ItemView.extend
     template: '#gallery_small-template'

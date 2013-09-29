@@ -20,5 +20,6 @@
 //
 //= require_directory ./models
 //= require_tree ./views
+//= require ./init/router
 //= require_directory ./init
 //

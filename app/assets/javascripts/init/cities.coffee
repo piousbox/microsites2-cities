@@ -13,7 +13,8 @@ $(document).ready ->
     # U.views.newsitems = new Views.Newsitems.Index({ 'model': U.models.newsitems })
    
     MyApp.start()
-    # Backbone.history.start({ pushState: true, root: "/en" })
+    router = new U.Router()
+    # Backbone.history.start({ root: "/en" })
 
 #    U.models.cities.fetch
 #      success: ->

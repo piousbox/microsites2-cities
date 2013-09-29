@@ -4,6 +4,13 @@ $(document).ready ->
     template: '#report_show-template'
     model: Models.Report
 
+    initialize: ->
+      @on('render', @afterRender)
+
+    afterRender: ->
+      ad_content = $('.ad-large-rectangle')[0].innerHTML
+      this.$el.append( ad_content )
+
   Views.Reports.ShowMap = Backbone.Marionette.ItemView.extend
     template: '#reports-showmap-template'
     model: Models.Report

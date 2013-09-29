@@ -16,6 +16,11 @@ $(document).ready ->
       # console.log( 'init city show ' + item )
       # @model = U.models.city
       _.bindAll @, 'show_event', 'show_report', 'show_gallery'
+      @on('render', @afterRender)
+
+    afterRender: ->
+      ad_content = $('.ad-large-rectangle')[0].innerHTML
+      this.$el.append( ad_content )
 
     show_event: (item) ->
       # console.log( 'showing event ' + item.currentTarget.attributes.name_seo.value )
