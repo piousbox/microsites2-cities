@@ -7,7 +7,7 @@ describe ReportsController do
 
   before :each do
     Report.all.each { |r| r.destroy }
-    @report = FactoryGirl.create: report
+    @report = FactoryGirl.create :report
   end
 
   it 'shows proper attributes' do

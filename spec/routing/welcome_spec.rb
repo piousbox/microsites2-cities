@@ -23,10 +23,10 @@ describe WelcomeController do
     end
 
     it 'aux' do
-      expect( :get = > '/en/about' ).to route_to( :controller => 'welcome', :action => 'about', :locale => 'en' )
-      expect( :get = > '/en/contact' ).to route_to( :controller => 'welcome', :action => 'contact', :locale => 'en' )
-      expect( :get = > '/en/privacy' ).to route_to( :controller => 'welcome', :action => 'privacy', :locale => 'en' )
-      expect( :get = > '/en/help' ).to route_to( :controller => 'welcome', :action => 'help', :locale => 'en' )
+      expect( :get => '/en/about' ).to route_to( :controller => 'welcome', :action => 'about', :locale => 'en' )
+      expect( :get => '/en/contact' ).to route_to( :controller => 'welcome', :action => 'contact', :locale => 'en' )
+      expect( :get => '/en/privacy' ).to route_to( :controller => 'welcome', :action => 'privacy', :locale => 'en' )
+      expect( :get => '/en/help' ).to route_to( :controller => 'welcome', :action => 'help', :locale => 'en' )
     end
 
   end
