@@ -45,7 +45,8 @@ describe "Cities Views", ->
         # expect( specimen.show_newsitems($ 'body' ) ).toBeDefined( 'Show newsitems is defined' )
         
       it 'has function deactiveate_all()', ->
-        expect( U.models.city).toBeDefined()
+        U.models.city = new Models.City({ cityname: 'rio' })
+        expect( U.models.city ).toBeDefined( 'U.models.city should be defined' )
         specimen = new Views.Cities.RightMenu({ model: U.models.city })
         expect( specimen.deactivate_all() ).toBeDefined()
 

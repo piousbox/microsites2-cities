@@ -38,7 +38,7 @@ Microsites2::Application.routes.draw do
     # get '/users/in-city/:cityname', :to => 'users#index', :as => :users_in_city
     # match '/users/search', :to => 'users#index', :as => :users_search
     # get '/settings', :to => 'users#edit', :as => :settings
-    # get 'users/organizer', :to => 'users#organizer', :as => :organizer
+    get 'users/organizer', :to => 'users#organizer', :as => :organizer
 
     #
     # venues

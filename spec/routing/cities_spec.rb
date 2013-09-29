@@ -12,7 +12,7 @@ describe CitiesController do
 
     it 'reports' do
       expect( :get => '/en/cities/travel-to/Aaa/reports' 
-              ).to route_to( :controller => 'cities', :action => 'profile', :cityname => 'Aaa', :locale => 'en' )
+              ).to route_to( :controller => 'reports', :action => 'index', :cityname => 'Aaa', :locale => 'en' )
       expect( :get => '/en/cities/travel-to/Aaa/reports/page/12'
               ).to route_to({ :controller => 'reports', :action => 'index', :cityname => 'Aaa', :locale => 'en', :reports_page => '12' })
     end

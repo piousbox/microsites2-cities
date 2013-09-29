@@ -67,19 +67,7 @@ class VenuesController < ApplicationController
     @users = @venue.users.all.page( params[:users_page] )
 
     @newsitems = @venue.newsitems.all.page( params[:newsitems_page] ) # @venue.newsitems.page( params[:newsitems_page] )
-    @features = @venue.features.all
- 
-    @ch_tag = Tag.where( :name_seo => @venue.name_seo ).first
-
-    @ch_links = [] # ch-reports
-    @ch_links << { :name => t('g.news'), :path => venue_news_path(@venue.name_seo), :class => 'news' }
-    @reports.each do |r|
-      @ch_links << { :name => r.name, :path => venue_report_path({ 
-            :reportname => r.name_seo, :venuename => @venue.name_seo
-          }), :class => r.name_seo }
-    end
-    @ch_gallery = Gallery.where( :tag => @ch_tag ).first
-    
+    @features = @venue.features.all    
   end
   
 end
