@@ -74,10 +74,7 @@ class CitiesController < ApplicationController
     # only cities with some galleries or reports, or feature cities, will show up.
     #
     @cities = @cities.delete_if do |c|
-      ( false == c.is_feature ) && (
-        ( 0 == c.galleries.length ) ||
-        ( 0 == c.reports.length )
-      )
+      ( false == c.is_feature ) && ( 0 == c.galleries.length ) && ( 0 == c.reports.length )
     end
       
     # feature_city_ids = @feature_cities.map { |c| c._id }
