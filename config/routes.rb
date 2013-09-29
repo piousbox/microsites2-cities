@@ -117,6 +117,8 @@ Microsites2::Application.routes.draw do
     
     get 'v', :to => 'utils/utils#version', :as => :version
 
+    get 'sitemap', :to => 'utils/sitemaps#sitemap', :as => :sitemap
+
     match '*other', :to => 'errors#five_hundred'
   end
   
