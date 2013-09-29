@@ -1,8 +1,5 @@
-
 class CitiesController < ApplicationController
-
   skip_authorization_check
-
   layout 'cities'
 
   def set_city
@@ -74,7 +71,7 @@ class CitiesController < ApplicationController
     # @cities = @feature_cities = City.where( :is_feature => true ).order_by( :name => :asc)
 
     #
-    # only cities with some galleries or reports will show up.
+    # only cities with some galleries or reports, or feature cities, will show up.
     #
     @cities = @cities.delete_if do |c|
       ( false == c.is_feature ) && (

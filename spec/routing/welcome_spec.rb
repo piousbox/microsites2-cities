@@ -13,7 +13,7 @@ describe WelcomeController do
   end
 
   describe 'routes' do
-    it 'routes' do
+    it 'homepage and cities index' do
       # expect( :get => '/' ).to route_to( :controller => 'welcome', :action => 'home' )
       expect( :get => '/en/' ).to route_to( :controller => 'cities', :action => 'index', :locale => 'en' )
       expect( :get => '/en/cities' ).to route_to( :controller => 'cities', :action => 'index', :locale => 'en' )
@@ -21,6 +21,14 @@ describe WelcomeController do
       expect( :get => '/en/cities.json').to route_to('cities#index', 'format' => 'json', :locale => 'en' )
 
     end
+
+    it 'aux' do
+      expect( :get = > '/en/about' ).to route_to( :controller => 'welcome', :action => 'about', :locale => 'en' )
+      expect( :get = > '/en/contact' ).to route_to( :controller => 'welcome', :action => 'contact', :locale => 'en' )
+      expect( :get = > '/en/privacy' ).to route_to( :controller => 'welcome', :action => 'privacy', :locale => 'en' )
+      expect( :get = > '/en/help' ).to route_to( :controller => 'welcome', :action => 'help', :locale => 'en' )
+    end
+
   end
 
 end

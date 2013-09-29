@@ -3,13 +3,16 @@ describe CitiesController do
   describe 'routes' do
 
     it 'general things' do
+      expect( :get => '/en/cities/' ).to route_to( :controller => 'cities', :action => 'index', :locale => 'en' )
       expect( :get => '/en/cities/travel-to/Aaa' ).to route_to( :controller => 'cities', :action => 'profile', :cityname => 'Aaa', :locale => 'en' )
-      expect( :get => '/en/cities/travel-to/Aaa/today' ).to route_to( :controller => 'cities', :action => 'today', :cityname => 'Aaa', :locale => 'en' )
+      expect( :get => '/en/cities/travel-to/Aaa/today' 
+              ).to route_to( :controller => 'cities', :action => 'today', :cityname => 'Aaa', :locale => 'en' )
 
     end
 
     it 'reports' do
-      expect( :get => '/en/cities/travel-to/Aaa/reports' ).to route_to( :controller => 'cities', :action => 'profile', :cityname => 'Aaa', :locale => 'en' )
+      expect( :get => '/en/cities/travel-to/Aaa/reports' 
+              ).to route_to( :controller => 'cities', :action => 'profile', :cityname => 'Aaa', :locale => 'en' )
       expect( :get => '/en/cities/travel-to/Aaa/reports/page/12'
               ).to route_to({ :controller => 'reports', :action => 'index', :cityname => 'Aaa', :locale => 'en', :reports_page => '12' })
     end
@@ -37,7 +40,8 @@ describe CitiesController do
     end
 
     it 'venues' do
-      expect( :get => '/en/cities/travel-to/Aaa/venues' ).to route_to( :controller => 'venues', :action => 'index', :cityname => 'Aaa', :locale => 'en' )
+      expect( :get => '/en/cities/travel-to/Aaa/venues'
+              ).to route_to( :controller => 'venues', :action => 'index', :cityname => 'Aaa', :locale => 'en' )
       expect( :get => '/en/cities/travel-to/Aaa/venues/page/5' 
               ).to route_to( :controller => 'venues', :action => 'index', :cityname => 'Aaa', :locale => 'en', :venues_page => '5' )
     end

@@ -33,8 +33,7 @@
       #left
         .left-menu
           = content_for :left_menu
-          .map-container#cities_show_canvas{ :cityname => (@city.blank? ? '' : @city.cityname) }
-            
+          
         .left-container
           - if notice
             %p.notice= notice
@@ -44,6 +43,9 @@
             .all-cities
               .all-cities-2
                 #cities_index_canvas
+              - unless @city.blank?
+                .map-container#cities_show_canvas{ :cityname => (@city.blank? ? '' : @city.cityname) }
+
       #right
         .right-menu
           = content_for :right_menu
@@ -63,5 +65,5 @@
     = render 'template/all'
     .hide
       = render 'ads/large_rectangle'
-
-
+      - if !@report_name_seo.blank?
+        = render 'reports/show', :report => @report

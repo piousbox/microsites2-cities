@@ -27,19 +27,31 @@ describe WelcomeController do
       end
       # this test is bullshit by the way
     end
-
-    it 'has feature cities' do
-      get :about
-      response.should be_success
-      assigns(:feature_cities).should_not eql nil
-    end
   end
 
-  describe 'help' do
+  describe 'aux' do
     it 'GETs help' do
       get :help
       response.should be_success
-      response.should render_template('welcome/help')
+      response.should render_template( 'welcome/help' )
+    end
+
+    it 'GETs privacy' do
+      get :privacy
+      response.should be_success
+      response.should render_template( 'welcome/privacy' )
+    end
+
+    it 'GETs contact' do
+      get :contact
+      response.should be_success
+      response.should render_template( 'welcome/contact' )
+    end
+
+    it 'GETs about' do
+      get :about
+      response.should be_success
+      response.should render_template( 'welcome/about' )
     end
   end
 

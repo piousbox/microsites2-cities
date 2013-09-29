@@ -18,27 +18,27 @@ Microsites2::Application.routes.draw do
     get '/privacy', :to => 'welcome#privacy', :as => :privacy
     get '/help', :to => 'welcome#help', :as => :help
      
-    get 'photos/new_profile_photo', :to => 'photos#new', :defaults => { :is_profile => true }, :as => :new_profile_photo
-    get 'photos/new-for-gallery/:gallery_id', :to => 'photos#new', :as => :new_photo_for_gallery
-    resources :photos
+    # get 'photos/new_profile_photo', :to => 'photos#new', :defaults => { :is_profile => true }, :as => :new_profile_photo
+    # get 'photos/new-for-gallery/:gallery_id', :to => 'photos#new', :as => :new_photo_for_gallery
+    # resources :photos
   
-    get 'tags/view/:name_seo', :to => 'tags#show', :as => :tag
-    get 'tags/view/:name_seo/galleriespage/:galleries_page', :to => 'tags#show'
-    resources :tags
+    # get 'tags/view/:name_seo', :to => 'tags#show', :as => :tag
+    # get 'tags/view/:name_seo/galleriespage/:galleries_page', :to => 'tags#show'
+    # resources :tags
     
     get '/users', :to => 'users#index', :as => :users
     get '/users/show/:username', :to => 'users#show', :as => :user
     put '/users/:id/update', :to => 'users#update', :as => :user_update
-    get '/users/:username/reports', :to => 'users#reports', :as => :user_reports
-    get '/users/:username/reports/show/:name_seo', :to => 'users#report', :as => :user_report
-    get '/users/:username/galleries', :to => 'users#galleries', :as => :user_galleries
+    # get '/users/:username/reports', :to => 'users#reports', :as => :user_reports
+    # get '/users/:username/reports/show/:name_seo', :to => 'users#report', :as => :user_report
+    # get '/users/:username/galleries', :to => 'users#galleries', :as => :user_galleries
     get '/users/sign_in', :to => 'users#sign_in', :as => :sign_in
     put '/users/show/:id', :to => 'users#update'
-    get '/users/gallery/:galleryname', :to => 'users#gallery', :as => :user_gallery
-    get '/users/in-city/:cityname', :to => 'users#index', :as => :users_in_city
-    match '/users/search', :to => 'users#index', :as => :users_search
-    get '/settings', :to => 'users#edit', :as => :settings
-    get 'users/organizer', :to => 'users#organizer', :as => :organizer
+    # get '/users/gallery/:galleryname', :to => 'users#gallery', :as => :user_gallery
+    # get '/users/in-city/:cityname', :to => 'users#index', :as => :users_in_city
+    # match '/users/search', :to => 'users#index', :as => :users_search
+    # get '/settings', :to => 'users#edit', :as => :settings
+    # get 'users/organizer', :to => 'users#organizer', :as => :organizer
 
     #
     # venues
@@ -46,11 +46,11 @@ Microsites2::Application.routes.draw do
     # match '/venues/:venue_type/in/:cityname' => redirect { |params, request| "/en/cities/travel-to/#{params[:cityname]}" } # @deprecated
     get '/venues/show/:venuename', :to => 'venues#show', :as => :venue
     # get '/venues/show/:venuename/news', :to => 'venues#news', :as => :venue_news # @deprecated
-    get '/venues/show/:venuename/reports/show/:reportname', :to => 'venues#report', :as => :venue_report
-    get '/venues/show/:venuename/galleries/show/:galleryname', :to => 'venues#gallery', :as => :venue_gallery
-    resources :venues
+    # get '/venues/show/:venuename/reports/show/:reportname', :to => 'venues#report', :as => :venue_report
+    # get '/venues/show/:venuename/galleries/show/:galleryname', :to => 'venues#gallery', :as => :venue_gallery
+    # resources :venues
     
-    # get 'cities', :to => 'cities#index', :as => :cities # @deprecated. There is no cities index, there is the homepage.s
+    get 'cities', :to => 'cities#index', :as => :cities
     get 'cities/travel-to/:cityname', :to => 'cities#profile', :as => :city
     scope 'cities/travel-to/:cityname', :as => :city do
       get 'today', :to => 'cities#today', :as => :today
@@ -70,48 +70,50 @@ Microsites2::Application.routes.draw do
       get 'venues', :to => 'venues#index', :as => :venues
       get 'venues/page/:venues_page', :to => 'venues#index'
       get 'venue-type/:venue_type_name', :to => 'reports#index', :as => :venue_type
+
+      # videos?
     end
 
     get 'reports/view/:name_seo', :to => 'reports#show', :as => :report
-    match 'reports/promo/:name_seo' => redirect { |params, request| "reports/view/#{params[:name_seo]}" }
+    # match 'reports/promo/:name_seo' => redirect { |params, request| "reports/view/#{params[:name_seo]}" }
     get 'reports/show/:name_seo', :to => 'reports#show'
-    get 'reports/in-city/:cityname', :to => 'reports#index'
-    post 'reports/search', :to => 'reports#search', :as => :search_reports
-    get 'reports/search/:search_keyword', :to => 'reports#search'
-    get 'reports/page/:reports_page', :to => 'reports#index'
+    # get 'reports/in-city/:cityname', :to => 'reports#index'
+    # post 'reports/search', :to => 'reports#search', :as => :search_reports
+    # get 'reports/search/:search_keyword', :to => 'reports#search'
+    # get 'reports/page/:reports_page', :to => 'reports#index'
     put '/reports/:id', :to => 'reports#update', :as => :update_report
-    resources :reports
+    # resources :reports
     
     ##
     ## galleries
     ##
-    get 'galleries/in-city/:cityname', :to => 'galleries#index', :as => :galleries_in_city
+    # get 'galleries/in-city/:cityname', :to => 'galleries#index', :as => :galleries_in_city
     get 'galleries', :to => 'galleries#index', :as => :galleries
-    get 'galleries/search', :to => 'galleries#search', :as => :search_galleries
-    get 'galleries/search/:q', :to => 'galleries#search'
-    get 'galleries/new', :to => 'galleries#new', :as => :new_gallery
+    # get 'galleries/search', :to => 'galleries#search', :as => :search_galleries
+    # get 'galleries/search/:q', :to => 'galleries#search'
+    # get 'galleries/new', :to => 'galleries#new', :as => :new_gallery
     get 'galleries/show/:galleryname/:photo_idx', :to => 'galleries#show', :as => :gallery, :constraints => { :photo_idx => /.*/ }
     get 'galleries/show/:galleryname', :to => 'galleries#show'
     get 'galleries/:style/:galleryname', :to => 'galleries#show', :as => :gallery_show_style
-    get 'my/galleries', :to => 'galleries#index', :defaults => { :my => true }, :as => :my_galleries
+    # get 'my/galleries', :to => 'galleries#index', :defaults => { :my => true }, :as => :my_galleries
     get 'galleries/:id/edit', :to => 'galleries#edit', :as => :edit_gallery
     post 'galleries/:id', :to => 'galleries#update', :as => :update_gallery
-    resources :galleries
+    # resources :galleries
     
     ##
     ## videos
     ##
-    get 'videos/in-city/:cityname', :to => 'videos#index', :as => :videos_in_city
-    get 'videos/view/:youtube_id', :to => 'videos#show', :as => :video
-    get 'videos/in-tag/:tagname', :to => 'videos#index', :as => :videos_in_tag
-    resources :videos
+    # get 'videos/in-city/:cityname', :to => 'videos#index', :as => :videos_in_city
+    # get 'videos/view/:youtube_id', :to => 'videos#show', :as => :video
+    # get 'videos/in-tag/:tagname', :to => 'videos#index', :as => :videos_in_tag
+    # resources :videos
     
     # get 'set_locale', :to => 'welcome#set_locale', :as => :set_locale
     post 'set_city', :to => 'welcome#set_city', :as => :set_city
 
-    get 'events/in-city/:cityname', :to => 'events#index', :as => :events_in_city
+    # get 'events/in-city/:cityname', :to => 'events#index', :as => :events_in_city
     get 'events/show/:eventname', :to => 'events#show', :as => :event
-    resources :events
+    # resources :events
     
     get 'v', :to => 'utils/utils#version', :as => :version
 

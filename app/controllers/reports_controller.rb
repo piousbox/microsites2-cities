@@ -46,27 +46,28 @@ class ReportsController < ApplicationController
     end
     
     if @report.blank?
-      render :not_found
       authorize! :not_found, Report.new
+      respond_to do |format|
+        format.html do
+          render :empty
+        end
+        format.json do
+          render :json => {}
+        end
+        format.tablet do
+          render :empty
+        end
+        format.mobile do
+          render :empty
+        end
+      end
 
     else
       authorize! :show, @report
       respond_to do |format|
         format.html do
-          if @report.tag && @report.user.username == @report.tag.name_seo
-            # if a characteristic tag
-            redirect_to user_report_path(@report.name_seo)
-          else
-            if @report.tag.blank?
-              @recommended = Report.all.where( :is_feature => true ).limit( Feature.n_features )
-            else
-              @recommended = Report.all.where( :tag => @report.tag, :lang => @locale ).limit( 7 )
-              @recommended = @recommended.reject { |r| r.name_seo == @report.name_seo }
-            end
-            @city = @report.city
-            @report_name_seo ||= @report.name_seo
-            render
-          end
+          @report_name_seo = @report.name_seo
+          render :action => :empty
         end
         format.json do
           if @report.photo
