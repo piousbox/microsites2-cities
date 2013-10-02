@@ -21,4 +21,13 @@ describe "City Views", ->
     it 'renders a report when clicking on a report-link', ->
       city_model = new Models.City({ cityname: 'Rio_de_Janeiro' })
       city_view = new Views.City.Show({ model: city_model })
-      
+
+    it 'has a list of videos', ->
+      expect( false ).toBeTruthy()
+
+    it 'has a list of venues', ->
+      expect( false ).toBeTruthy()
+
+    it 'has a list of current_users', ->
+      expect( false ).toBeTruthy()
+

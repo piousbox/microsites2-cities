@@ -5,19 +5,19 @@ $(document).ready ->
 
     url: ->
       if @cityname
-        return "/"+@locale+"/cities/travel-to/" + @cityname + ".json"
+        return "/"+U.locale+"/cities/travel-to/" + @cityname + ".json"
       else
-        return "/"+@locale+"/cities.json"
+        return "/"+U.locale+"/cities.json"
         
     initialize: (item) ->
-      @locale = 'en'
       @cityname = item.cityname
-      @fetch
-        success: ->
-          # console.log( 'fetched Models.City' )
-          # U.views.cities.home.render()
-          # U.views.cities.index.render()
-          a = 'a' # nothing
+      #@fetch
+      #  success: ->
+      #    # console.log( 'fetched Models.City' )
+      #    # U.views.cities.home.render()
+      #    # U.views.cities.index.render()
+      #    @permalink = U.locale + '/cities/travel-to/' + item.cityname
+      #    # console.log @permalink
          
   Models.Cities = Backbone.Collection.extend
     model: Models.City

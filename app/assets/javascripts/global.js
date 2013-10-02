@@ -14,7 +14,8 @@ U = {
     welcome: {}
   },
   models: {},
-  dropbox: {},
+  // dropbox: {},
+  locale: 'en',
   log: function(args) {
     console.log(args);
     $("#log_main div").append(args);

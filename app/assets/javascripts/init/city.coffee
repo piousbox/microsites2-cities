@@ -18,6 +18,8 @@ $(document).ready ->
 
       U.views.city.show = new Views.City.Show({ model: U.models.city })
       U.views.city.left_menu = new Views.City.LeftMenu({ model: U.models.city })
+      U.views.cities.left_menu = new Views.Cities.LeftMenu({})
+      U.views.cities.right_menu = new Views.Cities.RightMenu({})
       U.views.city.map = new Views.City.Map({ model: U.models.city })
 
       # U.views.cities.map.show_map()
@@ -36,11 +38,10 @@ $(document).ready ->
 
       U.models.city.fetch
         success: ->
-          # MyApp.right_menu.show( U.views.cities.right_menu )
-          # MyApp.left_region.show( U.views.cities.map )
-        
+          MyApp.right_menu.show( U.views.cities.right_menu )
+          # MyApp.left_region.show( U.views.city.show )
           MyApp.right_region.show( U.views.city.show )
-          # MyApp.left_menu.show( U.views.city.left_menu )
+          MyApp.left_menu.show( U.views.cities.left_menu )
         
   if $("#cities_show_canvas").length > 0
     cityname = $( '#cities_show_canvas' ).attr( 'cityname' )

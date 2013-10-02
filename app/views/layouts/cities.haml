@@ -42,9 +42,10 @@
           .inner
             .all-cities
               .all-cities-2
-                #cities_index_canvas
-              - unless @city.blank?
-                .map-container#cities_show_canvas{ :cityname => (@city.blank? ? '' : @city.cityname) }
+                - if 'cities_index' == @action_name
+                  #cities_index_canvas
+                - unless @city.blank?
+                  .map-container#cities_show_canvas{ :cityname => (@city.blank? ? '' : @city.cityname) }
 
       #right
         .right-menu

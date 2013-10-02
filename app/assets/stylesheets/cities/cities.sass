@@ -203,13 +203,39 @@
         
 .city-show
   h3
-    margin: 0
+    margin: 0 auto
+    width: 100%
     padding: 0
+    text-align: center
+    font-size: 1.8em
+      
+  .meta
+    float: right
+    font-size: .8em
+    display: none
       
   .events-list,
   .reports-list,
   .galleries-list,
+    clear: both
+    margin-top: 1.5em
+      
+    h4
+      border-left: 15px solid red
+      padding-left: 10px
+      margin: 0 0 .5em 0
   
     ul
+      margin-left: 25px
+        
       li
         display: block !important
+
+  .galleries-list
+    ul
+      li
+        clear: both
+        .thumb
+          float: left
+        .text-trash
+          margin-left: 110px

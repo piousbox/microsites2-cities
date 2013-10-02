@@ -44,9 +44,16 @@
 
 %script#city_show-template{ :type => 'text/template' }
   .city-show
-    %h3 <%= name %>
+    .meta
+      [<a href="<%= permalink %>" >Permalink</a>]
+
+    %h3
+      <a href="<%= permalink %>" ><%= name %></a>
+      
     -# .guide Guide
     -# .today Today
+    .c
+      
     <% if ( events.length > 0 ) { %>
     .events-list
       %h4 Events
@@ -55,6 +62,21 @@
         %li <%= event.date.substring(0, 10) %> <a href="javascript:void(0)" name_seo="<%= event.name_seo %>" class="event-link"><%= event.name %></a>
         <% }) %>
     <% } %>
+    
+    <% if ( j_galleries.length > 0 ) { %>
+    .galleries-list
+      %h4 Galleries
+      %ul
+        <% _.each( j_galleries, function(gallery) { %>
+        %li
+          <a href="javascript:void(0)" galleryname="<%= gallery.galleryname %>" class="gallery-link thumb">
+          <img src="<%= gallery.photo_url %>" alt="<%= gallery.name %>" /></a>
+          <a href="javascript:void(0)" galleryname="<%= gallery.galleryname %>" class="gallery-link text">
+          <%= gallery.name %></a>
+        <% }) %>
+      .c
+    <% } %>
+    
     <% if ( reports.length > 0 ) { %>
     .reports-list
       %h4 Reports
@@ -63,20 +85,15 @@
         %li <a href="javascript:void(0)" name_seo="<%= item.name_seo %>" class="report-link"><%= item.name %></a>
         <% }) %>
     <% } %>
-    <% if ( galleries.length > 0 ) { %>
-    .galleries-list
-      %h4 Galleries
-      %ul
-        <% _.each( galleries, function(gallery) { %>
-        %li <a href="javascript:void(0)" galleryname="<%= gallery.galleryname %>" class="gallery-link"><%= gallery.name %></a>
-        <% }) %>
-    <% } %>
-    -# .venues
-    -#   %h4 Venues
-    -# .newsitems Newsitems
-    -# .features Features
-    -# .ad Ad
 
+
+
+    .videos-list
+      %h4= t('videos.list')
+    .users-list
+      %h3= t('users.list')
+    .venues-list
+      %h4= t('venues.list')
 
 
 

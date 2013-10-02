@@ -56,10 +56,32 @@ class CitiesController < ApplicationController
         end
         format.json do
           @city[:events] = @city.events.to_a
-          @city[:galleries] = @city.galleries.to_a
-          @city[:n_galleries] = @city.galleries.length
-          @city[:reports] = @city.reports.to_a
-          @city[:n_reports] = @city.reports.length
+          # @city[:n_events] = @city.events.length
+
+          @city[:j_galleries] = []
+          @city.galleries.where( :is_trash => false, :is_public => true ).each do |gallery|
+            if gallery.photos[0]
+              gallery[:photo_url] = gallery.photos[0].photo.url(:thumb)
+            else
+              gallery[:photo_url] = ''
+            end
+            @city[:j_galleries] << gallery
+          end
+
+          @city[:reports] = @city.reports.where( :is_trash => false, :is_public => true ).to_a
+          # @city[:n_reports] = @city.reports.length
+
+          @city[:videos] = @city.videos.to_a
+          # @city[:n_videos] = @city.videos.length
+
+          @city[:users] = @city.current_users.to_a
+          # @city[:n_users] = @city.current_users.length
+
+          @city[:venues] = @city.venues.to_a
+          # @city[:n_venues] = @city.venues.length
+
+          @city[:permalink] = city_path(@city.cityname)
+
           render :json => @city
         end
       end
