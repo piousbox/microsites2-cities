@@ -1,12 +1,11 @@
 $(document).ready ->
  
   Views.Cities.Home = Backbone.Marionette.ItemView.extend
-    # model: Models.Cities
     template: '#cities_home-template'
 
     initialize: (options) ->
       @on('render', @afterRender)
-      # _.bindAll @, "beforeRender", "render", "afterRender"
+      _.bindAll @, "afterRender"
 
     afterRender: ->
       ad_content = $('.ad-large-rectangle')[0].innerHTML
@@ -26,24 +25,23 @@ $(document).ready ->
 
     initialize: (item) ->
       this.collection = U.models.cities
-      # @on('render', @afterRender)
+      @on('render', @afterRender)
 
-    # afterRender: ->
-    #   ad_content = $('.ad-large-rectangle')[0].innerHTML
-    #   this.$el.append( ad_content )
+    afterRender: ->
+      ad_content = $('.ad-large-rectangle')[0].innerHTML
+      this.$el.append( ad_content )
 
     show_city: (item) ->
-      # console.log item.currentTarget.attributes.cityname.value
       U.models.city = new Models.City({ cityname: item.currentTarget.attributes.cityname.value })
       U.models.city.fetch
         success: ->
-          U.views.city = new Views.City.Show({ model: U.models.city })
+          U.views.city.show = new Views.City.Show({ model: U.models.city })
           # U.views.city.left_menu = new Views.City.LeftMenu
-          MyApp.right_region.show( U.views.city )
+          MyApp.right_region.show( U.views.city.show )
+          # U.views.city.show.show_map()
           # MyApp.left_menu.show( U.views.city.left_menu )
 
   Views.Cities.Map = Backbone.Marionette.ItemView.extend
-    # model: Models.Cities
     template: '#cities_map-template'
     sanity: true
 
