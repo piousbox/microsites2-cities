@@ -4,6 +4,9 @@ $(document).ready ->
     model: Models.City
     template: '#city_map-template'
 
+    initialize: (item) ->
+      @model = U.models.city
+
   Views.City.Show = Backbone.Marionette.ItemView.extend
     model: Models.City
     template: '#city_show-template'
@@ -14,12 +17,14 @@ $(document).ready ->
 
     initialize: (item) ->
       _.bindAll @, 'show_event', 'show_report', 'show_gallery', 'show_map'
-      
+
       @model = item.model
       @model.fetch
         success: ->
+          U.views.city.map =  new Views.City.Map({ model: @model })
+          MyApp.left_region.show( U.views.city.map )
           U.views.city.show.show_map()
-
+        
       @on('render', @afterRender)
 
     show_map: (nothing) ->
@@ -29,22 +34,6 @@ $(document).ready ->
         mapTypeId: google.maps.MapTypeId.ROADMAP
 
       map = new google.maps.Map(document.getElementById("cities_show_canvas"), myOptions)
-
-      $.each U.models.cities.models, (idx, val_raw) ->
-        val = val_raw.attributes
-        if val["x"] isnt null and val["y"] isnt null
-          myLatlng = new google.maps.LatLng(val["x"], val["y"])
-          contentString = "<div class='blah blah'><h4><a href='javascript:void(0)' class='city_link' cityname='" + val["cityname"] + "'>" + val["name"] + "</a></h4></div>"
-          infowindow = new google.maps.InfoWindow(content: contentString)
-          marker = new google.maps.Marker(
-            position: myLatlng
-            map: map
-            title: val["name"]
-          )
-          google.maps.event.addListener marker, "click", ->
-            open_infowindow.close()  if open_infowindow
-            infowindow.open map, marker
-            open_infowindow = infowindow
 
     afterRender: ->
       ad_content = $('.ad-large-rectangle')[0].innerHTML
