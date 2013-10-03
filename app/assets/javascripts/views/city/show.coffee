@@ -24,8 +24,9 @@ $(document).ready ->
           U.views.city.map =  new Views.City.Map({ model: @model })
           MyApp.left_region.show( U.views.city.map )
           U.views.city.show.show_map()
-        
-      @on('render', @afterRender)
+
+      # I don't want this here right now.
+      # @on('render', @afterRender)
 
     show_map: (nothing) ->
       myOptions =

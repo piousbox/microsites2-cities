@@ -4,7 +4,8 @@ $(document).ready ->
     template: '#cities_home-template'
 
     initialize: (options) ->
-      @on('render', @afterRender)
+      # I don't want it there right now
+      # @on('render', @afterRender)
       _.bindAll @, "afterRender"
 
     afterRender: ->

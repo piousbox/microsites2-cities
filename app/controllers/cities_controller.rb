@@ -59,6 +59,8 @@ class CitiesController < ApplicationController
           # @city[:n_events] = @city.events.length
 
           @city[:j_galleries] = []
+          @city[:j_users] = []
+
           @city.galleries.where( :is_trash => false, :is_public => true ).each do |gallery|
             if gallery.photos[0]
               gallery[:photo_url] = gallery.photos[0].photo.url(:thumb)
@@ -68,14 +70,20 @@ class CitiesController < ApplicationController
             @city[:j_galleries] << gallery
           end
 
+          @city.current_users.order_by( :created_at => :desc ).each do |user|
+            if user.profile_photo.blank?
+              user[:profile_photo_path] =  '/assets/no_photo.png'
+            else
+              user[:profile_photo_path] = user.profile_photo.photo.url(:thumb)
+            end
+            @city[:j_users] << user
+          end
+
           @city[:reports] = @city.reports.where( :is_trash => false, :is_public => true ).to_a
           # @city[:n_reports] = @city.reports.length
 
           @city[:videos] = @city.videos.to_a
           # @city[:n_videos] = @city.videos.length
-
-          @city[:users] = @city.current_users.to_a
-          # @city[:n_users] = @city.current_users.length
 
           @city[:venues] = @city.venues.to_a
           # @city[:n_venues] = @city.venues.length
