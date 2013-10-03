@@ -5,7 +5,8 @@ $(document).ready ->
     model: Models.Report
 
     initialize: ->
-      @on('render', @afterRender)
+      # the below works, but I don't want the ad there.
+      # @on('render', @afterRender)
 
     afterRender: ->
       ad_content = $('.ad-large-rectangle')[0].innerHTML

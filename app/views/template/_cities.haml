@@ -87,14 +87,20 @@
         <% }) %>
     <% } %>
 
-
-
+    <% if ( videos.length > 0 ) { %>
     .videos-list
       %h4= t('videos.list')
+    <% } %>
+ 
+    <% if ( users.length > 0 ) { %>
     .users-list
       %h3= t('users.list')
+    <% } %>
+      
+    <% if ( venues.length > 0 ) { %>
     .venues-list
       %h4= t('venues.list')
+    <% } %>
 
 
 
