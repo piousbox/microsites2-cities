@@ -58,10 +58,10 @@ describe CitiesController do
       get :profile, :cityname => @city.cityname, :format => :json
       response.should be_success
       result = JSON.parse( response.body )
-      result['galleries'].should eql []
+      result['j_galleries'].should eql []
       result['events'].should eql []
       result['reports'].should eql []
-      result['users'].should eql []
+      result['j_users'].should eql []
       result['videos'].should eql []
       result['venues'].should eql []
     end

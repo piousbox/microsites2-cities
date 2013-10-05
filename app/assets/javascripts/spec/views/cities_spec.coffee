@@ -66,16 +66,6 @@ describe "Cities Views", ->
         map_view = new Views.Cities.Map({ model: new Models.Cities() })
         expect( map_view ).toBeDefined()
         expect( map_view.sanity ).toBeTruthy( 'Saaanity of map view' )
-
-  describe 'city', ->
-    describe 'right menu', -> 
-      it 'is defined', ->
-        one = new Views.City.RightMenu({ 'model': new Models.City('San_Francisco') })
-        expect( one ).toBeDefined()
-    describe 'city#show', ->
-      it 'is defined', ->
-        result = new Views.City.Show()
-        expect( result ).toBeDefined()
       
   describe "views", ->
     it 'deactivates all', ->

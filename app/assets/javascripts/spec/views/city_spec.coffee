@@ -12,6 +12,16 @@ describe "City Views", ->
       expect( $('#city_map-template').length ).toEqual( 1, 'City Map template must be defined' )
       expect( $('#city_show-template').length ).toEqual( 1, 'City Show template must be defined' )
 
+  describe 'right menu', -> 
+    it 'is defined', ->
+      one = new Views.City.RightMenu({ model: new Models.City('San_Francisco') })
+      expect( one ).toBeDefined()
+        
+  describe 'city#show', ->
+    it 'is defined', ->
+      result = new Views.City.Show({ model: new Models.City('San_Francisco') })
+      expect( result ).toBeDefined()
+
   describe 'show', ->
     it 'is instantiable', ->
       city_model = new Models.City({ cityname: 'Rio_de_Janeiro' })
@@ -21,13 +31,4 @@ describe "City Views", ->
     it 'renders a report when clicking on a report-link', ->
       city_model = new Models.City({ cityname: 'Rio_de_Janeiro' })
       city_view = new Views.City.Show({ model: city_model })
-
-    it 'has a list of videos', ->
-      expect( false ).toBeTruthy()
-
-    it 'has a list of venues', ->
-      expect( false ).toBeTruthy()
-
-    it 'has a list of current_users', ->
-      expect( false ).toBeTruthy()
 
