@@ -54,12 +54,13 @@ $(document).ready ->
     events:
       # 'click li.newsitems-link a': 'show_newsitems'
       'click li.cities-link a': 'show_cities'
+      'click .home-link': 'show_home'
 
     initialize: (item) ->
       # so far I think I have no model for this view.
       #
       # @model = item.model
-      _.bindAll @, 'show_cities' # , 'show_newsitems'
+      _.bindAll @, 'show_cities', 'show_home'
 
     show_cities: (item) ->
       @deactivate_all()
@@ -75,6 +76,11 @@ $(document).ready ->
     #   U.models.newsitems.fetch
     #     success: ->
     #       MyApp.right_region.show( U.views.newsitems )
+
+    show_home: (nothing) ->
+      # console.log( 'showing home' )
+      U.views.cities.home = new Views.Cities.Home({ model: U.models.site })
+      MyApp.right_region.show( U.views.cities.home )
 
     deactivate_all: (item) ->
       while $(".right-menu ul li a.active").length > 0

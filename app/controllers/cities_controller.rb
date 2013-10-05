@@ -79,8 +79,7 @@ class CitiesController < ApplicationController
             @city[:j_users] << user
           end
 
-          @city[:reports] = @city.reports.where( :is_trash => false, :is_public => true ).to_a
-          # @city[:n_reports] = @city.reports.length
+          @city[:j_reports] = @city.j_reports
 
           @city[:videos] = @city.videos.to_a
           # @city[:n_videos] = @city.videos.length

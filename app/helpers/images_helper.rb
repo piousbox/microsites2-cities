@@ -1,6 +1,6 @@
 
 module ImagesHelper
-
+  
   def image_flag locale
     image_tag "flags/#{locale.to_s}.png"
   end

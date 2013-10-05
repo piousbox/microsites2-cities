@@ -18,14 +18,34 @@
 %script#cities_right_menu-template{:type => "text/template"}
   %ul
     -# %li.newsitems-link= link_to 'Home', "javascript:alert('Not Implemented.');"
-    %li.home-link= link_to 'Home', "javascript:alert('Not Implemented.');"
+    %li.home-link= link_to 'Home', "javascript:void(0);"
 
 %script#city_calendar-template{:type => "text/template"}
   .calendar
     <%= calendar_frame %>
 
 %script#cities_home-template{:type => "text/template"}
-  %h3 Welcome home!
+  -# %h3 Welcome home!
+  .reports-list
+    %ul
+      <% _.each( reports, function(report) { %>
+      %li
+        <img src="<%= report.photo_url %>" alt="<%= report.name %>" /></a>
+        
+        %h5
+          <a href="javascript:void(0)" name_seo="<%= report.name_seo %>" class="report-link"><%= report.name %></a>
+        .meta
+          On <%= report.created_at %>
+          By <%= report.username %>
+          
+          <% if ( report.tag_name.length > 0 ) { %>
+          In <%= report.tag_name %>
+          <% } %>
+        .subhead
+          <%= report.subhead %>
+        .c
+      <% }) %>
+  
 
 %script#city_map-template{:type => "text/template"}
   .map-container#cities_show_canvas
@@ -78,12 +98,26 @@
       .c
     <% } %>
     
-    <% if ( reports.length > 0 ) { %>
+    <% if ( j_reports.length > 0 ) { %>
     .reports-list
       %h4 Reports
       %ul
-        <% _.each( reports, function(item) { %>
-        %li <a href="javascript:void(0)" name_seo="<%= item.name_seo %>" class="report-link"><%= item.name %></a>
+        <% _.each( j_reports, function(report) { %>
+        %li
+          <img src="<%= report.photo_url %>" alt="<%= report.name %>" /></a>
+          %h5
+            <a href="javascript:void(0)" name_seo="<%= report.name_seo %>" class="report-link"><%= report.name %></a>
+          .meta
+            On <%= report.created_at %>
+            By <%= report.username %>
+       
+            <% if ( report.tag_name.length > 0 ) { %>
+            In <%= report.tag_name %>
+            <% } %>
+          .subhead
+            <%= report.subhead %>
+          .c
+
         <% }) %>
     <% } %>
 

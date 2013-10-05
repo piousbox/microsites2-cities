@@ -131,6 +131,10 @@ class ApplicationController < ActionController::Base
       redirect_to "#{request.protocol}#{lang}m.#{request.domain}#{port}#{request.path}"
     end
   end
+
+  def pretty_date args
+    args.strftime('%Y-%m-%d')
+  end
   
 end
 

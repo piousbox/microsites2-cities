@@ -64,7 +64,7 @@ describe CitiesController do
       result = JSON.parse( response.body )
       result['j_galleries'].should eql []
       result['events'].should eql []
-      result['reports'].should eql []
+      result['j_reports'].should eql []
       result['j_users'].should eql []
       result['videos'].should eql []
       result['venues'].should eql []

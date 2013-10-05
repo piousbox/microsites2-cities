@@ -3,14 +3,26 @@ $(document).ready ->
   Views.Cities.Home = Backbone.Marionette.ItemView.extend
     template: '#cities_home-template'
 
+    events:
+      'click .report-link': 'show_report' # U.views.city.show.show_report
+
     initialize: (options) ->
-      # I don't want it there right now
+      _.bindAll @, "afterRender", 'show_report'
       # @on('render', @afterRender)
-      _.bindAll @, "afterRender"
+
+      @model = options.model        
 
     afterRender: ->
       ad_content = $('.ad-large-rectangle')[0].innerHTML
       this.$el.append( ad_content )
+
+    show_report: (item) ->
+      name_seo = item.currentTarget.attributes.name_seo.value
+      U.models.report = new Models.Report({ name_seo: name_seo })
+      U.views.report = new Views.Report.Show({ model: U.models.report })
+      U.models.report.fetch
+        success: ->
+          MyApp.left_region.show( U.views.report )
 
   Views.Cities.IndexItem = Backbone.Marionette.ItemView.extend
     model: Models.City

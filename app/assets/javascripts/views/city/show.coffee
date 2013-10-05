@@ -51,13 +51,13 @@ $(document).ready ->
           MyApp.left_region.show( U.views.event )
         
     show_report: (item) ->
-      name_seo = item.currentTarget.attributes.name_seo.value
-      console.log( 'showing report ' + name_seo )
-      U.models.report = new Models.Report({ name_seo: name_seo })
-      U.views.report = new Views.Report.Show({ model: U.models.report })
-      U.models.report.fetch
-        success: ->
-          MyApp.left_region.show( U.views.report )
+      U.views.cities.home.show_report( item )
+#      name_seo = item.currentTarget.attributes.name_seo.value
+#      U.models.report = new Models.Report({ name_seo: name_seo })
+#      U.views.report = new Views.Report.Show({ model: U.models.report })
+#      U.models.report.fetch
+#        success: ->
+#          MyApp.left_region.show( U.views.report )
 
     show_gallery: (item) ->
       a = 'a'

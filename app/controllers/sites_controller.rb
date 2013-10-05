@@ -4,7 +4,17 @@ class SitesController < ApplicationController
   def show
     authorize! :show, @site
     @j_site = {}
-    @j_site[:reports] = @site.reports.to_a
+    @j_site[:reports] = []
+    @site.reports.where( :city => nil ).order_by( :created_at => :desc ).each do |r| # .page( params[:reports_page] )
+      rr = r.clone
+      rr[:photo_url] = r.photo.photo.url( :thumb ) unless r.photo.blank?
+      rr[:photo_url] ||= '/assets/missing.png'
+      rr[:username] = r.user.username
+      rr.created_at = pretty_date( r.created_at )
+      rr[:tag_name] = r.tag.name unless r.tag.blank?
+      rr[:tag_name] ||= ''
+      @j_site[:reports] << rr
+    end
     respond_to do |format|
       format.json do
         render :json => @j_site

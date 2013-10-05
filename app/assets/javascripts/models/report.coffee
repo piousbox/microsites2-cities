@@ -10,10 +10,12 @@ $(document).ready ->
         return "/reports.json"
 
     initialize: (item) ->
+      console.log item
       if item.name_seo
         @name_seo = item.name_seo
-      if item.cityname
+      else if item.cityname
         @cityname = item.cityname
+      console.log @name_seo
 
   Collections.Reports = Backbone.Collection.extend
     model: Models.Report
