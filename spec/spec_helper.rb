@@ -111,4 +111,15 @@ end
 def setup_photos
 end
 
+def setup_sites
+  Site.all.each { |s| s.remove }
+  @site = FactoryGirl.create :travel_guide_mobi
+  @request ||= FakeRequest.new
+  @request.host = 'travel-guide.mobi'
+end
+
+class FakeRequest
+  attr_accessor :host
+end
+
 

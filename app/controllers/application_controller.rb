@@ -4,10 +4,10 @@ require 'float'
 class ApplicationController < ActionController::Base
   protect_from_forgery
 
+  CACHE_OPTIONS = { :expires_in => 12.hours }
+
   before_filter :set_defaults
   before_filter :set_lists, :only => [ :new, :create, :update, :edit ]
-
-  include ActionController::Caching::Sweeping
   
   rescue_from CanCan::AccessDenied do |exception|
     redirect_to sign_in_path, :notice => t('users.please_sign_in')
@@ -57,14 +57,6 @@ class ApplicationController < ActionController::Base
     I18n.available_locales.include?(parsed_locale.to_sym) ? parsed_locale : :en
   end
 
-  def extract_layout_from_subdomain
-    if request.host.split('.').include? 'm'
-      @layout = 'organizer'
-    else
-      @layout = params[:layout] || 'application'
-    end
-  end
-
   def default_url_options(options={})
     options[:locale] = I18n.locale || I18n.default_locale
     # options[:layout] = @layout || 'application'
@@ -86,9 +78,8 @@ class ApplicationController < ActionController::Base
     # @locale = I18n.locale = extract_locale_from_subdomain
     @locale = I18n.locale = params[:locale] || 'en'
 
-    @layout = extract_layout_from_subdomain
-
     @domain = request.domain
+    @site = Site.where( :domain => @domain, :lang => @locale ).first
 
     @display_ads = true
     @display_help = false

@@ -67,4 +67,12 @@ describe CitiesController do
     end
   end
 
+  describe 'globals' do
+    setup_sites
+    get :show, :domainname => @site.domain
+    response.should be_success
+    assigns( :domain ).should_not eql nil
+    assigns( :site ).should_not eql nil
+  end
+
 end
