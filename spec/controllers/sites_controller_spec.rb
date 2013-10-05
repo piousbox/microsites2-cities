@@ -18,6 +18,7 @@ describe SitesController do
     @photo = Photo.all.first
 
     setup_cities
+    setup_sites
 
     verbosity = $-v
     $-v = nil
@@ -28,7 +29,7 @@ describe SitesController do
       get :show, :domainname => @site.domain, :format => :json 
       response.should be_success
       result = JSON.parse( response.body )
-      result.reports.should_not eql nil
+      result[:reports].should_not eql nil
     end
   end
 

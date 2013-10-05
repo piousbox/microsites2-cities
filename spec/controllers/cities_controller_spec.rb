@@ -33,10 +33,14 @@ describe CitiesController do
   end
 
   describe '#index' do
-    it 'GETs english index' do
+    it 'GETs english index & GLOBALS' do
+      setup_sites
+
       get :index
       response.should be_success
       response.should render_template( 'empty' )
+      assigns( :site ).should_not eql nil
+      assigns( :domain ).should_not eql nil
     end
 
     it 'GETs json' do
@@ -67,12 +71,5 @@ describe CitiesController do
     end
   end
 
-  describe 'globals' do
-    setup_sites
-    get :show, :domainname => @site.domain
-    response.should be_success
-    assigns( :domain ).should_not eql nil
-    assigns( :site ).should_not eql nil
-  end
 
 end
