@@ -5,12 +5,16 @@ $(document).ready ->
     model: Models.Report
 
     initialize: ->
-      # the below works, but I don't want the ad there.
-      # @on('render', @afterRender)
+      _.bindAll @, 'after_render'
+      @on('render', @after_render)
 
-    afterRender: ->
-      ad_content = $('.ad-large-rectangle')[0].innerHTML
-      this.$el.append( ad_content )
+    after_render: ->
+      # ad - should not be there.
+      #
+      # ad_content = $('.ad-large-rectangle')[0].innerHTML
+      # this.$el.append( ad_content )
+
+      this.$el.fadeOut().fadeIn()
 
   Views.Reports.ShowMap = Backbone.Marionette.ItemView.extend
     template: '#reports-showmap-template'

@@ -24,8 +24,7 @@
   .calendar
     <%= calendar_frame %>
 
-%script#cities_home-template{:type => "text/template"}
-  -# %h3 Welcome home!
+%script#cities_home-template{:type => "text/template"}    
   .reports-list
     %ul
       <% _.each( reports, function(report) { %>
@@ -53,105 +52,10 @@
 %script#cities_map-template{:type => "text/template"}
   .map-container#cities_index_canvas
 
--# %script#cities_index-template{ :type => 'text/template' }
--#   .cities-index
--#     %h1 Cities Index
--#     .items
--#     .home-ad
-
 %script#cities_index_item-template{ :type => 'text/template' }
   .cities-index-item
     <a href="javascript:void(0)" cityname="<%= cityname %>" class="city-link" ><%= name %></a>
 
-%script#city_show-template{ :type => 'text/template' }
-  .city-show
-    .meta
-      [<a href="<%= permalink %>" >Permalink</a>]
-
-    %h3
-      <a href="<%= permalink %>" ><%= name %></a>
-      
-    -# .guide Guide
-    -# .today Today
-    .c
-      
-    <% if ( events.length > 0 ) { %>
-    .events-list
-      %h4 Events
-      %ul
-        <% _.each( events, function(event) { %>
-        %li <%= event.date.substring(0, 10) %> <a href="javascript:void(0)" name_seo="<%= event.name_seo %>" class="event-link"><%= event.name %></a>
-        <% }) %>
-    <% } %>
-    
-    <% if ( j_galleries.length > 0 ) { %>
-    .galleries-list
-      %h4 Galleries
-      %ul
-        <% _.each( j_galleries, function(gallery) { %>
-        %li
-          <a href="javascript:void(0)" galleryname="<%= gallery.galleryname %>" class="gallery-link thumb">
-          <img src="<%= gallery.photo_url %>" alt="<%= gallery.name %>" /></a>
-          <a href="javascript:void(0)" galleryname="<%= gallery.galleryname %>" class="gallery-link text">
-          <%= gallery.name %></a>
-        <% }) %>
-      .c
-    <% } %>
-    
-    <% if ( j_reports.length > 0 ) { %>
-    .reports-list
-      %h4 Reports
-      %ul
-        <% _.each( j_reports, function(report) { %>
-        %li
-          <img src="<%= report.photo_url %>" alt="<%= report.name %>" /></a>
-          %h5
-            <a href="javascript:void(0)" name_seo="<%= report.name_seo %>" class="report-link"><%= report.name %></a>
-          .meta
-            On <%= report.created_at %>
-            By <%= report.username %>
-       
-            <% if ( report.tag_name.length > 0 ) { %>
-            In <%= report.tag_name %>
-            <% } %>
-          .subhead
-            <%= report.subhead %>
-          .c
-
-        <% }) %>
-    <% } %>
-
-    <% if ( videos.length > 0 ) { %>
-    .videos-list
-      %h4= t('videos.list')
-      %ul
-        <% _.each( videos, function(item) { %>
-        %li
-          <img src="http://img.youtube.com/vi/<%= item.youtube_id %>/1.jpg" alt="" />
-          <%= item.youtube_id %> --
-          <%= item.name %>
-        <% }) %>
-    <% } %>
- 
-    <% if ( j_users.length > 0 ) { %>
-    .users-list
-      %h4= t('users.list')
-      %ul
-        <% _.each( j_users, function(item) { %>
-        %li
-          <img src="<%= item.profile_photo_path %>" alt="" />
-          <%= item.username %>
-        <% }) %>
-    <% } %>
-      
-    <% if ( venues.length > 0 ) { %>
-    .venues-list
-      %h4= t('venues.list')
-      %ul
-        <% _.each( venues, function(item) { %>
-        %li <%= item.name %>
-        <% }) %>
-    <% } %>
 
 
 

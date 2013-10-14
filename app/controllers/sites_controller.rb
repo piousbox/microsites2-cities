@@ -15,6 +15,8 @@ class SitesController < ApplicationController
       rr[:tag_name] ||= ''
       @j_site[:reports] << rr
     end
+    @j_site[:newsitems] = @site.newsitems.to_a
+
     respond_to do |format|
       format.json do
         render :json => @j_site
