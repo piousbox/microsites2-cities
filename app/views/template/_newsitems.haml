@@ -1,8 +1,9 @@
     
 %script#newsitems_show_small-template{:type => "text/template"}
   .item
-    <a href="<%= link_path %>"><%= title %></a>
-
+    -# <a href="<%= link_path %>"><%= title %></a>
+    <a galleryname="<%= galleryname %>" class='gallery-link' href="javascript:void(0);"><%= title %></a>
+    
 %script#newsitems_report-template{:type => "text/template"}
   .newsitem
     Newsitem report

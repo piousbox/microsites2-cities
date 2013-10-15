@@ -23,7 +23,9 @@ class Photo
   belongs_to :tag
   belongs_to :venue
   belongs_to :feature
-  
+
+  default_scope where( :is_trash => false, :is_public => true ).order_by( :created_at => :desc )
+
   field :name, :type => String
   # field :descr, :type => String
 

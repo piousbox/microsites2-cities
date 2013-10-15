@@ -3,6 +3,7 @@ $(document).ready ->
   if $("body#cities_index").length > 0 || $("#spec_runner_pqf").length > 0
 
     U.models.cities = new Models.Cities()
+    U.models.city = new Models.City({ cityname: 'San_Francisco' })
     U.models.site = new Models.Site({ domain: 'travel-guide.mobi' })
     U.collections.galleries = new Collections.SiteGalleries({ domain: 'travel-guide.mobi' })
 
@@ -10,6 +11,7 @@ $(document).ready ->
     U.views.cities.map = new Views.Cities.Map({ model: U.models.cities })
     U.views.cities.right_menu = new Views.Cities.RightMenu({ model: U.models.cities })
     U.views.cities.left_menu = new Views.Cities.LeftMenu({ model: U.models.cities })
+    U.views.city.show = new Views.City.Show({ model: U.models.city })
 
     U.collections.newsitems = new Collections.Newsitems.Index({})
     U.views.sites.newsitems = new Views.Newsitems.Index({ collection: U.collections.newsitems })

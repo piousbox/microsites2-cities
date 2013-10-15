@@ -41,7 +41,7 @@ class SitesController < ApplicationController
         newsitems = []
         @site.newsitems.map do |n|
           if !n.gallery.blank?
-            newsitems << { :link_path => gallery_path( n.gallery.galleryname, 0 ), :title => n.gallery.name }
+            newsitems << { :link_path => gallery_path( n.gallery.galleryname, 0 ), :title => n.gallery.name, :galleryname => n.gallery.galleryname }
           end
         end
         render :json => newsitems
