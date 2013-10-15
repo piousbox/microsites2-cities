@@ -20,7 +20,7 @@ $(document).ready ->
     initialize: (options) ->
       _.bindAll @, "afterRender", 'show_report', 'show_gallery'
       # @on('render', @afterRender)
-      @model = options.model        
+      @model = options.model
 
     afterRender: ->
       ad_content = $('.ad-large-rectangle')[0].innerHTML

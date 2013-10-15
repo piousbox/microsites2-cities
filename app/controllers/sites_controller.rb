@@ -32,6 +32,15 @@ class SitesController < ApplicationController
       end
     end
   end
+
+  def newsitems
+    authorize! :newsitems, @site
+    respond_to do |format|
+      format.json do
+        render :json => @site.newsitems.to_a
+      end
+    end
+  end
   
 end
 

@@ -1,5 +1,8 @@
 
 U = {
+    lang: 'en', 
+    locale: 'en',
+    domain: 'travel-guide.mobi',
   collections: {},
   views: {
     cities: {},
@@ -8,6 +11,7 @@ U = {
     newsitems: {},
     places: {},
     reports: {},
+    sites: {},
     users: {},
     venues: {},
     videos: {},
@@ -35,7 +39,10 @@ Utils = {}
 HF = {}
 
 Models = {}
-Collections = {}
+Collections = {
+    Sites: {},
+    Newsitems: {}
+}
 Views = {
   Cities: {},
   City: {},
@@ -47,6 +54,7 @@ Views = {
   Newsitems: {},
   Report: {},
   Reports: {},
+  Sites: {},
   Users: {},
   Venues: {},
   Videos: {}

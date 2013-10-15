@@ -1,18 +1,25 @@
 
 $(document).ready ->        
   if $("body#cities_index").length > 0 || $("#spec_runner_pqf").length > 0
+
     U.models.cities = new Models.Cities()
     U.models.site = new Models.Site({ domain: 'travel-guide.mobi' })
+    U.collections.galleries = new Collections.SiteGalleries({ domain: 'travel-guide.mobi' })
+    U.collections.newsitems = new Collections.Newsitems.Index({})
 
     U.views.cities.index = new Views.Cities.Index()
     U.views.cities.map = new Views.Cities.Map({ model: U.models.cities })
     U.views.cities.right_menu = new Views.Cities.RightMenu({ model: U.models.cities })
     U.views.cities.left_menu = new Views.Cities.LeftMenu({ model: U.models.cities })
-    U.views.cities.home = new Views.Cities.Home({ model: U.models.site })
+    U.views.sites.newsitems = new Views.Newsitems.Index({ collection: U.collections.newsitems })
 
-    U.models.site.fetch
-      success: ->
-        MyApp.right_region.show( U.views.cities.home )
+    #
+    # this works, but I want to render a collection of newsitems instead
+    #
+    # U.views.cities.home = new Views.Cities.Home({ model: U.models.site })
+    # U.models.site.fetch
+    #   success: ->
+    #     MyApp.right_region.show( U.views.cities.home )
    
     MyApp.start()
     # router = new U.Router()

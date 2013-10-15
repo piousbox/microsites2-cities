@@ -14,3 +14,11 @@ $(document).ready ->
     initialize: (item) ->
       console.log( 'collections.siteGalleries#initialize' )
 
+
+  Collections.Sites.Newsitems = Backbone.Collection.extend
+    url: ->
+      return U.lang + '/sites/' + U.domain + '/newsitems.json'
+
+    initialize: (item) ->
+      console.log( 'collections.sites.newsitems#initialize' )
+

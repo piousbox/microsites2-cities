@@ -4,10 +4,10 @@ $(document).ready ->
     url: ->
       return '/'
 
-  Collections.Newsitems = Backbone.Collection.extend  
+  Collections.Newsitems.Index = Backbone.Collection.extend  
     model: Models.Newsitem
     
     url: ->
-      return "/en/newsitems.json"
+      return U.lang + '/sites/' + U.domain + '/newsitems.json'
 
       
