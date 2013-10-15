@@ -1,7 +1,10 @@
 $(document).ready ->
  
-  Views.Cities.Home = Backbone.Marionette.ItemView.extend
+  Views.Cities.Home = Backbone.Marionette.CompositeView.extend
     template: '#cities_home-template'
+
+    getItemView: (which_model) ->
+      return Views.Newsitems.Gallery
 
     events:
       'click .report-link': 'show_report' # U.views.city.show.show_report
