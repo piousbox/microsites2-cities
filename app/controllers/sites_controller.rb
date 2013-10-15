@@ -34,10 +34,17 @@ class SitesController < ApplicationController
   end
 
   def newsitems
+    @site = Site.where( :domain => 'travel-guide.mobi', :lang => 'en' ).first
     authorize! :newsitems, @site
     respond_to do |format|
       format.json do
-        render :json => @site.newsitems.to_a
+        newsitems = []
+        @site.newsitems.map do |n|
+          if !n.gallery.blank?
+            newsitems << { :link_path => gallery_path( n.gallery.galleryname, 0 ), :title => n.gallery.name }
+          end
+        end
+        render :json => newsitems
       end
     end
   end
