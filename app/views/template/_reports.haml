@@ -1,6 +1,4 @@
-//
-// show
-//
+
 %script#report_show-template{:type => "text/template"}
   .report
     .vote
@@ -14,13 +12,9 @@
     <img src="<%= photo_url %>" alt="<%= name %>" />
     .descr <%= descr %>
 
-// showmap
 %script#reports-showmap-template{ :type => 'text/template' }
   <div id="reports_show_canvas" x="<%= x %>" y="<%= y %>" name_seo="<%= name_seo %>"></div>
 
-//
-// show small
-//
 %script#report_small-template{:type => "text/template"}
   .report-small
     .vote
@@ -53,3 +47,7 @@
           <%= report.subhead %>
         .c
       <% }) %>
+
+%script#reports_indexitem-template{:type => "text/template"}    
+  .report-indexitem
+    &nbsp;

@@ -47,3 +47,12 @@ $(document).ready ->
           U.views.gallery = new Views.Galleries.Show
             model: U.models.gallery
           MyApp.left_region.show( U.views.gallery )
+
+  Views.Galleries.IndexItem = Backbone.Marionette.ItemView.extend
+    template: '#galleries_indexitem-template'
+
+    initialize: ->
+      _.bindAll @, 'nothing'
+
+    nothing: ->
+      console.log( 'nothing' )

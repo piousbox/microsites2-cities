@@ -79,3 +79,7 @@ $(document).ready ->
           MyApp.right_region.show( U.views.report_canvas )
 
           CanvasOps.reports_show()
+
+  Views.Reports.IndexItem = Backbone.Marionette.ItemView.extend
+    template: '#reports_indexitem-template'
+    model: Models.Report

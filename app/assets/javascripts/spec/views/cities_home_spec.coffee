@@ -16,3 +16,4 @@ describe "Cities Home Views", ->
       the_model = new Models.Site({ domain: 'travel-guide.mobi' })
       composite_view = new Views.Cities.Home({ model: the_model })
       expect( composite_view ).toBeDefined()
+      expect( composite_view instanceof Views.Cities.Home ).toBeTruthy()
