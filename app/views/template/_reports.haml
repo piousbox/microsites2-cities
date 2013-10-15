@@ -31,3 +31,25 @@
     .meta By <%= username %>
     <div class='bg-image'><img src="<%= photo_url %>" alt='' /></div>
     .subhead <%= subhead %>
+    
+%script#reports_list-template{:type => "text/template"}    
+  .reports-list
+    %h3.trash Reports List Template
+    %ul
+      <% _.each( reports, function(report) { %>
+      %li
+        <img src="<%= report.photo_url %>" alt="<%= report.name %>" /></a>
+        
+        %h5
+          <a href="javascript:void(0)" name_seo="<%= report.name_seo %>" class="report-link"><%= report.name %></a>
+        .meta
+          On <%= report.created_at %>
+          By <%= report.username %>
+          
+          <% if ( report.tag_name.length > 0 ) { %>
+          In <%= report.tag_name %>
+          <% } %>
+        .subhead
+          <%= report.subhead %>
+        .c
+      <% }) %>

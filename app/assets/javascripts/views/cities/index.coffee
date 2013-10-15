@@ -5,11 +5,11 @@ $(document).ready ->
 
     events:
       'click .report-link': 'show_report' # U.views.city.show.show_report
+      'click .gallery-link': 'show_gallery'
 
     initialize: (options) ->
-      _.bindAll @, "afterRender", 'show_report'
+      _.bindAll @, "afterRender", 'show_report', 'show_gallery'
       # @on('render', @afterRender)
-
       @model = options.model        
 
     afterRender: ->
@@ -23,6 +23,9 @@ $(document).ready ->
       U.models.report.fetch
         success: ->
           MyApp.left_region.show( U.views.report )
+
+    show_gallery: (item) ->
+      console.log( 'views.cities.home#show_gallery' )
 
   Views.Cities.IndexItem = Backbone.Marionette.ItemView.extend
     model: Models.City
