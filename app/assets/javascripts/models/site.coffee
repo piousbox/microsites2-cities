@@ -6,3 +6,11 @@ $(document).ready ->
         
     initialize: (item) ->
       a = 'a'
+
+  Collections.SiteGalleries = Backbone.Collection.extend
+    url: ->
+      return U.lang + '/sites/travel-guide.mobi/galleries.json'
+
+    initialize: (item) ->
+      console.log( 'collections.siteGalleries#initialize' )
+

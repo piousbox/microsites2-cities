@@ -105,7 +105,7 @@ class Ability
       r.is_public && !r.is_trash
     end
 
-    can [ :show ], Site
+    can [ :show, :galleries ], Site
 
     can [ :index, :search, :not_found, :show ], Tag
         

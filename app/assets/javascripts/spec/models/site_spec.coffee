@@ -1,14 +1,20 @@
 
 describe "Site", ->
 
+  beforeEach ->
+    U.lang = 'en'
+    @domain = 'travel-guide.mobi'
+
   it 'instantiates models', ->
-    domain = 'travel-guide.mobi'
-    U.models.site = new Models.Site( domain: domain )
+    U.models.site = new Models.Site( domain: @domain )
     U.models.site.fetch
       success: ->
-        expect( U.models.site.get('domain') ).toEqual( domain )
+        expect( U.models.site.get('domain') ).toEqual( @domain )
       
 
+  it 'collections.siteGalleries', ->
+    collection = new Collections.SiteGalleries
+    expect( collection ).toBeDefined()
 
 
 

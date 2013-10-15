@@ -118,6 +118,11 @@ Microsites2::Application.routes.draw do
     get 'v', :to => 'utils/utils#version', :as => :version
 
     get 'sitemap', :to => 'utils/sitemaps#sitemap', :as => :sitemap
+
+    # sites
+    get 'sites/:domainname/galleries.json', { 
+      :to => 'sites#galleries', :as => :site_galleries, :format => :json, :constraints => { :domainname => /.*/, :format => /json/ } 
+    }
     get "sites/:domainname.json", :to => "sites#show", :as => :site, :format => :json, :constraints => { :domainname => /.*/, :format => /json/ }
 
     match '*other', :to => 'errors#five_hundred'

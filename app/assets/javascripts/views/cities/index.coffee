@@ -6,9 +6,12 @@ $(document).ready ->
     itemView: Views.Reports.IndexItem
 
     getItemView: (which_model) ->
-      console.log( 'views.cities.home#getItemView' )
-      console.log( which_model )
-      return Views.Galleries.IndexItem
+      if !which_model
+        return this.itemView
+      else
+        console.log( 'views.cities.home#getItemView' )
+        console.log( which_model )        
+        return Views.Galleries.IndexItem
 
     events:
       'click .report-link': 'show_report' # U.views.city.show.show_report

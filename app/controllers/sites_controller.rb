@@ -21,8 +21,16 @@ class SitesController < ApplicationController
       format.json do
         render :json => @j_site
       end
+    end  
+  end
+
+  def galleries
+    authorize! :galleries, @site
+    respond_to do |format|
+      format.json do
+        render :json => @site.galleries.to_a
+      end
     end
-    
   end
   
 end

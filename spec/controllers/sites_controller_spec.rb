@@ -3,6 +3,9 @@ describe SitesController do
   render_views
 
   before :each do
+    setup_cities
+    setup_sites
+
     User.all.each { |f| f.remove }
     @user = FactoryGirl.create :user
     
@@ -13,12 +16,11 @@ describe SitesController do
 
     Gallery.all.each { |g| g.remove }
     @gallery = FactoryGirl.create :gallery
+    @gallery.site = @site
+    @gallery.save
 
     setup_photos
     @photo = Photo.all.first
-
-    setup_cities
-    setup_sites
 
     verbosity = $-v
     $-v = nil
@@ -31,6 +33,13 @@ describe SitesController do
       result = JSON.parse( response.body )
       result['reports'].should_not eql nil
     end
+  end
+ 
+  it '#galleries' do
+    get :galleries, :domainname => @site.domain, :format => :json
+    response.should be_success
+    result = JSON.parse( response.body )
+    result.length.should > 0
   end
 
 end
