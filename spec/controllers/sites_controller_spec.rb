@@ -4,11 +4,8 @@ describe SitesController do
 
   before :each do
     setup_cities
-    setup_sites
 
-    n = Newsitem.new :descr => 'blah blah'
-    @site.newsitems << n
-    @site.save
+    setup_sites
 
     User.all.each { |f| f.remove }
     @user = FactoryGirl.create :user
@@ -46,11 +43,19 @@ describe SitesController do
     result.length.should > 0
   end
 
-  it '#newsitems' do
-    get :newsitems, :domainname => @site.domain, :format => :json
-    response.should be_success
-    result = JSON.parse( response.body )
-    result.length.should > 0
+  describe '#newsitems' do
+    before :each do
+      n = Newsitem.new :descr => 'some description', :gallery => Gallery.all.first
+      @site.newsitems << n
+      @site.save
+    end
+
+    it 'does' do
+      get :newsitems, :domainname => @site.domain, :format => :json
+      response.should be_success
+      result = JSON.parse( response.body )
+      result.length.should > 0
+    end
   end
 
 end

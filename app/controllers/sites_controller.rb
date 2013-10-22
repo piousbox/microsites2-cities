@@ -34,7 +34,7 @@ class SitesController < ApplicationController
   end
 
   def newsitems
-    @site = Site.where( :domain => 'travel-guide.mobi', :lang => 'en' ).first
+    # @site = Site.where( :domain => 'travel-guide.mobi', :lang => 'en' ).first
     authorize! :newsitems, @site
     respond_to do |format|
       format.json do
