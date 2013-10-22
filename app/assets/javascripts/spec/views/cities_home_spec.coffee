@@ -8,11 +8,11 @@ describe "Cities Home Views", ->
   afterEach ->
     a = 'a'
 
-  describe "templates", ->
+  it "templates", ->
     expect( $('#cities_home-template').length ).toEqual( 1, 'Cities Home template must be defined' )
     expect( $('#sites_newsitems-template').length ).toEqual( 1, 'Sites Newsitems Index template must be defined' )
 
-  describe '#show', ->
+  it '#show', ->
     composite_view = new Views.Cities.Home({ model: @site_model })
     expect( composite_view ).toBeDefined()
     expect( composite_view instanceof Views.Cities.Home ).toBeTruthy()

@@ -39,7 +39,7 @@ describe "Cities Views", ->
   describe 'cities', ->
     describe 'right menu', ->
       it 'shows cities', ->
-        U.models.newsitems = new Collections.Newsitems()
+        U.models.newsitems = new Collections.Newsitems.Index({})
         specimen = new Views.Cities.RightMenu({ model: U.models.city })
         expect( specimen.show_cities($ 'body' ) ).toBeDefined()
         # expect( specimen.show_newsitems($ 'body' ) ).toBeDefined( 'Show newsitems is defined' )
