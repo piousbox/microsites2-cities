@@ -84,6 +84,6 @@
       %h4= t('venues.list')
       %ul
         <% _.each( venues, function(item) { %>
-        %li <%= item.name %>
+        %li <a class='venue-link' href="javascript:void(0)" name_seo="<%= item.name_seo %>"><%= item.name %></a>
         <% }) %>
     <% } %>

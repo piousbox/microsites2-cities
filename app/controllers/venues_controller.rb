@@ -16,7 +16,14 @@ class VenuesController < ApplicationController
       end
     else
       authorize! :not_found, Venue.new
-      render :not_found
+      respond_to do |format|
+        format.html do
+          render :not_found
+        end
+        format.json do
+          render :json => Venue.new( :name => 'Venue not Found' )
+        end
+      end
     end
   end
 

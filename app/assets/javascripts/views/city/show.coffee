@@ -14,9 +14,10 @@ $(document).ready ->
       'click a.event-link': 'show_event'
       'click a.report-link': 'show_report'
       'click a.gallery-link': 'show_gallery'
+      'click a.venue-link': 'show_venue'
 
     initialize: (item) ->
-      _.bindAll @, 'show_event', 'show_report', 'show_gallery', 'show_map'
+      _.bindAll @, 'show_event', 'show_report', 'show_gallery', 'show_map', 'show_venue'
 
       @model = item.model
       @model.fetch
@@ -49,6 +50,14 @@ $(document).ready ->
       U.models.event.fetch
         success: ->
           MyApp.left_region.show( U.views.event )
+
+    show_venue: (item) ->
+      venuename = item.currentTarget.attributes.name_seo.value
+      U.models.venue = new Models.Venue({ name_seo: venuename })
+      U.views.venue = new Views.Venues.Show({ model: U.models.venue })
+      U.models.venue.fetch
+        success: ->
+          MyApp.left_region.show( U.views.venue )
         
     show_report: (item) ->
       U.views.cities.home.show_report( item )
