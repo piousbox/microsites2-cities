@@ -1,6 +1,7 @@
 
-$(document).ready ->        
-  if $("body#cities_index").length > 0 || $("#spec_runner_pqf").length > 0
+
+$(document).ready ->
+  U.initialize_cities = ->
 
     U.models.cities = new Models.Cities()
     # U.models.city = new Models.City({ cityname: 'San_Francisco' })
@@ -33,5 +34,8 @@ $(document).ready ->
     MyApp.right_menu.show( U.views.cities.right_menu )
     MyApp.left_menu.show( U.views.cities.left_menu )
     MyApp.left_region.show( U.views.cities.map )
+
+  if $("body#cities_index").length > 0 || $("#spec_runner_pqf").length > 0
+    U.initialize_cities()
 
     

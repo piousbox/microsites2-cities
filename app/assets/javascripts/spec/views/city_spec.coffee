@@ -9,7 +9,6 @@ describe "City Views", ->
 
   describe "templates", ->
     it 'everything', ->
-      expect( $('#city_map-template').length ).toEqual( 1, 'City Map template must be defined' )
       expect( $('#city_show-template').length ).toEqual( 1, 'City Show template must be defined' )
 
   describe 'right menu', -> 

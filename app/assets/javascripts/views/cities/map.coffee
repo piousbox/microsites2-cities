@@ -9,12 +9,17 @@ $(document).ready ->
     
     initialize: (item) ->
       _.bindAll this, 'show_map'
+      current_view = this
       @model = item.model
       @model.fetch
         success: ->
-          U.views.cities.map.show_map()
+          current_view.show_map()
 
     show_map: ( nothing ) ->
+      this.sanity = 'map showed'
+      # @TODO trash remove
+      # console.log( "U.views.cities.map.show_map() is being called." )
+
       myOptions =
         zoom: 3
         center: new google.maps.LatLng(15.623037,-84.931644)
