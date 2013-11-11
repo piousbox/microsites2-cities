@@ -79,7 +79,7 @@ Microsites2::Application.routes.draw do
     # get 'galleries/new', :to => 'galleries#new', :as => :new_gallery
     get 'galleries/show/:galleryname/:photo_idx' => redirect { |params, request|
       "http://piousbox.com/#{params[:locale]}/galleries/show/#{params[:galleryname]}/#{params[:photo_idx]}"
-    }
+    }, :as => :gallery
     get 'galleries/show/:galleryname' => redirect { |params, request|
       "http://piousbox.com/#{params[:locale]}/galleries/show/#{params[:galleryname]}/0}"
     }
@@ -137,6 +137,9 @@ Microsites2::Application.routes.draw do
   get "/piousbox" => redirect { |params, request| "/en/users/show/piousbox" }
   get "/reports/view/:name_seo" => redirect { |params, request| "/en/reports/view/#{params[:name_seo]}" }
   get "/galleries/show/:galleryname" => redirect { |params, request| "http://piousbox.com/en/galleries/show/#{params[:galleryname]}/0" }
+  get "/galleries/show/:galleryname/:number" => redirect { |params, request|
+    "http://piousbox.com/en/galleries/show/#{params[:galleryname]}/#{params[:number]}" 
+  }
   get '/cities', :to => 'cities#index'
 
   #
