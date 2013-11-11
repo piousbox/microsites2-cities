@@ -2,13 +2,13 @@ class Utils::SitemapsController < ApplicationController
   skip_authorization_check
 
   def sitemap
-    @reports = Report.all.where( :is_trash => false, :is_public => true )
-    @galleries = Gallery.all.where( :is_trash => false, :is_public => true )
+    @reports = Report.all
+    @galleries = Gallery.all
     @videos = []
     @tags = []
-    @cities = []
-    @venues = []
-    @users = []
+    @cities = City.all
+    @venues = Venue.all
+    @users = User.all
 
     case @domain
     when 'travel-guide.mobi', 'staging.travel-guidel.mobi', 'mobi.local'

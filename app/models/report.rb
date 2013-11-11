@@ -1,4 +1,6 @@
+
 class Report   
+
   include Mongoid::Document
   include Mongoid::Timestamps
 
@@ -15,6 +17,8 @@ class Report
   scope :public, where( :is_public => true )
   field :is_feature, :type => Boolean, :default => false
   field :is_done, :type => Boolean, :default => true
+
+  default_scope where( :is_public => true, :is_trash => false ).order_by( :created_at => :desc )
   
   field :x, :type => Float
   field :y, :type => Float
@@ -43,23 +47,16 @@ class Report
     out = self.where( conditions).order_by( :name => :asc )
     [['', nil]] + out.map { |item| [ item.name, item.id ] }
   end
-  
+
+  PER_PAGE = 8  
   def self.paginates_per
-    12
+    self::PER_PAGE
   end
 
   def venue
-    return self.venues[0] || nil
+    self.venues[0] || nil
   end
-  
-  def self.all
-    self.where( :is_public => true, :is_trash => false ).order_by( :created_at => :desc )
-  end
-  
-  def self.not_tagged
-    Report.where( :tag_id => nil, :city => nil )
-  end
-  
+    
   def self.for_homepage args
     begin
       tag_ids = args[:main_tag].children_tags.map { |tag| tag._id } + [ args[:main_tag]._id ]
@@ -69,6 +66,16 @@ class Report
     end
   end
 
+  def self.clear
+    if Rails.env.test?
+      self.unscoped.each { |r| r.remove }
+    end
+  end
+
+  def self.not_tagged
+    Report.where( :tag_id => nil, :city => nil )
+  end
+  
   set_callback :create, :before do |doc|
     if doc.is_public && !doc.venue_ids.blank?
       doc.venue_ids.each do |venue_id|
@@ -80,12 +87,6 @@ class Report
         v.newsitems << n
         v.save
       end
-    end
-  end
-  
-  def self.clear
-    if Rails.env.test?
-      self.each { |r| r.remove }
     end
   end
 

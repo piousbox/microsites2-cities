@@ -17,27 +17,12 @@ Microsites2::Application.routes.draw do
     get '/contact', :to => 'welcome#contact', :as => :contact
     get '/privacy', :to => 'welcome#privacy', :as => :privacy
     get '/help', :to => 'welcome#help', :as => :help
-     
-    # get 'photos/new_profile_photo', :to => 'photos#new', :defaults => { :is_profile => true }, :as => :new_profile_photo
-    # get 'photos/new-for-gallery/:gallery_id', :to => 'photos#new', :as => :new_photo_for_gallery
-    # resources :photos
-  
-    # get 'tags/view/:name_seo', :to => 'tags#show', :as => :tag
-    # get 'tags/view/:name_seo/galleriespage/:galleries_page', :to => 'tags#show'
-    # resources :tags
     
-    get '/users', :to => 'users#index', :as => :users
-    get '/users/show/:username', :to => 'users#show', :as => :user
-    put '/users/:id/update', :to => 'users#update', :as => :user_update
-    # get '/users/:username/reports', :to => 'users#reports', :as => :user_reports
-    # get '/users/:username/reports/show/:name_seo', :to => 'users#report', :as => :user_report
-    # get '/users/:username/galleries', :to => 'users#galleries', :as => :user_galleries
-    get '/users/sign_in', :to => 'users#sign_in', :as => :sign_in
-    put '/users/show/:id', :to => 'users#update'
-    # get '/users/gallery/:galleryname', :to => 'users#gallery', :as => :user_gallery
-    # get '/users/in-city/:cityname', :to => 'users#index', :as => :users_in_city
-    # match '/users/search', :to => 'users#index', :as => :users_search
-    # get '/settings', :to => 'users#edit', :as => :settings
+    get 'users', :to => 'users#index', :as => :users
+    get 'users/show/:username', :to => 'users#show', :as => :user
+    put 'users/:id/update', :to => 'users#update', :as => :user_update
+    get 'users/sign_in', :to => 'users#sign_in', :as => :sign_in
+    put 'users/show/:id', :to => 'users#update'
     get 'users/organizer', :to => 'users#organizer', :as => :organizer
 
     #
@@ -92,13 +77,15 @@ Microsites2::Application.routes.draw do
     # get 'galleries/search', :to => 'galleries#search', :as => :search_galleries
     # get 'galleries/search/:q', :to => 'galleries#search'
     # get 'galleries/new', :to => 'galleries#new', :as => :new_gallery
-    get 'galleries/show/:galleryname/:photo_idx', :to => 'galleries#show', :as => :gallery, :constraints => { :photo_idx => /.*/ }
-    get 'galleries/show/:galleryname', :to => 'galleries#show'
-    get 'galleries/:style/:galleryname', :to => 'galleries#show', :as => :gallery_show_style
-    # get 'my/galleries', :to => 'galleries#index', :defaults => { :my => true }, :as => :my_galleries
+    get 'galleries/show/:galleryname/:photo_idx' => redirect { |params, request|
+      "http://piousbox.com/#{params[:locale]}/galleries/show/#{params[:galleryname]}/#{params[:photo_idx]}"
+    }
+    get 'galleries/show/:galleryname' => redirect { |params, request|
+      "http://piousbox.com/#{params[:locale]}/galleries/show/#{params[:galleryname]}/0}"
+    }
+    # get 'galleries/:style/:galleryname', :to => 'galleries#show', :as => :gallery_show_style
     get 'galleries/:id/edit', :to => 'galleries#edit', :as => :edit_gallery
-    post 'galleries/:id', :to => 'galleries#update', :as => :update_gallery
-    # resources :galleries
+    # post 'galleries/:id', :to => 'galleries#update', :as => :update_gallery
     
     ##
     ## videos
@@ -117,7 +104,7 @@ Microsites2::Application.routes.draw do
     
     get 'v', :to => 'utils/utils#version', :as => :version
 
-    get 'sitemap', :to => 'utils/sitemaps#sitemap', :as => :sitemap
+    get 'sitemap', :to => 'utils/sitemaps#sitemap'
 
     # sites
     get 'sites/:domainname/galleries.json', { 
@@ -129,12 +116,18 @@ Microsites2::Application.routes.draw do
     get "sites/:domainname.json", :to => "sites#show", :as => :site, :format => :json, :constraints => { :domainname => /.*/, :format => /json/ }
 
     match '*other', :to => 'errors#five_hundred'
-  end
+  end # end locale
   
   scope 'spec_runner', :as => :spec_runner do
     root :to => 'spec_runner#all'
     get ':which', :to => 'spec_runner#which', :as => :which
   end
+
+
+  #
+  # new non-localed stuff
+  #
+  get 'sitemap', :to => 'utils/sitemaps#sitemap', :as => :sitemap
 
   #
   # important non-locale-scoped stuff
@@ -143,7 +136,7 @@ Microsites2::Application.routes.draw do
   get "/cities/travel-to/:cityname" => redirect { |params, request| "/en/cities/travel-to/#{params[:cityname]}" }
   get "/piousbox" => redirect { |params, request| "/en/users/show/piousbox" }
   get "/reports/view/:name_seo" => redirect { |params, request| "/en/reports/view/#{params[:name_seo]}" }
-  get "/galleries/show/:galleryname" => redirect { |params, request| "/en/galleries/show/#{params[:galleryname]}" }
+  get "/galleries/show/:galleryname" => redirect { |params, request| "http://piousbox.com/en/galleries/show/#{params[:galleryname]}/0" }
   get '/cities', :to => 'cities#index'
 
   #

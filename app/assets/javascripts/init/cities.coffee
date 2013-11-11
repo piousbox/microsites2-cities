@@ -22,10 +22,10 @@ $(document).ready ->
         
     # this works, but I want to render a collection of newsitems instead
     #
-    # U.views.cities.home = new Views.Cities.Home({ model: U.models.site })
-    # U.models.site.fetch
-    #   success: ->
-    #     MyApp.right_region.show( U.views.cities.home )
+    U.views.cities.home = new Views.Cities.Home({ model: U.models.site })
+    U.models.site.fetch
+      success: ->
+        MyApp.right_region.show( U.views.cities.home )
    
     MyApp.start()
     # router = new U.Router()
