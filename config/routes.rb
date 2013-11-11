@@ -41,6 +41,7 @@ Microsites2::Application.routes.draw do
       get 'today', :to => 'cities#today', :as => :today
 
       get 'reports', :to => 'reports#index', :as => :reports
+      get 'reports/page/:reports_page', :to => 'reports#index'
 
       get 'galleries', :to => 'galleries#index', :as => :galleries
       get 'galleries/page/:galleries_page', :to => 'galleries#index'
