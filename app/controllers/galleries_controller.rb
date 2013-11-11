@@ -21,6 +21,9 @@ class GalleriesController < ApplicationController
     @galleries = @galleries.page( params[:galleries_page] )
 
     respond_to do |format|
+      format.html do
+        redirect_to city_path( params[:cityname] )
+      end
       format.json do
         @g = []
         @galleries.each do |gallery|

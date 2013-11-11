@@ -28,14 +28,13 @@ class CitiesController < ApplicationController
     if @city.blank?
       begin
         @city = City.find params[:cityname]
-      rescue
-        render :action => :not_found
-      else
-        if @city.blank? || @city.cityname.blank?
+        if @city.blank?
           render :action => :not_found
         else
           redirect_to city_path(@city.cityname)
         end
+      rescue
+        render :action => :not_found
       end
     else
       @city.name = @city['name_'+@locale.to_s]
