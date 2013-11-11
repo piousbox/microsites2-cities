@@ -11,10 +11,10 @@ describe CitiesController do
     end
 
     it 'reports' do
-      expect( :get => '/en/cities/travel-to/Aaa/reports' 
-              ).to route_to( :controller => 'reports', :action => 'index', :cityname => 'Aaa', :locale => 'en' )
-      expect( :get => '/en/cities/travel-to/Aaa/reports/page/12'
-              ).to route_to({ :controller => 'reports', :action => 'index', :cityname => 'Aaa', :locale => 'en', :reports_page => '12' })
+      expect( :get => '/en/cities/travel-to/Aaa/reports.json' 
+              ).to route_to( :controller => 'reports', :action => 'index', :cityname => 'Aaa', :locale => 'en', :format => 'json' )
+      expect( :get => '/en/cities/travel-to/Aaa/reports/page/12.json'
+              ).to route_to({ :controller => 'reports', :action => 'index', :cityname => 'Aaa', :locale => 'en', :reports_page => '12', :format => 'json' })
     end
 
     it 'galleries' do

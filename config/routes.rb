@@ -41,7 +41,6 @@ Microsites2::Application.routes.draw do
       get 'today', :to => 'cities#today', :as => :today
 
       get 'reports', :to => 'reports#index', :as => :reports
-      get 'reports/page/:reports_page', :to => 'reports#index'
 
       get 'galleries', :to => 'galleries#index', :as => :galleries
       get 'galleries/page/:galleries_page', :to => 'galleries#index'
@@ -77,12 +76,22 @@ Microsites2::Application.routes.draw do
     # get 'galleries/search', :to => 'galleries#search', :as => :search_galleries
     # get 'galleries/search/:q', :to => 'galleries#search'
     # get 'galleries/new', :to => 'galleries#new', :as => :new_gallery
-    get 'galleries/show/:galleryname/:photo_idx' => redirect { |params, request|
+    proc do # hidden
+    get 'galleries/show/:galleryname/:photo_idx', :to => redirect { |params, request|
       "http://piousbox.com/#{params[:locale]}/galleries/show/#{params[:galleryname]}/#{params[:photo_idx]}"
-    }, :as => :gallery
-    get 'galleries/show/:galleryname' => redirect { |params, request|
-      "http://piousbox.com/#{params[:locale]}/galleries/show/#{params[:galleryname]}/0}"
-    }
+    }, :constraints => { :format => /html/ }
+    get 'galleries/show/:galleryname', :to => redirect { |params, request|
+      "http://piousbox.com/#{params[:locale]}/galleries/show/#{params[:galleryname]}/0"
+    }, :constraints => { :format => /html/ }
+    get 'galleries/view/:galleryname/:photo_idx', :to => redirect { |params, request|
+      "http://piousbox.com/#{params[:locale]}/galleries/show/#{params[:galleryname]}/#{params[:photo_idx]}"
+    }, :constraints => { :format => /html/ }
+    get 'galleries/view/:galleryname', :to  => redirect { |params, request|
+      "http://piousbox.com/#{params[:locale]}/galleries/show/#{params[:galleryname]}/0"
+    }, :constraints => { :format => /html/ }
+    end
+    get 'galleries/view/:galleryname', :to => 'galleries#show' # , :constraints => { :format => /json/ }
+    get 'galleries/view/:galleryname/:photo_idx', :to => 'galleries#show', :as => :gallery
     # get 'galleries/:style/:galleryname', :to => 'galleries#show', :as => :gallery_show_style
     get 'galleries/:id/edit', :to => 'galleries#edit', :as => :edit_gallery
     # post 'galleries/:id', :to => 'galleries#update', :as => :update_gallery
@@ -102,6 +111,12 @@ Microsites2::Application.routes.draw do
     get 'events/show/:eventname', :to => 'events#show', :as => :event
     # resources :events
     
+    #
+    # tags
+    # 
+    get 'tags' => redirect { |params, r| "http://piousbox.com/en/tags" }
+    get 'tags/view/:tagname' => redirect { |params, r| "http://piousbox.com/en/tags/view/#{params[:tagname]}" }
+
     get 'v', :to => 'utils/utils#version', :as => :version
 
     get 'sitemap', :to => 'utils/sitemaps#sitemap'
@@ -123,7 +138,6 @@ Microsites2::Application.routes.draw do
     get ':which', :to => 'spec_runner#which', :as => :which
   end
 
-
   #
   # new non-localed stuff
   #
@@ -136,10 +150,12 @@ Microsites2::Application.routes.draw do
   get "/cities/travel-to/:cityname" => redirect { |params, request| "/en/cities/travel-to/#{params[:cityname]}" }
   get "/piousbox" => redirect { |params, request| "/en/users/show/piousbox" }
   get "/reports/view/:name_seo" => redirect { |params, request| "/en/reports/view/#{params[:name_seo]}" }
-  get "/galleries/show/:galleryname" => redirect { |params, request| "http://piousbox.com/en/galleries/show/#{params[:galleryname]}/0" }
-  get "/galleries/show/:galleryname/:number" => redirect { |params, request|
-    "http://piousbox.com/en/galleries/show/#{params[:galleryname]}/#{params[:number]}" 
-  }
+  # get "/galleries/show/:galleryname", :to => redirect { |params, request| 
+  #   "http://piousbox.com/en/galleries/show/#{params[:galleryname]}/0" 
+  # }, :constraints => { :format => /html/ }
+  # get "/galleries/show/:galleryname/:number", :to => redirect { |params, request|
+  #   "http://piousbox.com/en/galleries/show/#{params[:galleryname]}/#{params[:number]}" 
+  # }, :constraints => { :format => /html/ }
   get '/cities', :to => 'cities#index'
 
   #

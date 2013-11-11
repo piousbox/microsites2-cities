@@ -73,7 +73,7 @@ class GalleriesController < ApplicationController
             format.tablet do
               render :action => 'show_long'
             end
-              format.json do
+            format.json do
               photos = []
               @gallery.photos.all.each do |ph|
                 p = { :thumb => ph.photo.url(:thumb), :large => ph.photo.url(:large) }
@@ -85,7 +85,7 @@ class GalleriesController < ApplicationController
                 @gallery[:photo_url] = @gallery.photos[0].photo.url(:thumb)
               end
               @gallery[:photo_url] ||= ''
-
+              
               render :json => @gallery
             end
           end

@@ -3,7 +3,7 @@ class ReportsController < ApplicationController
 
   def index
     authorize! :index, Report.new
-    @reports = Report.where( :is_trash => false, :is_public => true )
+    @reports = Report.all
     if params[:cityname]
       @city = City.where( :cityname => params[:cityname] ).first
       @reports = @reports.where( :city => @city )
@@ -11,12 +11,7 @@ class ReportsController < ApplicationController
     @reports = @reports.page( params[:reports_page] )
     respond_to do |format|
       format.html do
-        if params[:cityname]
-          @features = []
-          render :action => :list
-        else
-          render
-        end
+        redirect_to city_path(params[:cityname])
       end
       format.json do
         @r = []
