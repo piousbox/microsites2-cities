@@ -53,6 +53,13 @@ class Venue
     doc.name_seo = doc.name.to_simple_string
   end
 
+  def venuename
+    name_seo
+  end
+  def venuenamne= arg
+    name_seo= arg
+  end
+
   def self.types
     return []
 #    if 'en' == @locale

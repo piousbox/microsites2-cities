@@ -26,10 +26,11 @@ Microsites2::Application.routes.draw do
     get 'users/organizer', :to => 'users#organizer', :as => :organizer
 
     #
-    # venues
+    # venues 
     #
     # match '/venues/:venue_type/in/:cityname' => redirect { |params, request| "/en/cities/travel-to/#{params[:cityname]}" } # @deprecated
     get '/venues/show/:venuename', :to => 'venues#show', :as => :venue
+    get 'venues', :to => 'venues#index' # @TODO probably remove.
     # get '/venues/show/:venuename/news', :to => 'venues#news', :as => :venue_news # @deprecated
     # get '/venues/show/:venuename/reports/show/:reportname', :to => 'venues#report', :as => :venue_report
     # get '/venues/show/:venuename/galleries/show/:galleryname', :to => 'venues#gallery', :as => :venue_gallery

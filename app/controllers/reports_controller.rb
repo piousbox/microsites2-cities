@@ -4,7 +4,7 @@ class ReportsController < ApplicationController
   def index
     authorize! :index, Report.new
     @reports = Report.all
-    if params[:cityname]
+    unless params[:cityname].blank?
       @city = City.where( :cityname => params[:cityname] ).first
       @reports = @reports.where( :city => @city )
     end
@@ -17,7 +17,7 @@ class ReportsController < ApplicationController
         @r = []
         @reports.each do |r|
           unless r.photo.blank?
-            r[:photo_url] = r.photo.photo.url(:thumb)
+            r[:photo_url] = r.photo.photo.url(:mini)
           end
           r.username ||= r.user.username
           r.username ||= ''

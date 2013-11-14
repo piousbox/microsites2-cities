@@ -2,13 +2,16 @@
 class VenuesController < ApplicationController
 
   def show
-    if @venue = Venue.where( :name_seo => params[:name_seo] ).first
+    if @venue = Venue.where( :name_seo => params[:venuename] ).first
       authorize! :show, @venue
       set_ch
+      @city = @venue.city unless @venue.city.blank?
       
       respond_to do |format|
         format.html do
-          ;
+          # render :layout => 'application'
+          @aa = { :one => :two, :three => :four }
+          render 'empty'
         end
         format.json do
           render :json => @venue

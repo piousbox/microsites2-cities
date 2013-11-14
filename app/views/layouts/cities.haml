@@ -13,7 +13,7 @@
     = render 'init_maps'
 
     - unless @city.blank?
-      .ids{ :cityname => @city.cityname }
+      .ids{ :cityname => @city.cityname, :venuename => (@venue||Venue.new).venuename }
       .ns{ :n_reports => @n_reports, :n_galleries => @n_galleries, :n_venues => @n_venues, :n_users => @n_users, :n_videos => @n_videos }
     - if @report_name_seo
       .report-name-seo{ :report_name_seo => @report_name_seo }

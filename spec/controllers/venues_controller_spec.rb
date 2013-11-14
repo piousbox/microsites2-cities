@@ -23,7 +23,7 @@ describe VenuesController do
   describe 'show' do
     it 'should show json' do
       @v.profile_photo.should eql nil
-      get :show, :name_seo => @v.name_seo, :format => :json
+      get :show, :venuename => @v.name_seo, :format => :json
       response.should be_success
     end
   end

@@ -73,10 +73,10 @@ class City
 
   def j_reports args = {}
     out =  []
-    self.reports.where( :is_trash => false, :is_public => true ).each do |r| # .page( params[:reports_page] 
+    self.reports.each do |r| # .page( params[:reports_page] 
       rr = r.clone
-      rr[:photo_url] = r.photo.photo.url( :thumb ) unless r.photo.blank?
-      rr[:photo_url] ||= '/assets/missing.png'
+      # rr[:photo_url] = r.photo.photo.url( :mini ) unless r.photo.blank?
+      # rr[:photo_url] ||= '/assets/missing.png'
       rr[:username] = r.user.username
       rr.created_at = r.created_at # pretty_date( r.created_at )
       rr[:tag_name] = r.tag.name unless r.tag.blank?
