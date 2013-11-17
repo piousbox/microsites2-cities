@@ -78,24 +78,25 @@ Microsites2::Application.routes.draw do
     # get 'galleries/search', :to => 'galleries#search', :as => :search_galleries
     # get 'galleries/search/:q', :to => 'galleries#search'
     # get 'galleries/new', :to => 'galleries#new', :as => :new_gallery
-    proc do # hidden
-    get 'galleries/show/:galleryname/:photo_idx', :to => redirect { |params, request|
-      "http://piousbox.com/#{params[:locale]}/galleries/show/#{params[:galleryname]}/#{params[:photo_idx]}"
-    }, :constraints => { :format => /html/ }
-    get 'galleries/show/:galleryname', :to => redirect { |params, request|
-      "http://piousbox.com/#{params[:locale]}/galleries/show/#{params[:galleryname]}/0"
-    }, :constraints => { :format => /html/ }
-    get 'galleries/view/:galleryname/:photo_idx', :to => redirect { |params, request|
-      "http://piousbox.com/#{params[:locale]}/galleries/show/#{params[:galleryname]}/#{params[:photo_idx]}"
-    }, :constraints => { :format => /html/ }
-    get 'galleries/view/:galleryname', :to  => redirect { |params, request|
-      "http://piousbox.com/#{params[:locale]}/galleries/show/#{params[:galleryname]}/0"
-    }, :constraints => { :format => /html/ }
-    end
+
+    # get 'galleries/show/:galleryname/:photo_idx', :to => redirect { |params, request|
+    #   "http://piousbox.com/#{params[:locale]}/galleries/show/#{params[:galleryname]}/#{params[:photo_idx]}"
+    # }, :constraints => { :format => /html/ }
+    # get 'galleries/show/:galleryname', :to => redirect { |params, request|
+    #   "http://piousbox.com/#{params[:locale]}/galleries/show/#{params[:galleryname]}/0"
+    # }, :constraints => { :format => /html/ }
+    # get 'galleries/view/:galleryname/:photo_idx', :to => redirect { |params, request|
+    #   "http://piousbox.com/#{params[:locale]}/galleries/show/#{params[:galleryname]}/#{params[:photo_idx]}"
+    # }, :constraints => { :format => /html/ }
+    # get 'galleries/view/:galleryname', :to  => redirect { |params, request|
+    #   "http://piousbox.com/#{params[:locale]}/galleries/show/#{params[:galleryname]}/0"
+    # }, :constraints => { :format => /html/ }
+
     get 'galleries/view/:galleryname', :to => 'galleries#show' # , :constraints => { :format => /json/ }
     get 'galleries/view/:galleryname/:photo_idx', :to => 'galleries#show', :as => :gallery
-    # get 'galleries/:style/:galleryname', :to => 'galleries#show', :as => :gallery_show_style
-    get 'galleries/:id/edit', :to => 'galleries#edit', :as => :edit_gallery
+    get 'galleries/show/:galleryname/:photo_idx', :to => 'galleries#show'
+    get 'galleries/show/:galleryname', :to => 'galleries#show'
+    # get 'galleries/:id/edit', :to => 'galleries#edit', :as => :edit_gallery
     # post 'galleries/:id', :to => 'galleries#update', :as => :update_gallery
     
     ##

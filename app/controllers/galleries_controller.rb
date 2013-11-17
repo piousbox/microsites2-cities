@@ -67,8 +67,7 @@ class GalleriesController < ApplicationController
         else
           respond_to do |format|
             format.html do
-              action = Gallery.actions.include?( params[:style] ) ? params[:style] : 'show'
-              render :action => action
+              redirect_to "http://piousbox.com/#{@locale}/galleries/show/#{@g.galleryname}/0"
             end
             format.mobile do
               render :action => 'show_long'
@@ -97,7 +96,8 @@ class GalleriesController < ApplicationController
       else
         authorize! :not_found, Gallery.new
         flash[:error] = 'Gallery not found'
-        redirect_to :action => :index
+        # redirect_to :action => :index
+        render :action => 'not_found', :layout => 'application'
       end
     end
   end
