@@ -14,7 +14,7 @@
   %body{ :id => @action_name, :class => @action_classes }
 
     .Lapplication-mini.container.content
-      -# = render 'application/header'
+      = render 'application/header'
 
       - if flash[:notice]
         .notice= flash[:notice]
