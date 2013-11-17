@@ -42,12 +42,18 @@ describe GalleriesController do
     end
   end
 
-  describe 'json output' do
-    it 'does' do
+  describe 'show' do
+    it 'json 200' do
       get :show, :galleryname => 'g', :locale => :en, :format => :json
       response.should be_success
-      body = JSON.parse( response.body )
-      body.lenght.should >= 1
+      # body = JSON.parse( response.body )
+      # body.lenght.should >= 1
+    end
+
+    it 'html redirect' do
+      get :show, :galleryname => @g.galleryname, :locale => :en, :format => :html
+      response.should be_redirect
+      response.should redirect_to( "http://piousbox.com/en/galleries/show/#{@g.galleryname}/0" )
     end
   end
 
