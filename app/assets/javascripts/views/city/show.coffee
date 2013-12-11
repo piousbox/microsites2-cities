@@ -60,13 +60,11 @@ $(document).ready ->
           MyApp.left_region.show( U.views.venue )
         
     show_report: (item) ->
-      U.views.cities.home.show_report( item )
-#      name_seo = item.currentTarget.attributes.name_seo.value
-#      U.models.report = new Models.Report({ name_seo: name_seo })
-#      U.views.report = new Views.Report.Show({ model: U.models.report })
-#      U.models.report.fetch
-#        success: ->
-#          MyApp.left_region.show( U.views.report )
+      U.models.report = new Models.Report({ name_seo: item.currentTarget.attributes['reportname'].value })
+      U.views.report = new Views.Report.Show({ model: U.models.report })
+      U.models.report.fetch
+        success: ->
+          MyApp.left_region.show( U.views.report )
 
     show_gallery: (item) ->
       name_seo = item.currentTarget.attributes.galleryname.value

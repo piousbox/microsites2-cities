@@ -8,6 +8,6 @@ $(document).ready ->
     model: Models.Newsitem
     
     url: ->
-      return U.lang + '/sites/' + U.domain + '/newsitems.json'
+      return '/' + U.lang + '/sites/' + U.domain + '/newsitems.json'
 
       

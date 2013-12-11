@@ -84,7 +84,14 @@ class City
       out << rr
     end
     return out
-    
+  end
+
+  def self.for_homepage
+    cities = City.all.order_by( :name => :asc )
+    cities = cities.delete_if do |c|
+      ( false == c.is_feature ) && ( 0 == c.galleries.length ) && ( 0 == c.reports.length )
+    end
+    return cities
   end
   
 end

@@ -1,8 +1,9 @@
 
 U = {
-    lang: 'en', 
-    locale: 'en',
-    domain: 'travel-guide.mobi',
+  lang: 'en', 
+  locale: 'en',
+  // domain: 'travel-guide.mobi',
+  domain: 'pi.local',
   collections: {},
   views: {
     cities: {},
@@ -31,17 +32,14 @@ U = {
   }
 }
 
-CanvasOps = {
-    trash: 'trash'
-}
+CanvasOps = {}
 Utils = {}
-// header footer
-HF = {}
+HF = {} // header footer
 
 Models = {}
 Collections = {
-    Sites: {},
-    Newsitems: {}
+  Sites: {},
+  Newsitems: {}
 }
 Views = {
   Cities: {},

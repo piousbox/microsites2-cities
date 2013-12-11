@@ -1,12 +1,11 @@
 
-
 $(document).ready ->
   U.initialize_cities = ->
 
     U.models.cities = new Models.Cities()
     # U.models.city = new Models.City({ cityname: 'San_Francisco' })
-    U.models.site = new Models.Site({ domain: 'travel-guide.mobi' })
-    U.collections.galleries = new Collections.SiteGalleries({ domain: 'travel-guide.mobi' })
+    U.models.site = new Models.Site({ domain: U.domain })
+    U.collections.galleries = new Collections.SiteGalleries({ domain: U.domain })
 
     U.views.cities.index = new Views.Cities.Index()
     U.views.cities.map = new Views.Cities.Map({ model: U.models.cities })
@@ -14,16 +13,9 @@ $(document).ready ->
     U.views.cities.left_menu = new Views.Cities.LeftMenu({ model: U.models.cities })
     # U.views.city.show = new Views.City.Show({ model: U.models.city })
 
-    U.collections.newsitems = new Collections.Newsitems.Index({})
-    U.views.sites.newsitems = new Views.Newsitems.Index({ collection: U.collections.newsitems })
+    U.collections.newsitems = new Collections.Newsitems.Index({ domain: U.domain, lang: U.lang })
+    U.views.cities.home = new Views.Newsitems.Index({ collection: U.collections.newsitems })
     U.collections.newsitems.fetch
-      success: ->
-        MyApp.right_region.show( U.views.sites.newsitems )
-        
-    # this works, but I want to render a collection of newsitems instead
-    #
-    U.views.cities.home = new Views.Cities.Home({ model: U.models.site })
-    U.models.site.fetch
       success: ->
         MyApp.right_region.show( U.views.cities.home )
    
