@@ -63,8 +63,8 @@
         <% _.each( videos, function(item) { %>
         %li
           <img src="http://img.youtube.com/vi/<%= item.youtube_id %>/1.jpg" alt="" />
-          <%= item.youtube_id %> --
-          <%= item.name %>
+          <b><%= item.name %> &nbsp;</b>
+          .c
         <% }) %>
     <% } %>
  
@@ -75,7 +75,8 @@
         <% _.each( j_users, function(item) { %>
         %li
           <img src="<%= item.profile_photo_path %>" alt="" />
-          <%= item.username %>
+          <b><%= item.username %></b>
+          .c
         <% }) %>
     <% } %>
       

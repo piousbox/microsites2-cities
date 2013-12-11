@@ -218,8 +218,6 @@
   .events-list,
   .reports-list,
   .galleries-list,
-  .users-list,
-  .videos-list,
   .venues-list,
   .reports-list,
     
@@ -236,7 +234,28 @@
         
       li
         display: block !important
+          
+  .users-list,
+  .videos-list,
+    clear: both
+    margin-top: 1.5em
+      
+    h4
+      border-left: 15px solid red
+      padding-left: 10px
+      margin: 0 0 .5em 0
+  
+    ul
+      margin-left: 25px
 
+      li
+        display: inline-block
+        img
+          float: left
+        b
+          float: left
+          clear: left
+          
 .galleries-list,
 .reports-list,
 
