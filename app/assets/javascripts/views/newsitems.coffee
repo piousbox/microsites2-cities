@@ -12,7 +12,12 @@ $(document).ready ->
       _.bindAll @, 'show_gallery', 'show_report'
 
     show_gallery: (item) ->
-      U.views.city.show.show_gallery( item )
+      U.models.gallery = new Models.Gallery({ galleryname: item.currentTarget.attributes['galleryname'].value })
+      U.views.gallery = new Views.Gallery.Show({ model: U.models.gallery })
+      U.models.gallery.fetch
+        success: ->
+          MyApp.left_region.show( U.views.gallery )
+      # U.views.city.show.show_gallery( item )
 
     show_report: (item) ->
       U.models.report = new Models.Report({ name_seo: item.currentTarget.attributes['reportname'].value })

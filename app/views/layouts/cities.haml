@@ -9,7 +9,7 @@
     %meta{:content => "width=device-width, initial-scale=1.0", :name => "viewport"}
     %link{:href => "/assets/favicon.gif", :rel => "shortcut icon"}
     = render 'application/analytics'
-  %body{ :id => @action_name, :class => @action_classes }
+  %body{ :id => @action_name, :class => @action_classes, :domain => @domain, :lang => @locale }
     = render 'init_maps'
 
     - unless @city.blank?

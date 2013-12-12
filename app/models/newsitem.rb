@@ -17,6 +17,8 @@ class Newsitem
 
   field :lang, :type => String, :default => 'en'
 
+  default_scope order_by( :created_at => :desc )
+
   def self.from_params item
     n = Newsitem.new item
     n.descr = item[:descr]

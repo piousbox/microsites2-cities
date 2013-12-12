@@ -1,9 +1,5 @@
 
 U = {
-  lang: 'en', 
-  locale: 'en',
-  domain: 'travel-guide.mobi',
-  // domain: 'pi.local',
   collections: {},
   views: {
     cities: {},

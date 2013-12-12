@@ -1,5 +1,8 @@
 
 $(document).ready ->
+  U.domain = $('body').attr('domain')
+  U.lang = $('body').attr('lang')
+
   U.initialize_cities = ->
 
     U.models.cities = new Models.Cities()
