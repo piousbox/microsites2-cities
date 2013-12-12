@@ -26,9 +26,13 @@
         <% _.each( j_galleries, function(gallery) { %>
         %li
           <a href="javascript:void(0)" galleryname="<%= gallery.galleryname %>" class="gallery-link thumb">
-          <img src="<%= gallery.photo_url %>" alt="<%= gallery.name %>" /></a>
+          <img src="<%= gallery.photo_url %>" alt="<%= gallery.name %>" />
+          </a>
+          
           <a href="javascript:void(0)" galleryname="<%= gallery.galleryname %>" class="gallery-link text">
           <%= gallery.name %></a>
+          <br />
+          <%= U.pretty_date( gallery.created_at ) %>
         <% }) %>
       .c
     <% } %>
@@ -43,7 +47,7 @@
           %h5
             <a href="javascript:void(0)" name_seo="<%= report.name_seo %>" reportname="<%= report.name_seo %>" class="report-link"><%= report.name %></a>
           .meta
-            On <%= report.created_at %>
+            On <%= U.pretty_date( report.created_at ) %>
             By <%= report.username %>
        
             <% if ( report.tag_name.length > 0 ) { %>

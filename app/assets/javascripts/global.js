@@ -25,7 +25,8 @@ U = {
     views: {
       galleries: {}
     }
-  }
+  },
+  pretty_date: function(x) { return x.substring(0,10) }
 }
 
 CanvasOps = {}

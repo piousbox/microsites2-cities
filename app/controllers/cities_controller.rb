@@ -65,7 +65,7 @@ class CitiesController < ApplicationController
           @city[:j_galleries] = []
           @city[:j_users] = []
 
-          @city.galleries.where( :is_trash => false, :is_public => true ).each do |gallery|
+          @city.galleries.each do |gallery|
             if gallery.photos[0]
               gallery[:photo_url] = gallery.photos[0].photo.url(:thumb)
             else
