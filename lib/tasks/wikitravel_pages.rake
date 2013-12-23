@@ -17,5 +17,12 @@ namespace :wikitravel do
     w.parse_list_of_pages arguments
   end
 
+  desc "all pages"
+  task :all_pages_to_report_and_newsitems => :environment do
+    arg = { :domain => ENV['domain'], :lang => ENV['lang'] }
+    w = WikitravelTasks.new arg
+    w.all_pages_to_report_and_newsitems
+  end
+
 end
 

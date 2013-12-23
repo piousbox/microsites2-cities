@@ -18,6 +18,8 @@ class WikitravelTasks
       report = Report.where( :name => page[:title] ).first
       if report.blank?
         one_page_to_report_and_newsitems( page )
+      else
+        puts "Report already exists: #{report.name}"
       end
     end
   end
