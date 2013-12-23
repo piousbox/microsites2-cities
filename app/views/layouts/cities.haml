@@ -20,6 +20,7 @@
     - if @galleryname
       .galleryname{ :galleryname => @galleryname }
     .Lcities
+      = render 'add_this'
       #header
         .logo= link_to image_tag('logos/45x45/ish.png'), root_path
         %ul.main-menu
@@ -28,8 +29,10 @@
           - else
             %li= link_to @city['name_'+@locale.to_s], @city
           -# %li= link_to t('list.cities'), cities_path
-          %li= link_to 'Settings', "javascript:alert('not implemented')" # settings_path
-          
+          -# %li= link_to 'Settings', "javascript:alert('not implemented')" # settings_path
+
+        
+        
       #left
         .left-menu
           = content_for :left_menu
