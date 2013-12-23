@@ -31,7 +31,10 @@ describe 'wikitravel crawler test' do
     n_city_items = @city.newsitems.length
     n_site_items = @site.newsitems.length
 
-    WikitravelTasks.random_page_to_newsitem( :domain => 'travel-guide.mobi' )
+    City.all.length.should > 0
+
+    w = WikitravelTasks.new( :domain => 'travel-guide.mobi' )
+    w.random_page_to_newsitem
 
     Site.find(@site.id).newsitems.length.should eql( n_site_items + 1 )
     Site.find(@site.id).reports.length.should eql( n_reports + 1 )
@@ -45,6 +48,30 @@ describe 'wikitravel crawler test' do
       # twice, because duplicates should be silently ignored.
       WikitravelTasks.parse_list_of_pages({ :filename => 'wikitravel.org-popular-pages-test.htm' })
       WikitravelPage.all.length.should eql 3
+    end
+  end
+
+  it '#find_or_create_wiki_user' do
+    User.all.each { |u| u.remove }
+    User.all.length.should eql 0
+    [1,2,3].each do |i|
+      # should not create if already exists
+      WikitravelTasks.new.find_or_create_wiki_user
+      User.all.length.should eql 1
+    end
+  end
+
+  it '#all_pages_to_reports_and_newsitems' do
+    WikitravelTasks.parse_list_of_pages({ :filename => 'wikitravel.org-popular-pages-test.htm' })
+    WikitravelPage.all.length.should > 0
+
+    w = WikitravelTasks.new :filename => 'wikitravel.org-popular-pages-test.htm'
+    w.all_pages_to_report_and_newsitems
+
+    # so, each page should have a corresponding report.
+    WikitravelPage.each do |page|
+      r = Report.where( :name => page.title ).first
+      r.class.should eql Report
     end
   end
 
