@@ -5,8 +5,11 @@ require 'string'
 
 class WikitravelTasks
 
-  def self.random_page_to_newsitem domain = 'travel-guide.mobi'
-    site = Site.where( :domain => domain, :lang => :en ).first
+  def self.random_page_to_newsitem args = {}
+    args[:lang] ||= 'en'
+    args[:domain] ||= 'travel-guide.mobi'
+
+    site = Site.where( :domain => args[:domain], :lang => args[:lang] ).first
     anon = User.where( :username => 'anon' ).first    
 
     # select a random page
@@ -16,7 +19,9 @@ class WikitravelTasks
       existing_report = Report.where( :name => random_page.title ).first
     end while !existing_report.blank?
     
-    remote_page = Nokogiri::HTML(open("#{WikitravelPage::DOMAIN}#{random_page.url}"))
+    urll = "#{WikitravelPage::DOMAIN}#{random_page.url}"
+    # puts! urll
+    remote_page = Nokogiri::HTML(open(urll))
     text = remote_page.css("#mw-content-text tr > td")
     subhead = remote_page.css("#mw-content-text tr > td p")[0].text
     
@@ -46,14 +51,23 @@ class WikitravelTasks
     end
   end
 
-  def self.parse_list_of_pages filename = 'wikitravel.org-popular-pages.htm'
-    index_html_path = Rails.root.join( 'lib', 'data', filename )
+  #
+  # take manually precompiled list of pages off of wikitravel.org, and create a WikitravelPage for each one that does not exist.
+  #
+  def self.parse_list_of_pages arg = {}
+    arg[:filename] ||= 'wikitravel.org-popular-pages.htm'
+
+    index_html_path = Rails.root.join( 'data', arg[:filename] )
     page = Nokogiri::HTML(open(index_html_path))
     links = page.css( "ol.special li > a" )
     links.each do |link|
       unless link['href'].include?(':')
         page = WikitravelPage.new :url => link['href'], :title => link['title']
-        page.save
+        if page.save
+          puts "Saving page '#{page.title}'"
+        else
+          puts "Maybe the page '#{page.title}' already exists."
+        end
       end
     end
   end

@@ -2,6 +2,8 @@ class WikitravelPage
   include Mongoid::Document
   include Mongoid::Timestamps
 
+  DOMAIN = 'http://wikitravel.org'
+
   field :title, :type => String
   validates :title, :presence => true, :uniqueness => true
 
@@ -13,7 +15,5 @@ class WikitravelPage
       self.each { |r| r.remove }
     end
   end
-
-  DOMAIN = 'http://wikitravel.org'
 
 end
