@@ -3,10 +3,10 @@ class Tag
   include Mongoid::Timestamps
 
   field :name, :type => String
-  validates :name, :uniqueness => true, :allow_nil => false
+  validates :name, :uniqueness => true, :presence => true
   
   field :name_seo, :type => String
-  validates :name_seo, :uniqueness => true, :allow_nil => false
+  validates :name_seo, :uniqueness => true, :presence => true
   
   field :is_feature, :type => Boolean, :default => false
   
@@ -25,7 +25,7 @@ class Tag
   belongs_to :site
 
   before_create do |d|
-    if d.name_seo.blank?
+    if d.name && d.name_seo.blank?
       d.name_seo = d.name.to_simple_string
     end
   end

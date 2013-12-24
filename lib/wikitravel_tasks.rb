@@ -11,6 +11,7 @@ class WikitravelTasks
 
     @site = Site.where( :domain => args[:domain], :lang => args[:lang] ).first
     @user = self.find_or_create_wiki_user
+    @travel_tag = self.find_or_create_travel_tag
   end
 
   def all_pages_to_report_and_newsitems
@@ -69,6 +70,14 @@ class WikitravelTasks
     end
   end
 
+  def self.find_or_create_travel_tag
+    t = Tag.where( :name => 'Travel' ).first
+    if t.blank?
+      t = Tag.create( :site => self.find_or_create_travel_site, :name => 'Travel', :name_seo => 'travel' )
+    end
+    return t
+  end 
+
   private
 
   def one_page_to_report_and_newsitems random_page
@@ -90,6 +99,7 @@ class WikitravelTasks
     r.descr = text
     r.site = @site
     r.user = @user
+    r.tag = @travel_tag
     r.save || puts!(r.errors)
     
     # create newsitem for the site

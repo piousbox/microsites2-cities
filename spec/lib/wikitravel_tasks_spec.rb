@@ -72,6 +72,17 @@ describe 'wikitravel crawler test' do
     WikitravelPage.each do |page|
       r = Report.where( :name => page.title ).first
       r.class.should eql Report
+      r.tag.name.should eql WikitravelTasks.find_or_create_travel_tag.name
+    end
+  end
+
+  it 'find or create travel tag' do
+    Tag.unscoped.each { |t| t.remove }
+    [1,2,3].each do |i|
+      # convergent
+      t = WikitravelTasks.find_or_create_travel_tag
+      Tag.all.length.should eql 1
+      Tag.all.first.name.should eql 'Travel'
     end
   end
 
