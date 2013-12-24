@@ -93,7 +93,7 @@ MyApp.addRegions({
 });
 
 // for wikitravel.org articles
-are_ads_hidden = functin(){ return true; }
+function are_ads_hidden(){ return true; }
 
 
 
