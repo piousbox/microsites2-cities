@@ -13,8 +13,7 @@ namespace :wikitravel do
   desc "Take manually precompiled list of pages off of wikitravel.org, and create a WikitravelPage for each one that does not exist."
   task :parse_list_of_pages => :environment do
     arguments = { :filename => ENV['filename'] }
-    w = WikitravelTasks.new arguments
-    w.parse_list_of_pages arguments
+    WikitravelTasks.parse_list_of_pages arguments
   end
 
   desc "all pages"
