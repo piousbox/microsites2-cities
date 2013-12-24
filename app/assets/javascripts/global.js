@@ -92,8 +92,8 @@ MyApp.addRegions({
   
 });
 
-
-
+// for wikitravel.org articles
+are_ads_hidden = functin(){ return true; }
 
 
 

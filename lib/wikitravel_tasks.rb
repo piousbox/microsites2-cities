@@ -76,8 +76,12 @@ class WikitravelTasks
     # puts! urll
     remote_page = Nokogiri::HTML( open( urll ) )
     text = remote_page.css("#mw-content-text tr > td")
-    subhead = remote_page.css("#mw-content-text tr > td p")[0].text
-    
+    begin
+      subhead = remote_page.css("#mw-content-text tr > td p")[0].text
+    rescue
+      subhead = ''
+    end
+
     # create the report
     r = Report.new
     r.name = random_page.title
