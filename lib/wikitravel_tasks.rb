@@ -96,7 +96,7 @@ class WikitravelTasks
     n = Newsitem.new
     n.report = r
     @site.newsitems << n
-    @site.save || puts!(site.errors)
+    @site.save || puts!(@site.errors)
 
     # create newsitem for the city
     nn = Newsitem.new
