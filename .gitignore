@@ -7,3 +7,5 @@ log
 *~
 vendor/ruby
 coverage
+lib
+app/models

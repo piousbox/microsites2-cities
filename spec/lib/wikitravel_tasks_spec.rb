@@ -10,34 +10,32 @@ describe 'wikitravel crawler test' do
 
     Report.clear
 
-    # setup_sites
     Site.all.each { |s| s.remove }
     @site = FactoryGirl.create :travel_guide_mobi
-    # @site = Site.where( :domain => 'travel-guide.mobi', :lang => :en ).first
-    @site.class.should eql Site
 
     City.all.each { |c| c.remove }
     @city = FactoryGirl.create :maputo
     @city.class.should eql City
-
-  end
-
-  it 'random page to new report does not loop infinitely' do
-    # assert false, 'todo'
+    
+    @w = WikitravelTasks.new :site => @site
   end
 
   it 'random page to new report, newsitem of site, newsitem of city.' do
     n_reports = @site.reports.length
-    n_city_items = @city.newsitems.length
-    n_site_items = @site.newsitems.length
+    n_site_items = Site.find(@site.id).newsitems.length
 
-    City.all.length.should > 0
-
-    w = WikitravelTasks.new( :domain => 'travel-guide.mobi' )
-    w.random_page_to_newsitem
+    @w.random_page_to_newsitem
 
     Site.find(@site.id).newsitems.length.should eql( n_site_items + 1 )
     Site.find(@site.id).reports.length.should eql( n_reports + 1 )
+  end
+
+  it '#one page to report and newsitems - creates newsitems for city' do
+    n_city_items = @city.newsitems.length
+    City.all.length.should > 0
+
+    @w.one_page_to_report_and_newsitems( WikitravelPage.where( :title => 'Maputo' ).first )
+    
     City.find(@city.id).newsitems.length.should eql( n_city_items + 1 )
   end
 
@@ -56,7 +54,7 @@ describe 'wikitravel crawler test' do
     User.all.length.should eql 0
     [1,2,3].each do |i|
       # should not create if already exists
-      WikitravelTasks.new.find_or_create_wiki_user
+      WikitravelTasks.find_or_create_wiki_user
       User.all.length.should eql 1
     end
   end
@@ -72,7 +70,7 @@ describe 'wikitravel crawler test' do
     WikitravelPage.each do |page|
       r = Report.where( :name => page.title ).first
       r.class.should eql Report
-      r.tag.name.should eql WikitravelTasks.find_or_create_travel_tag.name
+      r.tag.name.should eql @w.travel_tag.name
     end
   end
 
@@ -80,7 +78,7 @@ describe 'wikitravel crawler test' do
     Tag.unscoped.each { |t| t.remove }
     [1,2,3].each do |i|
       # convergent
-      t = WikitravelTasks.find_or_create_travel_tag
+      t = @w.travel_tag
       Tag.all.length.should eql 1
       Tag.all.first.name.should eql 'Travel'
     end
