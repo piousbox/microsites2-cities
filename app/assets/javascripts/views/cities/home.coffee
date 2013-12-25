@@ -3,7 +3,7 @@ $(document).ready ->
   Views.Cities.Home = Backbone.Marionette.CompositeView.extend
     template: '#cities_home-template'
 
-    itemView: Views.Reports.IndexItem
+    # itemView: Views.Reports.IndexItem
 
     getItemView: (which_model) ->
       if !which_model

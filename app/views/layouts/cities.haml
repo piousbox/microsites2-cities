@@ -35,8 +35,9 @@
         
       #left
         .left-menu
-          = content_for :left_menu
-          
+          -# = content_for :left_menu
+          -# nothing, it gets taken care of by backbone
+            
         .left-container
           - if notice
             %p.notice= notice
@@ -52,8 +53,9 @@
 
       #right
         .right-menu
-          = content_for :right_menu
-            
+          -# = content_for :right_menu
+          -# nothing, it gets taken care of by backbone
+
         .right-container
           .inner
             %h5 Welcome Home
@@ -62,6 +64,7 @@
         = render 'ads/src/banner'
         
       .main-footer
+        
         = render 'login_register'
         = render 'set_locale'
         .clear

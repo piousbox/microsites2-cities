@@ -17,6 +17,7 @@ Microsites2::Application.routes.draw do
     get '/contact', :to => 'welcome#contact', :as => :contact
     get '/privacy', :to => 'welcome#privacy', :as => :privacy
     get '/help', :to => 'welcome#help', :as => :help
+    get 'meta', :to => 'welcome#meta', :as => :page_meta
     
     get 'users', :to => 'users#index', :as => :users
     get 'users/show/:username', :to => 'users#show', :as => :user

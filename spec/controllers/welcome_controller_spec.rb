@@ -89,4 +89,9 @@ describe WelcomeController do
     end
   end
 
+  it '#meta' do
+    get :meta
+    response.should be_success
+  end
+
 end

@@ -26,6 +26,13 @@ class WelcomeController < ApplicationController
     redirect_to cities_path
   end
 
+  #
+  # link to sitemap
+  #
+  def meta
+    render :layout => 'cities2'
+  end
+ 
   private
 
   def set_default_layout

@@ -60,7 +60,7 @@ $(document).ready ->
       # so far I think I have no model for this view.
       #
       # @model = item.model
-      _.bindAll @, 'show_cities', 'show_home'
+      _.bindAll @, 'show_cities', 'show_home', 'deactivate_all'
 
     show_cities: (item) ->
       @deactivate_all()
@@ -78,8 +78,8 @@ $(document).ready ->
     #       MyApp.right_region.show( U.views.newsitems )
 
     show_home: (nothing) ->
-      # console.log( 'showing home' )
-      U.views.cities.home = new Views.Cities.Home({ model: U.models.site })
+      console.log( 'U.views.cities.right_menu#show_home' )
+      # U.views.cities.home = new Views.Cities.Home({ model: U.models.site })
       MyApp.right_region.show( U.views.cities.home )
 
     deactivate_all: (item) ->
