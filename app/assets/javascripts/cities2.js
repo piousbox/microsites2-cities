@@ -9,6 +9,6 @@
 //= require backbone
 //= require backbone.marionette
 //
-// 
-// 
+//= require global
+//= require cities2/init 
 //
