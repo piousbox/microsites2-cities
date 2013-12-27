@@ -8,24 +8,6 @@ Microsites2::Application.routes.draw do
       :registrations => 'users/registrations'
     }
  
-    # get '/features', :to => 'cities#features', :as => :features
-    # get '/features/page/:features_page', :to => 'cities#features'
-    # get '/newsitems', :to => 'cities#newsitems', :as => :newsitems
-    # get '/newsitems/page/:newsitems_page', :to => 'cities#newsitems'
-
-    # get '/about', :to => 'welcome#about', :as => :about
-    # get '/contact', :to => 'welcome#contact', :as => :contact
-    # get '/privacy', :to => 'welcome#privacy', :as => :privacy
-    # get '/help', :to => 'welcome#help', :as => :help
-    # get 'meta', :to => 'welcome#meta', :as => :page_meta
-    
-    # get 'users', :to => 'users#index', :as => :users
-    # get 'users/show/:username', :to => 'users#show', :as => :user
-    # put 'users/:id/update', :to => 'users#update', :as => :user_update
-    # get 'users/sign_in', :to => 'users#sign_in', :as => :sign_in
-    # put 'users/show/:id', :to => 'users#update'
-    # get 'users/organizer', :to => 'users#organizer', :as => :organizer
-
     #
     # venues 
     #
@@ -137,11 +119,12 @@ Microsites2::Application.routes.draw do
 
     match '*other', :to => 'errors#five_hundred'
   end # end locale
-  
-  scope 'spec_runner', :as => :spec_runner do
-    root :to => 'spec_runner#all'
-    get ':which', :to => 'spec_runner#which', :as => :which
-  end
+
+  #
+  # !!! important for angular.
+  #
+  get 'cities/travel-to/:cityname', :to => 'cities#profile'
+  get 'cities/travel-to', :to => 'cities#index'
 
   #
   # new non-localed stuff
