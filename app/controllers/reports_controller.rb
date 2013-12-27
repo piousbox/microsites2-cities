@@ -1,18 +1,18 @@
 
 class ReportsController < ApplicationController
 
+  layout 'application'
+
   def index
     authorize! :index, Report.new
     @reports = Report.all
-    unless params[:cityname].blank?
-      @city = City.where( :cityname => params[:cityname] ).first
-      @reports = @reports.where( :city => @city )
-    end
-    @reports = @reports.page( params[:reports_page] )
+    # unless params[:cityname].blank?
+    #   @city = City.where( :cityname => params[:cityname] ).first
+    #   @reports = @reports.where( :city => @city )
+    # end
+    # @reports = @reports.page( params[:reports_page] )
     respond_to do |format|
-      format.html do
-        redirect_to city_path(params[:cityname])
-      end
+      format.html
       format.json do
         @r = []
         @reports.each do |r|
@@ -62,7 +62,6 @@ class ReportsController < ApplicationController
       respond_to do |format|
         format.html do
           @report_name_seo = @report.name_seo
-          render :action => :empty
         end
         format.json do
           if @report.photo

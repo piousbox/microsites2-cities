@@ -7,24 +7,24 @@ Microsites2::Application.routes.draw do
       :sessions => "users/sessions",
       :registrations => 'users/registrations'
     }
+ 
+    # get '/features', :to => 'cities#features', :as => :features
+    # get '/features/page/:features_page', :to => 'cities#features'
+    # get '/newsitems', :to => 'cities#newsitems', :as => :newsitems
+    # get '/newsitems/page/:newsitems_page', :to => 'cities#newsitems'
 
-    get '/features', :to => 'cities#features', :as => :features
-    get '/features/page/:features_page', :to => 'cities#features'
-    get '/newsitems', :to => 'cities#newsitems', :as => :newsitems
-    get '/newsitems/page/:newsitems_page', :to => 'cities#newsitems'
-
-    get '/about', :to => 'welcome#about', :as => :about
-    get '/contact', :to => 'welcome#contact', :as => :contact
-    get '/privacy', :to => 'welcome#privacy', :as => :privacy
-    get '/help', :to => 'welcome#help', :as => :help
-    get 'meta', :to => 'welcome#meta', :as => :page_meta
+    # get '/about', :to => 'welcome#about', :as => :about
+    # get '/contact', :to => 'welcome#contact', :as => :contact
+    # get '/privacy', :to => 'welcome#privacy', :as => :privacy
+    # get '/help', :to => 'welcome#help', :as => :help
+    # get 'meta', :to => 'welcome#meta', :as => :page_meta
     
-    get 'users', :to => 'users#index', :as => :users
-    get 'users/show/:username', :to => 'users#show', :as => :user
-    put 'users/:id/update', :to => 'users#update', :as => :user_update
-    get 'users/sign_in', :to => 'users#sign_in', :as => :sign_in
-    put 'users/show/:id', :to => 'users#update'
-    get 'users/organizer', :to => 'users#organizer', :as => :organizer
+    # get 'users', :to => 'users#index', :as => :users
+    # get 'users/show/:username', :to => 'users#show', :as => :user
+    # put 'users/:id/update', :to => 'users#update', :as => :user_update
+    # get 'users/sign_in', :to => 'users#sign_in', :as => :sign_in
+    # put 'users/show/:id', :to => 'users#update'
+    # get 'users/organizer', :to => 'users#organizer', :as => :organizer
 
     #
     # venues 
@@ -70,6 +70,7 @@ Microsites2::Application.routes.draw do
     # get 'reports/page/:reports_page', :to => 'reports#index'
     put '/reports/:id', :to => 'reports#update', :as => :update_report
     # resources :reports
+    get 'reports', :to => 'reports#index', :as => :reports
     
     ##
     ## galleries

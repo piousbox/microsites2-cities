@@ -1,6 +1,9 @@
+
 class CitiesController < ApplicationController
+
   skip_authorization_check
-  layout 'cities'
+
+  layout 'application'
 
   def set_city
     next_cityname = params[:user][:cityname]
@@ -55,9 +58,7 @@ class CitiesController < ApplicationController
       @n_venues = @city.venues.length
       
       respond_to do |format|
-        format.html do
-          render :action => 'empty'
-        end
+        format.html
         format.json do
           @city[:events] = @city.events.to_a
           # @city[:n_events] = @city.events.length
@@ -100,20 +101,13 @@ class CitiesController < ApplicationController
   end
   
   def index
-    @cities = City.for_homepage
+    # @cities = City.for_homepage
+    @cities = City.all
 
     respond_to do |format|
-      format.html do        
-        render :action => 'empty'
-      end
+      format.html
       format.json do
         render :json => @cities
-      end
-      format.tablet do
-        render :action => 'empty'
-      end
-      format.mobile do
-        render :action => 'empty', :layout => 'mobile'
       end
     end
   end

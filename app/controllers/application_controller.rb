@@ -15,9 +15,9 @@ class ApplicationController < ActionController::Base
 
   check_authorization
 
-  has_mobile_fu
+  # has_mobile_fu
 
-  layout 'cities'
+  # layout 'cities'
 
   private
   

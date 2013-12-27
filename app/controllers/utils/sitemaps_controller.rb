@@ -2,20 +2,19 @@ class Utils::SitemapsController < ApplicationController
   skip_authorization_check
 
   def sitemap
-    @reports = Report.all
-    @galleries = Gallery.all
-    @videos = []
-    @tags = []
+    travel_site = Site.mobi
+    travel_tag = Tag.mobi
+
+    @reports = Report.any_of( :site => travel_site, :tag => travel_tag )
+    @galleries = Gallery.any_of( :site => travel_site, :tag => travel_tag )
+    @videos = Video.any_of( :site => travel_site, :tag => travel_tag )
+    @tags = Tag.where( :site => travel_site )
     @cities = City.all
     @venues = Venue.all
     @users = User.all
-
-    case @domain
-    when 'travel-guide.mobi', 'staging.travel-guidel.mobi', 'mobi.local'
-      travel_guide_sitemap
-    else
-      default_sitemap
-    end
+    @meta = [
+      { :url => cities_path }
+    ]
 
     respond_to do |format|
       format.xml do
@@ -35,20 +34,6 @@ class Utils::SitemapsController < ApplicationController
         render :json => json
       end
     end
-  end
-
-  private
-
-  def travel_guide_sitemap
-    @cities = City.all
-    @venues = Venue.all
-    @meta = [
-      { :url => cities_path }
-    ]
-  end
-
-  def default_sitemap
-    @meta = []
   end
 
 end
