@@ -6,25 +6,19 @@ class ReportsController < ApplicationController
   def index
     authorize! :index, Report.new
     @reports = Report.all
-    # unless params[:cityname].blank?
-    #   @city = City.where( :cityname => params[:cityname] ).first
-    #   @reports = @reports.where( :city => @city )
-    # end
-    # @reports = @reports.page( params[:reports_page] )
+    @reports = @reports.where( :city => City.where( :cityname => params[:cityname] ).first ) unless params[:cityname].blank?
+    @reports = @reports.page( params[:reports_page] )
     respond_to do |format|
       format.html
       format.json do
-        @r = []
-        @reports.each do |r|
+        @reports.each_with_index do |r, idx|
           unless r.photo.blank?
-            r[:photo_url] = r.photo.photo.url(:mini)
+            @reports[idx][:photo_url] = r.photo.photo.url(:mini)
           end
-          r.username ||= r.user.username
-          r.username ||= ''
-          r[:photo_url] ||= ''
-          @r.push r
+          @reports[idx].username ||= r.user.username || ''
+          @reports[idx][:photo_url] ||= ''
         end
-        render :json => @r
+        render :json => @reports
       end
     end
   end

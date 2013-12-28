@@ -6,15 +6,26 @@ class Utils::SitemapsController < ApplicationController
     travel_tag = Tag.mobi
 
     @reports = Report.any_of( :site => travel_site, :tag => travel_tag )
-    @galleries = Gallery.any_of( :site => travel_site, :tag => travel_tag )
-    @videos = Video.any_of( :site => travel_site, :tag => travel_tag )
-    @tags = Tag.where( :site => travel_site )
+
+    # @galleries = Gallery.any_of( :site => travel_site, :tag => travel_tag )
+    @galleries = []
+
+    # @videos = Video.any_of( :site => travel_site, :tag => travel_tag )
+    @videos = []
+
+    # @tags = Tag.where( :site => travel_site )
+    @tags = []
+
     @cities = City.all
+
     @venues = Venue.all
-    @users = User.all
-    @meta = [
-      { :url => cities_path }
-    ]
+
+    # @users = User.all
+    @users = []
+
+    # @meta = [ { :url => cities_path } ]
+    @meta = []
+    @host = request.host
 
     respond_to do |format|
       format.xml do

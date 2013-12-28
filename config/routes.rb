@@ -3,10 +3,10 @@ Microsites2::Application.routes.draw do
   scope "/:locale", :constraints => { :locale => /en|ru|pt/ } do
     root :to => 'cities#index'
 
-    # devise_for :users, :controllers => {
-    #   :sessions => "users/sessions",
-    #   :registrations => 'users/registrations'
-    # }
+    devise_for :users, :controllers => {
+      :sessions => "users/sessions",
+      :registrations => 'users/registrations'
+    }
  
     #
     # this is repeated un-scoped, hm...
@@ -98,7 +98,7 @@ Microsites2::Application.routes.draw do
 
     get 'v', :to => 'utils/utils#version', :as => :version
 
-    # get 'sitemap', :to => 'utils/sitemaps#sitemap'
+    get 'sitemap', :to => 'utils/sitemaps#sitemap'
 
     # sites
     # get 'sites/:domainname/galleries.json', { 
@@ -119,8 +119,8 @@ Microsites2::Application.routes.draw do
   get 'cities/travel-to', :to => 'cities#index'
   get 'reports', :to => 'reports#index', :as => :reports
   get 'reports/view/:name_seo', :to => 'reports#show', :as => :report
-  get 'venues', :to => 'venues#index', :as => :reports
-  get 'venues/show/:name_seo', :to => 'venues#show', :as => :report
+  get 'venues', :to => 'venues#index', :as => :venues
+  get 'venues/show/:name_seo', :to => 'venues#show', :as => :venue
   # resources :venues
 
   #
