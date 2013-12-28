@@ -3,22 +3,31 @@ Microsites2::Application.routes.draw do
   scope "/:locale", :constraints => { :locale => /en|ru|pt/ } do
     root :to => 'cities#index'
 
-    devise_for :users, :controllers => {
-      :sessions => "users/sessions",
-      :registrations => 'users/registrations'
-    }
+    # devise_for :users, :controllers => {
+    #   :sessions => "users/sessions",
+    #   :registrations => 'users/registrations'
+    # }
  
     #
-    # venues 
+    # this is repeated un-scoped, hm...
     #
-    # match '/venues/:venue_type/in/:cityname' => redirect { |params, request| "/en/cities/travel-to/#{params[:cityname]}" } # @deprecated
-    get '/venues/show/:venuename', :to => 'venues#show', :as => :venue
-    get 'venues', :to => 'venues#index' # @TODO probably remove.
+    get '/venues/show/:name_seo', :to => 'venues#show', :as => :venue
+    get 'venues', :to => 'venues#index'
+    #
     # get '/venues/show/:venuename/news', :to => 'venues#news', :as => :venue_news # @deprecated
     # get '/venues/show/:venuename/reports/show/:reportname', :to => 'venues#report', :as => :venue_report
     # get '/venues/show/:venuename/galleries/show/:galleryname', :to => 'venues#gallery', :as => :venue_gallery
     # resources :venues
+
+    #
+    # users
+    #
+    get 'users', :to => 'users#index'
+    get 'users/show/:username', :to => 'users#show'
     
+    #
+    # cities
+    #
     get 'cities', :to => 'cities#index', :as => :cities
     get 'cities/travel-to/:cityname', :to => 'cities#profile', :as => :city
     scope 'cities/travel-to/:cityname', :as => :city do
@@ -44,25 +53,14 @@ Microsites2::Application.routes.draw do
     end
 
     get 'reports/view/:name_seo', :to => 'reports#show', :as => :report
-    # match 'reports/promo/:name_seo' => redirect { |params, request| "reports/view/#{params[:name_seo]}" }
-    get 'reports/show/:name_seo', :to => 'reports#show'
-    # get 'reports/in-city/:cityname', :to => 'reports#index'
-    # post 'reports/search', :to => 'reports#search', :as => :search_reports
-    # get 'reports/search/:search_keyword', :to => 'reports#search'
-    # get 'reports/page/:reports_page', :to => 'reports#index'
+    get 'reports/show/:name_seo' => redirect { |request, params| "#{params[:locale]}/reports/view/#{params[:name_sep]}" }
     put '/reports/:id', :to => 'reports#update', :as => :update_report
-    # resources :reports
     get 'reports', :to => 'reports#index', :as => :reports
+    # match 'reports/promo/:name_seo' => redirect { |params, request| "reports/view/#{params[:name_seo]}" }
+    # get 'reports/page/:reports_page', :to => 'reports#index'
+    # resources :reports
     
-    ##
-    ## galleries
-    ##
-    # get 'galleries/in-city/:cityname', :to => 'galleries#index', :as => :galleries_in_city
     get 'galleries', :to => 'galleries#index', :as => :galleries
-    # get 'galleries/search', :to => 'galleries#search', :as => :search_galleries
-    # get 'galleries/search/:q', :to => 'galleries#search'
-    # get 'galleries/new', :to => 'galleries#new', :as => :new_gallery
-
     # get 'galleries/show/:galleryname/:photo_idx', :to => redirect { |params, request|
     #   "http://piousbox.com/#{params[:locale]}/galleries/show/#{params[:galleryname]}/#{params[:photo_idx]}"
     # }, :constraints => { :format => /html/ }
@@ -83,9 +81,6 @@ Microsites2::Application.routes.draw do
     # get 'galleries/:id/edit', :to => 'galleries#edit', :as => :edit_gallery
     # post 'galleries/:id', :to => 'galleries#update', :as => :update_gallery
     
-    ##
-    ## videos
-    ##
     # get 'videos/in-city/:cityname', :to => 'videos#index', :as => :videos_in_city
     # get 'videos/view/:youtube_id', :to => 'videos#show', :as => :video
     # get 'videos/in-tag/:tagname', :to => 'videos#index', :as => :videos_in_tag
@@ -98,24 +93,21 @@ Microsites2::Application.routes.draw do
     get 'events/show/:eventname', :to => 'events#show', :as => :event
     # resources :events
     
-    #
-    # tags
-    # 
     get 'tags' => redirect { |params, r| "http://piousbox.com/en/tags" }
     get 'tags/view/:tagname' => redirect { |params, r| "http://piousbox.com/en/tags/view/#{params[:tagname]}" }
 
     get 'v', :to => 'utils/utils#version', :as => :version
 
-    get 'sitemap', :to => 'utils/sitemaps#sitemap'
+    # get 'sitemap', :to => 'utils/sitemaps#sitemap'
 
     # sites
-    get 'sites/:domainname/galleries.json', { 
-      :to => 'sites#galleries', :as => :site_galleries, :format => :json, :constraints => { :domainname => /.*/, :format => /json/ } 
-    }
-    get 'sites/:domainname/newsitems.json', { 
-      :to => 'sites#newsitems', :as => :site_newsitems, :format => :json, :constraints => { :domainname => /.*/, :format => /json/ } 
-    }
-    get "sites/:domainname.json", :to => "sites#show", :as => :site, :format => :json, :constraints => { :domainname => /.*/, :format => /json/ }
+    # get 'sites/:domainname/galleries.json', { 
+    #   :to => 'sites#galleries', :as => :site_galleries, :format => :json, :constraints => { :domainname => /.*/, :format => /json/ } 
+    # }
+    # get 'sites/:domainname/newsitems.json', { 
+    #   :to => 'sites#newsitems', :as => :site_newsitems, :format => :json, :constraints => { :domainname => /.*/, :format => /json/ } 
+    # }
+    # get "sites/:domainname.json", :to => "sites#show", :as => :site, :format => :json, :constraints => { :domainname => /.*/, :format => /json/ }
 
     match '*other', :to => 'errors#five_hundred'
   end # end locale
@@ -125,11 +117,16 @@ Microsites2::Application.routes.draw do
   #
   get 'cities/travel-to/:cityname', :to => 'cities#profile'
   get 'cities/travel-to', :to => 'cities#index'
+  get 'reports', :to => 'reports#index', :as => :reports
+  get 'reports/view/:name_seo', :to => 'reports#show', :as => :report
+  get 'venues', :to => 'venues#index', :as => :reports
+  get 'venues/show/:name_seo', :to => 'venues#show', :as => :report
+  # resources :venues
 
   #
   # new non-localed stuff
   #
-  get 'sitemap', :to => 'utils/sitemaps#sitemap', :as => :sitemap
+  # get 'sitemap', :to => 'utils/sitemaps#sitemap', :as => :sitemap
 
   #
   # important non-locale-scoped stuff
@@ -167,8 +164,8 @@ Microsites2::Application.routes.draw do
   match 'dictionaryitems' => redirect { |params, request| '/' }
   match 'helps/*everything' => redirect { |params, request| '/' }
   match 'helps' => redirect { |params, request| '/' }
-  match 'events/*everything' => redirect { |params, request| '/' }
-  match 'events' => redirect { |params, request| '/' }
+  # match 'events/*everything' => redirect { |params, request| '/' }
+  # match 'events' => redirect { |params, request| '/' }
 
   # add scope
   match '*other' => redirect { |params, request| "/en/#{params[:other]}" }

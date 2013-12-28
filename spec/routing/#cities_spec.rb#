@@ -19,7 +19,7 @@ describe CitiesController do
 
   it 'venues' do
     expect( :get => '/venues.json' ).to route_to( :controller => 'venues', :action => 'index', :format => 'json' )
-    expect( :get => '/venues/show/blah.json').to route_to({ :controller => 'venues', :action => 'show', :name_seo => 'blah', :format => 'json' })
+    expect( :get => '/venues/show/blah.json').g29to route_to({ :controller => 'venues', :action => 'show', :name_seo => 'blah', :format => 'json' })
     expect( :get => '/pt/venues.json' ).to route_to( :controller => 'venues', :action => 'index', :format => 'json', :locale => 'pt' )
     expect( :get => '/pt/venues/show/blah.json').to route_to({ :controller => 'venues', :action => 'show', :name_seo => 'blah', 
                                                           :format => 'json', :locale => 'pt' })
