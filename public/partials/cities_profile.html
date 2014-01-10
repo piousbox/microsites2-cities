@@ -1,0 +1,37 @@
+
+<div class="row">
+  <div class="large-12 columns">
+
+    <h2 class="text-center">{{ city.name }}</h2>
+    
+    {{ city.descr }}
+
+    <h3>Map</h3>
+
+    <h3>People</h3>
+    <ul>
+      <li>A</li>
+    </ul>
+
+    <h3>Events</h3>
+    <ul>
+      <li>B</li>
+    </ul>
+
+    <h3>Reports</h3>
+    <ul>
+      <li ng-repeat="r in city.j_reports">
+        <a href="reports/view/{{r.name_seo}}">{{ r.name }}</a>
+      </li>
+    </ul>
+
+    <h3>Galleries</h3>
+    <ul>
+      <li ng-repeat="g in city.j_galleries">
+        <a href="">{{ g.name }}</a>
+      </li>
+    </ul>
+    
+  </div>
+
+</div>

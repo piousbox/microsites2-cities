@@ -1,0 +1,96 @@
+
+<div class="row">
+  <div class="large-6 small-12 columns">
+
+    <div id="homepage_canvas" data-magellan-destination="homepage_canvas" ></div>
+
+    <div class="cities-feature row">
+      <div class="large-6 medium-6 small-6 columns" ng-repeat="city in feature_cities">
+        <div class="panel" >
+          <a href="cities/travel-to/{{city.cityname}}" class="" >{{ city.name }}</a>
+        </div>
+      </div>
+    </div>
+
+    <form data-magellan-destination="cities_alpha_list" >
+      <div class="row">
+        <div class="large-2 small-2 columns text-right">
+          Or choose
+        </div>
+        <div class="large-6 small-8 columns">
+          <select>
+            <option>Any city</option>
+            <option ng-repeat="city in cities">{{city.name}}</option>
+          </select>
+        </div>
+        <div class="large-4 small-2 columns">
+          <input type="Submit" class="button tiny"  value="Explore"></input>
+        </div>
+      </div>
+    </form>
+    
+    <hr />
+
+    <form>
+      <div class="row panel">
+        <div class="large-2 small-2 columns text-right" >
+          I am in
+        </div>
+        <div class="large-5 small-4 columns">
+          <select>
+            <option ng-repeat="city in cities">{{ city.name }}</option>
+          </select>
+        </div>
+        <div class="large-1 small-1 columns">
+          for
+        </div>
+        <div class="large-2 small-2 columns">
+          <input type="text" name="n_days" value="5" />
+        </div>
+        <div class="large-2 small-1 columns">
+          Days
+        </div>
+        <div class="large-6 large-pull-3 small-12 columns text-center" >
+          <input type="Submit" class="button small meet-people" value="Meet People" />
+        </div>
+      </div>
+    </form>
+
+  </div>
+  <div class="large-6 small-12 columns">
+    <h1 class="text-center">News</h1>
+
+    <div class="row">
+      <div class="large-12 columns">
+        <ul class="inline-list text-center" >
+          <li><a href="photos/new" class="button tiny" >New Photo</a></li>
+          <li><a href="reports/new" class="button tiny" >New Story</a></li>
+          <li><a href="galleries/new" class="button tiny" >New Gallery</a></li>
+          <li><a href="reviews/new" class="button tiny" >New Review</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="row">
+      <form>
+        <div class="large-8 columns" >
+          <input type="text" placeholder="Post..." />
+        </div>
+        <div class="large-4 columns">
+          <input type="submit" class="button tiny" value="Annnounce in Chicago" />
+        </div>
+      </form>
+    </div>
+
+    <ul class="news-list">
+      <li ng-repeat="n in newsitems">
+        <h5><a href="{{ n.link_path }}">{{ n.name }}</a></h5>
+        <div class="meta">{{ Meta.pretty_date(n.created_at) }}</div>
+        <div class="descr">
+          {{ n.descr }}
+          <img src="{{ n.image_path }}" alt="{{n.descr}}" />
+        </div>
+      </li>
+    </ul>
+  </div>
+
+</div>

@@ -15,14 +15,13 @@ class ApplicationController < ActionController::Base
 
   check_authorization
 
-  # has_mobile_fu
-
   # layout 'cities'
 
   private
   
   def after_sign_in_path_for resource
-    organizer_path
+    # organizer_path
+    root_path
   end
 
   def after_sign_out_path_for(resource_or_scope)
@@ -30,7 +29,8 @@ class ApplicationController < ActionController::Base
   end
 
   def after_sign_in_path_for resource
-    organizer_path
+    # organizer_path
+    root_path
   end
   
   def puts! arg
@@ -121,14 +121,6 @@ class ApplicationController < ActionController::Base
     @features = []
     features.each do |f|
       @features << f.symbolize_keys
-    end
-  end
-
-  def redirect_mobile_user
-    if is_mobile_device? && !(request.host.split('.').include? 'm')
-      lang = (@locale == 'en') ? '' : "#{@locale}."
-      port = (Rails.env.development?) ? ":#{request.port}" : ''
-      redirect_to "#{request.protocol}#{lang}m.#{request.domain}#{port}#{request.path}"
     end
   end
 

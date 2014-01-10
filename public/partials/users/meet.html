@@ -1,0 +1,35 @@
+
+
+<h2>Meet People</h2>
+
+<div class="row">
+    <form>
+      <div class="large-6 columns">
+        I am a
+        <select>
+          <option></option>
+          <option>Man</option>
+          <option>Woman</option>
+          <option>Other</option>
+        </select>
+      </div>
+
+      <div class="large-6 columns">
+        in
+        <select class="cities" >
+          <option></option>
+          <option ng-repeat="city in cities">{{city.name}}</option>
+        </select>
+      </div>
+
+      <div class="large-8 columns">
+        Picture
+        <input type="file" />
+      </div>
+
+      <div class="large-4 columns text-right" >
+        <input type='Submit' value="Go!" class="button small" />
+      </div>
+      
+    </form>
+</div>

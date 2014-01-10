@@ -1,0 +1,99 @@
+<!doctype html>
+<html class="no-js" lang="en" ng-app="myApp" >
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Travel-guide.mobi</title>
+    <link rel="stylesheet" href="/css/foundation.css" />
+    <link rel="stylesheet" href="/css/app.css" />
+    <script src="/js/modernizr.js"></script>
+    <base href="/en/" /> 
+  </head>
+  <body>
+    
+    <div class="row">
+      <div class="large-12 columns text-center logo">
+        <a href="#">Travel-guide.mobi</a>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="large-9 small-12 columns" id="main_region">
+        <dl class="tabs" data-tab>
+          <dd><a href="#left_map_panel">Map</a></dd>
+          <dd><a href="#left_cities_panel">Cities</a></dd>
+          <dd><a href="#left_newsitems_panel">News</a></dd>
+          <dd><a href="#left_meetme_panel">Meet People</a></dd>
+        </dl>
+        <div class="tabs-content">
+          <div class="content" id="left_map_panel">
+            <div class="map-canvas">
+              &nbsp;
+            </div>
+          </div>
+          <div class="content" id="left_cities_panel">
+            <div ng-controller="CitiesIndexCtrl" class="row cities-list">
+              <div class="large-4 small-6 medium-4 columns" ng-repeat="city in cities"><a href="cities/travel-to/{{city.cityname}}">{{city.name}}</a></div>
+            </div>
+          </div>
+          <div class="content" id="left_newsitems_panel">
+            News
+          </div>
+          <div class="content" id="left_meetme_panel">
+            Meetme
+          </div>
+        </div>
+      </div>
+      <div class="large-3 small-12 columns" id="my_region">
+        <div class="panel">
+          <div class="text-center">Settings</div>
+          <ul>
+            <li><a href="#">Current City</a></li>
+            <li><a href="#">Upload Photos</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      In City {{city.name}}
+    </div>
+    
+    <hr />
+
+    <div class="row">
+      <div class="large-4 columns">
+        ^__^
+      </div>
+      <div class="large-4 columns">
+        [en] [ru] [pt]
+      </div>
+      <div class="large-4 columns">
+        <ul>
+          <li>Log in</li>
+          <li>Meta</li>
+      </div>
+    </div>
+
+    <script src="/js/vendor/jquery.js"></script>
+    <script src="/js/foundation/foundation.js"></script>
+    <script src="/js/foundation/foundation.tab.js"></script>
+    <script>
+      $(document).foundation();
+    </script>
+
+    <!-- In production use:
+    <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.0.7/angular.min.js"></script>
+    -->
+    <script src="/js/angular/angular.js"></script>
+    <script src="/js/angular/angular-route.js"></script>
+    <script src="/js/angular/angular-resource.js"></script>
+    <script src="/js/angular/angular-sanitize.js"></script>
+    <script src="/js/app.js"></script>
+    <script src="/js/services.js"></script>
+    <script src="/js/controllers.js"></script>
+    <script src="/js/filters.js"></script>
+    <script src="/js/resources.js"></script>
+    <script src="/js/directives.js"></script>
+  </body>
+</html>

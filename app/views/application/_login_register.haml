@@ -1,7 +1,7 @@
 
 .login-register
   %ul
-    %li= link_to t('g.meta'), page_meta_path
+    -# %li= link_to t('g.meta'), page_meta_path
     - if user_signed_in?
       %li
         = link_to "-] #{@current_user.username} [-", organizer_path, :class => 'account navbar-link'
