@@ -1,28 +1,55 @@
 !!!
-%html
+%html{ :lang => @lang, 'ng-app' => 'myApp', 'ng-controller' => 'MetaCtrl' }
   %head
-    %title
-      = @title
-    = stylesheet_link_tag "cities2"
-    -# %link{:href => "http://fonts.googleapis.com/css?family=Asul", :rel => "stylesheet", :type => "text/css"}
-    = javascript_include_tag "cities2"
-    %meta{:content => "width=device-width, initial-scale=1.0", :name => "viewport"}
-    %link{:href => "/assets/favicon.gif", :rel => "shortcut icon"}
-    = render 'application/analytics'
-  %body{ :id => @action_name, :class => @action_classes, :domain => @domain, :lang => @locale }
-    -# = render 'init_maps'
+    %title {{ Meta.title() }}
+    %meta{ :name => 'description', :content => "{{ Meta.description() }}" }
+    %meta{ :name => 'author', :content => "{{ Meta.author() }}" }
+    %meta{ :name => 'keywords', :content => "{{ Meta.keywords() }}" }
+    = stylesheet_link_tag "foundation", "app", :media => "all"
+    = javascript_include_tag "application2"
+    = csrf_meta_tags
+    %meta{ :content => "width=device-width, initial-scale=1.0", :name => "viewport" }
+    %meta{ :charset => 'utf-8' }
+    %link{ :href => "/assets/favicon.gif", :rel => "shortcut icon" }
+    = render "application/analytics"
+    -# %link{ :href => 'http://fonts.googleapis.com/css?family=Kite+One|Oxygen', :rel => 'stylesheet', :type => 'text/css' }
+    %base{ :href => "/en/" }
+      
+  %body{ :id => @action_name, :class => @action_classes }
 
-    .Lcities2
-        
-      #left
-        .left-menu
-        .left-container
-          .notice
-          .inner
-                
-      #right
-        .right-menu
-        .right-container
-          .inner
-        
-    = render 'template/all'
+    .Lapplication-mini.container.content
+      -# = render 'application/header'
+
+      - if flash[:notice]
+        .notice= flash[:notice]
+      - if flash[:error]
+        .error= flash[:error]
+      .c
+
+      %nav.top-bar{"data-topbar" => ""}
+        %ul.title-area
+          %li.name
+            %h1= link_to 'Travel-guide.mobi', '/en/cities'
+          %li.toggle-topbar.menu-icon
+            %a{href: "javascript:void(0);"}
+              %span Menu
+        %section.top-bar-section
+          %ul.right
+            %li= link_to 'Organizer', 'users/organizer'
+            %li= link_to 'Sign In', 'users/sign_in'
+          %ul.left
+            %li= link_to 'Cities', 'cities'
+            %li= link_to 'People', 'people'
+
+      .row
+        .large-12.small-12.columns
+          %div{"ng-view" => ""}
+    
+      = yield
+      .c
+      -# = render 'application/footer'
+      .main-footer{"ng-controller" => "MetaCtrl"}
+        %div{"ng-include" => "footer_partial_url"}
+
+
+      

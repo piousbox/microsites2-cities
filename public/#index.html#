@@ -1,17 +1,10 @@
-<!doctype html>
-<html lang="en" ng-app="myApp" ng-controller="MetaCtrl" >
-<head>
-  <meta charset="utf-8">
-  <title>{{ Meta.title() }}</title>
-  <meta name="description" content="{{ Meta.description() }}">
-  <meta name="author" content="{{ Meta.author() }}" >
-  <meta name="keywords" content="{{ Meta.keywords() }}" >
-  <link rel="stylesheet" href="/css/app.css"/>
-  <link rel="stylesheet" href="/css/foundation.css" />
-  <base href="/en/" /> 
-</head>
-<body>
+  <script>
+    if ( '/' == window.location.pathname ) {
+    window.location = '/en/';
+    };
+  </script>
 
+<body>
   <nav class="top-bar" data-topbar> 
     <ul class="title-area">
       <li class="name">
@@ -46,21 +39,11 @@
   <div class="main-footer" ng-controller="MetaCtrl">
     <div ng-include="footer_partial_url"></div>
   </div>
-  
-  <script>
-    if ( '/' == window.location.pathname ) {
-    window.location = '/en/';
-    };
-  </script>
-  
+    
   <script src="/js/vendor/jquery.js"></script>
   <script src="/js/foundation/foundation.js"></script>
   <script src="/js/foundation/foundation.tab.js"></script>
   <script src="/js/foundation/foundation.topbar.js"></script>
-  <script>
-    $(document).foundation();
-    CanvasOps = {};
-  </script>
 
   <!-- In production use:
        <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.0.7/angular.min.js"></script>

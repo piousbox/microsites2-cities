@@ -25,6 +25,7 @@ class WelcomeController < ApplicationController
   end
 
   def home
+    render :layout => 'cities2'
     # redirect_to cities_path
   end
 
