@@ -6,7 +6,7 @@
     %meta{ :name => 'author', :content => "{{ Meta.author() }}" }
     %meta{ :name => 'keywords', :content => "{{ Meta.keywords() }}" }
     = stylesheet_link_tag "foundation", "app", :media => "all"
-    = javascript_include_tag "application2"
+    = javascript_include_tag "application2", "http://maps.googleapis.com/maps/api/js?key=AIzaSyCB7fDqgzdMPF6sE3t9XWpzcoGklVYihVA&sensor=false"
     = csrf_meta_tags
     %meta{ :content => "width=device-width, initial-scale=1.0", :name => "viewport" }
     %meta{ :charset => 'utf-8' }

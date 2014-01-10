@@ -19,7 +19,9 @@
 //= require angular/angular-resource
 //= require angular/angular-sanitize
 // 
+//= require_self
 //= require ./app
+//= require ./canvas_ops
 //= require ./services
 //= require ./controllers
 //= require ./filters
