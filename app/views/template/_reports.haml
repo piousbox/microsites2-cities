@@ -1,26 +1,22 @@
-//
-// show
-//
-%script#report-template{:type => "text/template"}
+
+%script#report_show-template{:type => "text/template"}
   .report
+    
     .vote
       <a class='up' name_seo="<%= name_seo %>" href='javascript:void(0);'><img src='/assets/icons/32x32/thumbs_up.png' width=16 alt='thumbs up' /></a>
       <a class='down' name_seo="<%= name_seo %>" href='javascript:void(0);'><img src='/assets/icons/32x32/thumbs_down.png' width=16 alt='thumbs down' /></a>
 
-    %h2 <a href='javascript:void(0)' name_seo="<$= name_seo %>" ><%= name %></a>
+    %h2 <a href='/<%= U.lang %>/reports/view/<%= name_seo %>' name_seo="<$= name_seo %>" ><%= name %></a>
     .meta By <%= username %> on <%= created_at %>
+
     
     .subhead <%= subhead %>
     <img src="<%= photo_url %>" alt="<%= name %>" />
     .descr <%= descr %>
-
-// showmap
+    
 %script#reports-showmap-template{ :type => 'text/template' }
   <div id="reports_show_canvas" x="<%= x %>" y="<%= y %>" name_seo="<%= name_seo %>"></div>
 
-//
-// show small
-//
 %script#report_small-template{:type => "text/template"}
   .report-small
     .vote
@@ -31,10 +27,29 @@
     .meta By <%= username %>
     <div class='bg-image'><img src="<%= photo_url %>" alt='' /></div>
     .subhead <%= subhead %>
+    
+%script#reports_list-template{:type => "text/template"}    
+  .reports-list
+    %h3.trash Reports List Template
+    %ul
+      <% _.each( reports, function(report) { %>
+      %li
+        <img src="<%= report.photo_url %>" alt="<%= report.name %>" /></a>
+        
+        %h5
+          <a href="javascript:void(0)" name_seo="<%= report.name_seo %>" class="report-link"><%= report.name %></a>
+        .meta
+          On <%= report.created_at %>
+          By <%= report.username %>
+          
+          <% if ( report.tag_name.length > 0 ) { %>
+          In <%= report.tag_name %>
+          <% } %>
+        .subhead
+          <%= report.subhead %>
+        .c
+      <% }) %>
 
-//
-// ??
-//
-%script#reports-template{:type => "text/template"}
-  .reports
-    .items
+%script#reports_indexitem-template{:type => "text/template"}    
+  .report-indexitem
+    &nbsp;

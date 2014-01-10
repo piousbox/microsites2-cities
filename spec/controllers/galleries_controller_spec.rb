@@ -32,11 +32,6 @@ describe GalleriesController do
     @ph2 = Photo.create :user => @user, :name => 'ph2'
     @ph3 = Photo.create :user => @user, :name => 'ph3'
 
-    Site.all.each { |s| s.remove }
-    @site = FactoryGirl.create :test_site
-    request.host = 'test.host'
-
-    setup_sites
   end
 
   describe 'not found' do
@@ -47,146 +42,19 @@ describe GalleriesController do
     end
   end
 
-  describe 'search' do
-    it 'should search' do
-      sign_in :user, @user
-      post :search, :search_keyword => 'yada'
-      response.should render_template('index')
-      assigns(:galleries).should_not eql nil
-    end
-  end
-
   describe 'show' do
-    it 'redirects from id to galleryname path' do
-      get :show, :id => @g.id, :locale => :en
+    it 'json 200' do
+      get :show, :galleryname => 'g', :locale => :en, :format => :json
+      response.should be_success
+      # body = JSON.parse( response.body )
+      # body.lenght.should >= 1
+    end
+
+    it 'html redirect' do
+      get :show, :galleryname => @g.galleryname, :locale => :en, :format => :html
       response.should be_redirect
-      response.should redirect_to(gallery_path(@g.galleryname, 0))
-      
-      get :show, :galleryname => @g.galleryname, :locale => :en
-      response.should be_success
-    end
-
-    it 'GETs show' do
-      Photo.all.length.should >= 2
-      Photo.all.each do |ph|
-        @g.photos << ph
-      end
-      @g.save
-      @g.photos.length.should >= 2
-      get :show, :galleryname => @g.galleryname, :locale => :en
-      response.should be_success
-      response.should render_template('galleries/show')
-      assigns(:related_galleries).should_not eql nil
-    end
-
-    it 'renders cities layout' do
-      @g.galleryname.should_not eql nil
-      @g.city.name.should_not eql nil
-      get :show, :galleryname => @g.galleryname, :layout => 'cities', :locale => :en
-      response.should be_success
-      # the cities layout actually errors out
-      response.should render_template('layouts/application')
-    end
-
-    it 'shows long' do
-      get :show, :galleryname => @g.galleryname, :style => 'show_long', :locale => :en
-      response.should render_template('show_long')
-    end
-
-    it 'shows photo' do
-      @g.galleryname.should_not eql nil
-      get :show, :galleryname => @g.galleryname, :locale => :en
-      response.should render_template('show')
-      assigns( :photos ).should_not eql nil
-    end
-
-    it 'does not display cities layout' do
-      get :show, :galleryname => @g.galleryname, :layout => 'cities', :locale => :en
-      response.should render_template('layouts/application')
-    end
-
-    it 'shows only non-trash photos' do
-      get :show, :galleryname => @g.galleryname, :locale => :en
-      assigns(:photos).each do |photo|
-        photo.is_trash.should eql false
-      end
-    end
-
-    it 'redirects to first image if index of photo is out of bounds' do
-      get :show, :galleryname => @g.galleryname, :photo_idx => 100
-      response.should be_redirect
-      response.should redirect_to("/en/galleries/show/#{@g.galleryname}/0")
-    end
-
-  end
-
-  describe 'set show style' do
-    it 'does' do
-      sign_out :user
-      @g.is_public.should eql true
-      @g.is_trash.should eql false
-      get :show, :galleryname => @g.galleryname, :locale => :en
-      get :show, :galleryname => @g.galleryname, :locale => :en
-      response.should render_template('show')
-    end
-  end
-  
-  describe 'index' do
-    it 'gets galleries, created_at order' do
-      get :index, :format => :json
-      response.should be_success
-      
-      gs = assigns(:galleries)
-      gs.should_not be nil
-      gs.each do |g|
-        g.is_public.should eql true
-        g.username.should_not eql nil
-      end
-    end
-
-    it "only shows galleries of this site" do
-      get :index
-      response.should be_success
-      assigns(:galleries).each do |gallery|
-        gallery.site.domain.should eql @request.host
-      end
+      response.should redirect_to( "http://piousbox.com/en/galleries/show/#{@g.galleryname}/0" )
     end
   end
 
-  describe 'create' do
-    it 'creates newsitem for site' do
-      @request.host = 'pi.local'
-      
-      sign_in :user, @user
-      
-      old_n_newsitems = Site.where( :lang => 'en', :domain => 'piousbox.com' ).first.newsitems.all.length
-
-      g = { :is_public => true, :name => 'Name', :galleryname => 'galleryname', :user => User.all.first }
-      post :create, :gallery => g
-
-      # non-public, should not increment newsitem count
-      g = { :is_public => false, :name => 'Name1', :galleryname => 'galleryname1', :user => User.all.first }
-      post :create, :gallery => g
-
-      new_n_newsitems = Site.where( :lang => 'en', :domain => 'piousbox.com' ).first.newsitems.all.length
-      ( new_n_newsitems - 1 ).should eql old_n_newsitems
-    end
-
-    it 'creates newsitem for city' do
-      sign_in :user, @user
-
-      old_n_newsitems = City.find( @city.id ).newsitems.all.length
-
-      g = { :is_public => true, :name => 'Name', :galleryname => 'galleryname', :user => User.all.first, :city_id => @city.id }
-      post :create, :gallery => g
-
-      # and non-public
-      g = { :is_public => false, :name => 'Name', :galleryname => 'galleryname', :user => User.all.first, :city_id => @city.id }
-      post :create, :gallery => g
-
-      new_n_newsitems = City.find( @city.id ).newsitems.all.length
-      ( new_n_newsitems - 1 ).should eql old_n_newsitems
-    end
-  end
-  
 end

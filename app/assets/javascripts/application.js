@@ -19,8 +19,7 @@
 //= require ./global
 //
 //= require_directory ./models
-//= require_directory ./views
-//= require_directory ./views/cities
-//= require_directory ./helpers
-//
+//= require_tree ./views
+//= require ./init/router
+//= require_directory ./init
 //

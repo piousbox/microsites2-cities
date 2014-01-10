@@ -41,11 +41,14 @@ gem "aws-s3",            :require => "aws/s3"
 gem "recaptcha",         :require => "recaptcha/rails"
 
 gem 'mobile-fu'
-gem "resque"
-gem 'simple-rss', :git => "git://github.com/piousbox/simple-rss.git"
+
+group :utils do
+  gem "resque"
+  gem 'simple-rss', :git => "git://github.com/piousbox/simple-rss.git"
+end
 
 # caching
-gem 'dalli'
+# gem 'dalli'
 
 group :production do
   gem 'unicorn'
@@ -73,4 +76,5 @@ group :development, :test do
   gem 'thin'
   gem 'delayed_job_mongoid'
   gem 'hpricot'
+  gem 'simplecov', :require => false
 end

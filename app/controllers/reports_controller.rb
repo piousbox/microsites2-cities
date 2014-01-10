@@ -1,159 +1,24 @@
+
 class ReportsController < ApplicationController
-  before_filter :load_features, :only => [ :show ]
-  # caches_page :show, :index, :not_found, :venues
 
-  def new
-    @report = Report.new
-    authorize! :new, @report
-    @cities = City.list
-    @tags_list = Tag.all.where( :is_public => true ).list
+  layout 'application'
 
-    respond_to do |format|
-      format.html do
-        render :layout => 'organizer' # @layout
-      end
-      format.json { render :json => @report }
-    end
-  end
-
-  def create
-    @report = Report.new params[:report]
-    @report.user = @current_user || User.where( :username => 'anon' ).first
-    @report.username = @report.user.username
-    @report[:lang] = @locale
-    @report.name_seo ||= @report.name.to_simple_string
-    @report.is_feature = false
-    authorize! :create, @report
-
-    verified = true
-    saved = false
-    if @current_user.blank?
-      verified = verify_recaptcha( :model => @report, :message => 'There is a problem with recaptcha.' )
-    end
-
-    if verified
-      # for city
-      if @report.is_public && !@report.city.blank?
-        n = Newsitem.new
-        n.report = @report
-        n.descr = 'shared a story on'
-        n.user = current_user
-        city = City.find @report.city.id
-        city.newsitems << n
-        if @report.city.save
-          flash[:notice] = 'newsitem saved. '
-        else
-          flash[:error] = 'City could not be saved (newsitem). '
-        end
-      else
-        flash[:notice] = 'Newsitem was not attempted to be saved. '
-      end
-
-      # for homepage
-      if @report.is_public
-        n = Newsitem.new
-        n.report = @report
-        n.descr = 'shared a story on'
-        n.user = @report.user
-        @site.newsitems << n
-        if @site.save
-        else
-          flash[:error] = flash[:error] + 'City could not be saved (newsitem). '
-        end
-      end
-
-      # for city
-
-      saved = @report.save
-    end
-
-    respond_to do |format|
-      if saved
-        format.html { redirect_to report_path(@report.name_seo), :notice => 'Report was successfully created (but newsitem, no information.' }
-        format.json { render :json => @report, :status => :created, :location => @report }
-      else
-        format.html do
-          # puts! @report.errors
-          flash[:error] = @report.errors.inspect
-          render :action => "new"
-        end
-        format.json { render :json => @report.errors, :status => :unprocessable_entity }
-      end
-    end
-  end
-
-  def edit
-    @report = Report.find(params[:id])
-    authorize! :edit, @report
-    @cities_list = City.list
-    @tags_list = Tag.list
-    @venues_list = Venue.list
-
-    respond_to do |f|
-      f.html
-      f.json
-    end
-  end
-  
-  def update
-    @report = Report.find(params[:id])
-    authorize! :update, @report
-
-    respond_to do |format|
-      if @report.update_attributes(params[:report])
-        format.html do
-          redirect_to report_path(@report.name_seo), :notice => 'Report was successfully updated.'
-        end
-        format.json { head :ok }
-      else
-        format.html { render :action => "edit" }
-        format.json { render :json => @report.errors, :status => :unprocessable_entity }
-      end
-    end
-  end
-  
-  def search
-    authorize! :search, Report.new
-    @reports = Report.where( :name => /#{params[:keyword]}/i )
-
-    if params[:my]
-      @reports = @reports.where( :user => current_user)
-    end
-
-    @reports = @reports.page( params[:reports_page] )
-    
-    render :action => :index
-  end
-  
   def index
     authorize! :index, Report.new
-    @reports = Report.all.where( :site => @site )
-    if params[:cityname]
-      @city = City.where( :cityname => params[:cityname] ).first
-      @reports = @reports.where( :city => @city )
-    end
+    @reports = Report.all
+    @reports = @reports.where( :city => City.where( :cityname => params[:cityname] ).first ) unless params[:cityname].blank?
     @reports = @reports.page( params[:reports_page] )
     respond_to do |format|
-      format.html do
-        if params[:cityname]
-          @features = []
-          render :layout => 'application_cities', :action => :list
-        else
-          render
-        end
-      end
+      format.html
       format.json do
-        @r = []
-        @reports.each do |r|
+        @reports.each_with_index do |r, idx|
           unless r.photo.blank?
-            r[:photo_url] = r.photo.photo.url(:thumb)
+            @reports[idx][:photo_url] = r.photo.photo.url(:mini)
           end
-          r.username ||= r.user.username
-          r.username ||= ''
-          r[:photo_url] ||= ''
-          @r.push r
+          @reports[idx].username ||= r.user.username || ''
+          @reports[idx][:photo_url] ||= ''
         end
-        render :json => @r
+        render :json => @reports
       end
     end
   end
@@ -170,28 +35,27 @@ class ReportsController < ApplicationController
     end
     
     if @report.blank?
-      render :not_found
       authorize! :not_found, Report.new
+      respond_to do |format|
+        format.html do
+          render :empty
+        end
+        format.json do
+          render :json => {}
+        end
+        format.tablet do
+          render :empty
+        end
+        format.mobile do
+          render :empty
+        end
+      end
 
     else
       authorize! :show, @report
       respond_to do |format|
         format.html do
-          if @report.tag && @report.user.username == @report.tag.name_seo
-            # if a characteristic tag
-            redirect_to user_report_path(@report.name_seo)
-          else
-            if @report.tag.blank?
-              @recommended = Report.all.where( :is_feature => true ).limit( Feature.n_features )
-            else
-              @recommended = Report.all.where( :tag => @report.tag, :lang => @locale ).limit( 7 )
-              @recommended = @recommended.reject { |r| r.name_seo == @report.name_seo }
-            end
-            @city = @report.city
-            @report_name_seo ||= @report.name_seo
-            layout = ( [ 'application', 'cities', 'resume' ].include?(@layout) ) ? 'application_mini' : @layout
-            render :layout => layout
-          end
+          @report_name_seo = @report.name_seo
         end
         format.json do
           if @report.photo
@@ -203,16 +67,6 @@ class ReportsController < ApplicationController
           @report.username ||= ''
           render :json => @report
         end
-      end
-    end
-  end
-
-  def venues
-    @report = Report.where( :name_seo => params[:name_seo] ).first
-    authorize! :show, @report
-    respond_to do |format|
-      format.json do
-        render :json => @report.venues.to_a
       end
     end
   end

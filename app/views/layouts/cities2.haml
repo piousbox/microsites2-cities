@@ -1,0 +1,28 @@
+!!!
+%html
+  %head
+    %title
+      = @title
+    = stylesheet_link_tag "cities2"
+    -# %link{:href => "http://fonts.googleapis.com/css?family=Asul", :rel => "stylesheet", :type => "text/css"}
+    = javascript_include_tag "cities2"
+    %meta{:content => "width=device-width, initial-scale=1.0", :name => "viewport"}
+    %link{:href => "/assets/favicon.gif", :rel => "shortcut icon"}
+    = render 'application/analytics'
+  %body{ :id => @action_name, :class => @action_classes, :domain => @domain, :lang => @locale }
+    -# = render 'init_maps'
+
+    .Lcities2
+        
+      #left
+        .left-menu
+        .left-container
+          .notice
+          .inner
+                
+      #right
+        .right-menu
+        .right-container
+          .inner
+        
+    = render 'template/all'

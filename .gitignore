@@ -1,9 +1,8 @@
 tmp
 log
-
 *.DS_Store
-*~load 'config/deploy_environments'
-
 *~
 vendor/ruby
-coverage/
+coverage
+lib
+app/models

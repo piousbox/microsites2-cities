@@ -1,20 +1,9 @@
 
-.main-header
-
-  .logo= link_to image_tag( 'logos/travel_guide.png' ), root_path
-
-  = render 'application/search'
-  = render 'application/set_city'
-  = render 'application/set_locale'
-
-  %h1= @site.subhead
-
-  = render 'menu_main'
-
-  = render 'users/menu'
-
-  = render 'application/login_register'
-
-  .c
-.c
--# = render 'ads/links_horizontal_large'
+%ul
+  %li= link_to 'Home', root_path
+  %li= link_to 'Cities', cities_path
+  %li= link_to 'Reports', reports_path
+  %li Tags
+  %li Users
+  %li Venues
+  %li Galleries

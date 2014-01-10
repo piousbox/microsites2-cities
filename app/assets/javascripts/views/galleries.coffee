@@ -1,10 +1,18 @@
 $(document).ready ->
 
-  Views.Galleries.Show = Backbone.Marionette.ItemView.extend
-    template: '#gallery-template'
+  Views.Gallery.Show = Backbone.Marionette.ItemView.extend
+    template: '#gallery_show-template'
     model: Models.Gallery
     # tagName: 'div'
     # className: 'report'
+
+    initialize: ->      
+      @on('render', @afterRender)
+
+    afterRender: ->
+      ad_content = $('.ad-large-rectangle')[0].innerHTML
+      this.$el.append( ad_content )
+
 
   Views.Galleries.ShowSmall = Backbone.Marionette.ItemView.extend
     template: '#gallery_small-template'
@@ -39,3 +47,12 @@ $(document).ready ->
           U.views.gallery = new Views.Galleries.Show
             model: U.models.gallery
           MyApp.left_region.show( U.views.gallery )
+
+  Views.Galleries.IndexItem = Backbone.Marionette.ItemView.extend
+    template: '#galleries_indexitem-template'
+
+    initialize: ->
+      _.bindAll @, 'nothing'
+
+    nothing: ->
+      console.log( 'nothing' )

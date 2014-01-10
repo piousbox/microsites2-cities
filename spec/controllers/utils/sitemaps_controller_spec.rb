@@ -16,10 +16,6 @@ describe Utils::SitemapsController do
     @g1 = FactoryGirl.create :g1
     @g2 = FactoryGirl.create :g2
 
-    setup_sites
-    @travel_guide_mobi_en_site = Site.create :domain => 'travel-guide.mobi', :lang => :en
-    @travel_guide_mobi_pt_site = Site.create :domain => 'travel-guide.mobi', :lang => :pt
-
     Venue.all.each { |v| v.remove }
     @venue1 = FactoryGirl.create :venue
     @venue2 = FactoryGirl.create :cac
@@ -71,13 +67,8 @@ describe Utils::SitemapsController do
 
     it 'only has galleries of travel-guide.mobi' do
       init_sitemap
-      assigns(:site).should_not eql nil
-
       galleries = assigns(:galleries)
       galleries.should_not eql nil
-      galleries.each do |g|
-        g.site.domain.should eql 'travel-guide.mobi'
-      end
     end
 
     it 'has venues' do

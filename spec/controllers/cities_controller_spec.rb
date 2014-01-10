@@ -4,7 +4,13 @@ describe CitiesController do
 
   before :each do
     City.all.each { |u| u.remove }
-    @city = @sf = FactoryGirl.create :sf
+    @city = FactoryGirl.create :sf
+    @city.is_feature = true
+    @city.save
+    @rio = FactoryGirl.create :rio
+    @rio.is_feature = true
+    @rio.save
+    @city_3 = FactoryGirl.create :maputo
 
     User.all.each { |f| f.remove }
     @user = FactoryGirl.create :user
@@ -26,136 +32,44 @@ describe CitiesController do
     $-v = nil
   end
 
-  describe 'index' do
-    it 'GETs english index' do
+  describe '#index' do
+    it 'GETs english index & GLOBALS' do
+      setup_sites
+
       get :index
-      response.should render_template('cities/index')
+      response.should be_success
+      response.should render_template( 'empty' )
+      assigns( :site ).should_not eql nil
+      assigns( :domain ).should_not eql nil
     end
 
-    it 'GETs english index with set locale' do
-      get :index, :locale => :en
-      response.should render_template('cities/index')
-    end
-
-    it 'displays only pt reports when locale is pt' do
-      get :index, :locale => 'pt'
-      assigns(:locale).should eql 'pt'
-      feature_reports = assigns(:feature_reports)
-      feature_reports.should_not be nil
-      feature_reports.each do |r|
-        r.lang.should eql 'pt'
-      end
-    end
-
-    it 'displays only ru reports when locale is ru' do
-      get :index, :locale => :ru
-      assigns(:locale).should eql 'ru'
-      feature_reports = assigns(:feature_reports)
-      feature_reports.should_not be nil
-      feature_reports.each do |r|
-        r.lang.should eql 'ru'
-      end
-    end
-
-    it 'displays cities with 0 reports and non-0 galleries' do
-      # there must be a non-feature city with no reports and yes galleries
-      new_city = FactoryGirl.create :city_cccq
-      new_city.reports.each { |r| r.remove }
-      g = Gallery.all.first
-      g.city = new_city
-      g.save
-      new_city = City.where( :is_feature => false ).first
- 
-      get :index, :locale => 'en'
-      assigns(:cities).should_not eql []
-      flag = false
-      assigns(:cities).each do |city|
-        if 0 == city.reports.length
-          flag = true
-        end
-      end
-      flag.should eql true
-    end
-
-    it 'responds with the json request' do
+    it 'GETs json' do
+      City.all.each { |c| ( c.is_feature = true ) && c.save }
       get :index, :format => :json
       response.should be_success
-      JSON.parse(response.body).length.should eql 1
-    end
-
-  end
-
-  describe 'profile' do
-    it 'shows guide if there is a guide' do
-      @city.guide = User.all.first
-      @city.save
-      u = User.all.first
-      u.guide_city = @city
-      u.save
-      
-      get :profile, :cityname => 'San_Francisco'
-      response.should be_success
-      assigns(:city).guide.should_not be nil
-      assigns(:features).should_not be nil
-    end
-
-    it 'GETs home' do
-      get :profile, :cityname => 'San_Francisco'
-      response.should be_success
-
-      city = assigns(:city)
-      city.cityname.should eql 'San_Francisco'
-
-      rs = assigns(:reports)
-      (0..rs.length-1).each do |idx|
-        rs[idx].created_at.should be >= rs[idx+1].created_at
+      results = JSON.parse(response.body)
+      results.length.should >= 1
+      results.each_with_index do |item, idx|
+        unless results.length == idx+1
+          results[idx]['name'].should <= results[idx+1]['name']
+        end
       end
     end
+  end
 
-    it 'should show people' do
-      get :users, :cityname => 'San_Francisco'
+  describe '#profile (show)' do
+    it 'has reports, events, galleries, current_users and videos as JSON' do
+      get :profile, :cityname => @city.cityname, :format => :json
       response.should be_success
-      assigns( :users ).should_not eql nil
-    end
-
-    it 'should show venues' do
-      get :venues, :cityname => 'San_Francisco'
-      response.should be_success
-      assigns( :venues ).should_not eql nil
-    end
-
-    it 'should GET today' do
-      get :today, :cityname => 'San_Francisco'
-      response.should be_success
-      assigns( :events ).should_not eql nil
-    end
-
-    it 'should GET today in json' do
-      get :today, :cityname => 'San_Francisco', :format => :json
-      response.should be_success
-    end
-
-    it "has n_galleries via json" do
-      get :profile, :cityname => 'San_Francisco', :format => :json
-      result = JSON.parse(response.body)
-      result['n_galleries'].should eql 0
-    end
-
-    it 'redirects from city id to city name_seo' do
-      get :profile, :cityname => @city.id
-      response.should be_redirect
-      response.should redirect_to('/en/cities/travel-to/San_Francisco')
+      result = JSON.parse( response.body )
+      result['j_galleries'].should eql []
+      result['events'].should eql []
+      result['j_reports'].should eql []
+      result['j_users'].should eql []
+      result['videos'].should eql []
+      result['venues'].should eql []
     end
   end
-  
-  describe 'routes' do
-    it 'has root route' do
-      expect( :get => '/' ).to route_to( 'cities#index' )
-    end
 
-    it 'routes to /cities.json' do
-      expect(:get => '/cities.json').to route_to('cities#index', 'format' => 'json')
-    end
-  end
 
 end

@@ -15,9 +15,6 @@ describe WelcomeController do
 
     @request.host = 'piousbox.com'
     @request.env['HTTP_REFERER'] = 'test.host/about'
-
-    setup_sites
-    @site = Site.where( :domain => @request.host, :lang => 'en' ).first
   end
 
   describe 'header' do
@@ -30,32 +27,31 @@ describe WelcomeController do
       end
       # this test is bullshit by the way
     end
-
-    it 'has feature cities' do
-      get :about
-      response.should be_success
-      assigns(:feature_cities).should_not eql nil
-    end
   end
 
-  describe 'help' do
+  describe 'aux' do
     it 'GETs help' do
       get :help
       response.should be_success
-      response.should render_template('welcome/help')
+      response.should render_template( 'welcome/help' )
     end
-  end
 
-  describe 'set city' do
-    it 'sets city' do
-      sign_in :user, @user
+    it 'GETs privacy' do
+      get :privacy
+      response.should be_success
+      response.should render_template( 'welcome/privacy' )
+    end
+
+    it 'GETs contact' do
+      get :contact
+      response.should be_success
+      response.should render_template( 'welcome/contact' )
+    end
+
+    it 'GETs about' do
       get :about
-      get :help
-      cookies[:current_city].should eql nil
-      assigns(:list_citynames).should_not eql nil
-      post :set_city, :user => { :cityname => 'New_York_City' }
-      assert_response :redirect
-      # assert_equal 'New_York_City', assigns(:current_user).current_city.cityname
+      response.should be_success
+      response.should render_template( 'welcome/about' )
     end
   end
 
@@ -65,7 +61,7 @@ describe WelcomeController do
       hosts.each do |host|
         @request.host = host
         get :about
-        response.should render_template('layouts/application')
+        response.should render_template('layouts/cities')
       end
     end
 
@@ -74,7 +70,7 @@ describe WelcomeController do
       hosts.each do |host|
         @request.host = host
         get :about
-        response.should render_template('layouts/organizer')
+        response.should render_template('layouts/cities')
       end
     end
   end
@@ -91,6 +87,11 @@ describe WelcomeController do
       response.should be_redirect
       response.should redirect_to('/en/cities')
     end
+  end
+
+  it '#meta' do
+    get :meta
+    response.should be_success
   end
 
 end

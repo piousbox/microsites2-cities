@@ -8,29 +8,35 @@
     = javascript_include_tag "application"
     %meta{:content => "width=device-width, initial-scale=1.0", :name => "viewport"}
     %link{:href => "/assets/favicon.gif", :rel => "shortcut icon"}
-    = render 'analytics/travel-guide.mobi'
-  %body{ :id => @action_name, :class => @action_classes }
+    = render 'application/analytics'
+  %body{ :id => @action_name, :class => @action_classes, :domain => @domain, :lang => @locale }
+    = render 'init_maps'
+
     - unless @city.blank?
-      .ids{ :cityname => @city.cityname }
+      .ids{ :cityname => @city.cityname, :venuename => (@venue||Venue.new).venuename }
       .ns{ :n_reports => @n_reports, :n_galleries => @n_galleries, :n_venues => @n_venues, :n_users => @n_users, :n_videos => @n_videos }
     - if @report_name_seo
       .report-name-seo{ :report_name_seo => @report_name_seo }
     - if @galleryname
       .galleryname{ :galleryname => @galleryname }
     .Lcities
+      = render 'add_this'
       #header
-        .logo= link_to image_tag('logos/45x45/ish.png'), cities_path
+        .logo= link_to image_tag('logos/45x45/ish.png'), root_path
         %ul.main-menu
+          %li= link_to 'Home', root_path
           - if @city.blank?
           - else
             %li= link_to @city['name_'+@locale.to_s], @city
-          %li= link_to t('list.cities'), cities_path
-          %li= link_to 'Settings', settings_path
-          
+          -# %li= link_to t('list.cities'), cities_path
+          -# %li= link_to 'Settings', "javascript:alert('not implemented')" # settings_path
+
+        
+        
       #left
         .left-menu
-          %ul
-            %li= link_to 'Map', 'javascript:void(0)', :class => :active
+          -# = content_for :left_menu
+          -# nothing, it gets taken care of by backbone
             
         .left-container
           - if notice
@@ -40,28 +46,30 @@
           .inner
             .all-cities
               .all-cities-2
-                #cities_index_canvas
+                - if 'cities_index' == @action_name
+                  #cities_index_canvas
+                
+                -# .map-container#cities_show_canvas{ :cityname => (@city.blank? ? '' : @city.cityname) }
+
       #right
         .right-menu
-          %ul
-            %li= link_to 'News', 'javascript:void(0)', :class => :active
-            %li= link_to 'Cities', '#'
-            
+          -# = content_for :right_menu
+          -# nothing, it gets taken care of by backbone
+
         .right-container
           .inner
-            %ul.hide
-              %li news 1
-              %li news 2
-              %li news 3
+            %h5 Welcome Home
+            = render 'ads/large_rectangle'
             
+        = render 'ads/src/banner'
+        
       .main-footer
+        
         = render 'login_register'
         = render 'set_locale'
-        = render 'set_layout'
         .clear
     = render 'template/all'
     .hide
       = render 'ads/large_rectangle'
-    = render 'init_maps'
-
-
+      - if !@report_name_seo.blank?
+        = render 'reports/show', :report => @report

@@ -81,6 +81,7 @@ FactoryGirl.define do
     name_ru 'maputo'
     name_pt 'maputo'
     cityname 'Maputo'
+    is_feature true
   end
 
 end

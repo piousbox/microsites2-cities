@@ -1,1 +1,19 @@
-The Personal Growth Platform
+
+= Travel Mobi Guide =
+
+=== Tasks ===
+
+==== Processing Wikitravel.org ====
+
+1.
+
+ be rake wikitravel:parse_list_of_pages filename='wikitravel.org-popular-pages-test.htm'
+
+Take manually precompiled list of pages off of wikitravel.org, and create a WikitravelPage for each one that does not exist.
+The file must be present in ROOT/data directory.
+
+2.
+
+ be rake wikitravel:all_pages_to_report_and_newsitems domain='travel-guide.mobi' lang='en'
+
+The arguments I guess are optional.

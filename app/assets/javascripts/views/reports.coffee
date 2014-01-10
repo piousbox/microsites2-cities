@@ -1,8 +1,20 @@
 $(document).ready ->
 
-  Views.Reports.Show = Backbone.Marionette.ItemView.extend
-    template: '#report-template'
+  Views.Report.Show = Backbone.Marionette.ItemView.extend
+    template: '#report_show-template'
     model: Models.Report
+
+    initialize: ->
+      _.bindAll @, 'after_render'
+      @on('render', @after_render)
+
+    after_render: ->
+      # ad - should not be there.
+      #
+      # ad_content = $('.ad-large-rectangle')[0].innerHTML
+      # this.$el.append( ad_content )
+
+      this.$el.fadeOut().fadeIn()
 
   Views.Reports.ShowMap = Backbone.Marionette.ItemView.extend
     template: '#reports-showmap-template'
@@ -67,3 +79,7 @@ $(document).ready ->
           MyApp.right_region.show( U.views.report_canvas )
 
           CanvasOps.reports_show()
+
+  Views.Reports.IndexItem = Backbone.Marionette.ItemView.extend
+    template: '#reports_indexitem-template'
+    model: Models.Report

@@ -1,0 +1,39 @@
+
+- content_for :title do
+  Travel To
+  = @city.name
+  
+- content_for :left_menu do
+  -# this should be done by javascript
+
+  &nbsp;
+  -# %ul
+  -#   %li= link_to 'Map', 'javascript:void(0)', :class => 'active map_link'
+  -#   %li= link_to 'Power Map', 'javascript:void(0)', :class => :power_map_link
+  -#   %li= link_to 'Calendar', 'javascript: void(0);', :class => :calendar_link
+
+- content_for :left do
+  .map-container#cities_show_canvas{ :cityname => @city.cityname }
+  .all-cities
+    .all-cities-2
+      #cities_index_canvas
+
+  -# .calendar-container
+  -# .reports-show
+  -# .galleries-show
+  -# .videos-show
+
+- content_for :right_menu do
+  -# this should be done by javascript
+
+  &nbsp;    
+  -# %ul
+  -#   %li= link_to 'Stories', 'javascript: void(0);', :class => :reports_link
+  -#   %li= link_to 'People', 'javascript: void(0);', :class => :users_link
+  -#   %li= link_to 'Galleries', 'javascript: void(0);', :class => :galleries_link
+
+- content_for :right do
+  -# this should be done by javascript
+    
+  &nbsp;    
+  -# = render 'newsitems/list', :newsitems => @newsitems

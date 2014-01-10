@@ -1,3 +1,6 @@
+require 'simplecov'
+SimpleCov.start
+
 ENV["RAILS_ENV"] ||= 'test'
 require File.expand_path("../../config/environment", __FILE__)
 require 'rspec/rails'
@@ -105,11 +108,18 @@ def setup_cities
   @nyc = FactoryGirl.create :nyc
 end
 
+def setup_photos
+end
+
 def setup_sites
   Site.all.each { |s| s.remove }
-  @site = FactoryGirl.create :test_site
-  FactoryGirl.create :site_piousbox
-  FactoryGirl.create :site_piousbox_ru
-  FactoryGirl.create :site_piousbox_pt
+  @site = FactoryGirl.create :travel_guide_mobi
+  @request ||= FakeRequest.new
+  @request.host = 'travel-guide.mobi'
 end
+
+class FakeRequest
+  attr_accessor :host
+end
+
 

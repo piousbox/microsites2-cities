@@ -1,0 +1,25 @@
+
+= render 'spec_runner/all'
+  
+= javascript_include_tag "application", "spec_runner", "manager"
+= stylesheet_link_tag "spec_runner.css"
+
+= render 'template/all'
+= render 'init_maps'
+
+.ids{:cityname => "San_Francisco"}
+.Lcities
+%ul
+  %li.galleries-link
+.right-menu
+  %ul
+    %li
+      %a.active 1
+    %li
+      %a.active 2
+    %li
+      %a.active 3
+
+#log_main
+  %div
+    

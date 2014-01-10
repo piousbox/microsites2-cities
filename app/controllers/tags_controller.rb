@@ -5,12 +5,11 @@ class TagsController < ApplicationController
   def index    
     authorize! :index, Tag.new
 
-    @feature_tags = Tag.all.where( :is_feature => true, :site => @site ).sort_by{ |f| [ f.weight, f.created_at ] }.reverse[0...4]
-    @tags = Tag.all.where( :parent_tag => nil, :site => @site ).reject { |t| @feature_tags.include? t }
+    @feature_tags = Tag.all.where( :is_feature => true ).sort_by{ |f| [ f.weight, f.created_at ] }.reverse[0...4]
+    @tags = Tag.all.where( :parent_tag => nil ).reject { |t| @feature_tags.include? t }
     @tags = @tags.reject { |r| r.reports.length == 0 && r.galleries.length == 0 }
 
-    layout = ( @layout == 'application' ) ? 'application_mini' : @layout
-    render :layout => layout
+    render
   end
   
   def show
@@ -26,8 +25,6 @@ class TagsController < ApplicationController
     @features = @tag.features
     @children_tags = @tag.children_tags
 
-    layout = ( @layout == 'application' ) ? 'application_mini' : @layout
-    render :layout => layout
   end
 
 end

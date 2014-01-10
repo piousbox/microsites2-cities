@@ -3,18 +3,20 @@ U = {
   collections: {},
   views: {
     cities: {},
+    city: {},
     features: {},
-    galleries: {},
     newsitems: {},
     places: {},
     reports: {},
+    sites: {},
     users: {},
     venues: {},
     videos: {},
     welcome: {}
   },
   models: {},
-  dropbox: {},
+  // dropbox: {},
+  locale: 'en',
   log: function(args) {
     console.log(args);
     $("#log_main div").append(args);
@@ -23,24 +25,31 @@ U = {
     views: {
       galleries: {}
     }
-  }
+  },
+  pretty_date: function(x) { return x.substring(0,10) }
 }
 
-CanvasOps = {
-    trash: 'trash'
-}
+CanvasOps = {}
 Utils = {}
-// header footer
-HF = {}
+HF = {} // header footer
 
 Models = {}
-Collections = {}
+Collections = {
+  Sites: {},
+  Newsitems: {}
+}
 Views = {
   Cities: {},
+  City: {},
+  Event: {},
+  Events: {},
   Features: {},
   Galleries: {},
+  Gallery: {},
   Newsitems: {},
+  Report: {},
   Reports: {},
+  Sites: {},
   Users: {},
   Venues: {},
   Videos: {}
@@ -83,8 +92,8 @@ MyApp.addRegions({
   
 });
 
-
-
+// for wikitravel.org articles
+function are_ads_hidden(){ return true; }
 
 
 

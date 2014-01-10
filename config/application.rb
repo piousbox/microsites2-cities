@@ -47,9 +47,9 @@ module Microsites2
     # Configure sensitive parameters which will be filtered from the log file.
     config.filter_parameters += [ :password, :password_confirmation, :password_confirm ]
 
-    config.assets.paths << Rails.root.join("app", "assets", "flash")
-    config.assets.precompile += [ 'cities.css', 'application.css' ]
-    config.assets.precompile += [ 'rails.js', 'application.js' ]
+    config.assets.paths << Rails.root.join( "app", "assets" )
+    config.assets.precompile += [ 'cities.css', 'application.css', 'lightbox.css', 'reset-min.css', 'bootstrap.css', 'cities2.css' ]
+    config.assets.precompile += [ 'rails.js', 'application.js', 'bootstrap.js', 'global.js', 'lightbox.js', 'cities2.js' ]
 
     # Use SQL instead of Active Record's schema dumper when creating the database.
     # This is necessary if your schema can't be completely dumped by the schema dumper,

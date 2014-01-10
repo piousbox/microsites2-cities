@@ -2,24 +2,30 @@ class Utils::SitemapsController < ApplicationController
   skip_authorization_check
 
   def sitemap
-    @reports = Report.all.where( :site => @site, :is_trash => false, :is_public => true )
-    @galleries = Gallery.all.where( :site => @site, :is_trash => false, :is_public => true )
+    travel_site = Site.mobi
+    travel_tag = Tag.mobi
+
+    @reports = Report.any_of( :site => travel_site, :tag => travel_tag )
+
+    # @galleries = Gallery.any_of( :site => travel_site, :tag => travel_tag )
+    @galleries = []
+
+    # @videos = Video.any_of( :site => travel_site, :tag => travel_tag )
     @videos = []
+
+    # @tags = Tag.where( :site => travel_site )
     @tags = []
-    @cities = []
-    @venues = []
+
+    @cities = City.all
+
+    @venues = Venue.all
+
+    # @users = User.all
     @users = []
 
-    case @domain
-    when 'cac.local', 'computationalartscorp.com'
-      cac_sitemap
-    when 'pi.local', 'piousbox.com'
-      pi_sitemap
-    when 'travel-guide.mobi', 'staging.travel-guidel.mobi', 'mobi.local'
-      travel_guide_sitemap
-    else
-      default_sitemap
-    end
+    # @meta = [ { :url => cities_path } ]
+    @meta = []
+    @host = request.host
 
     respond_to do |format|
       format.xml do
@@ -29,8 +35,8 @@ class Utils::SitemapsController < ApplicationController
       format.json do
         json = {
           :cities => @cities,
-          :reports => @reports.to_a.each { |r| r['site_name'] = r.site.domain },
-          :galleries => @galleries.to_a.each { |r| r['site_name'] = r.site.domain },
+          :reports => @reports.to_a,
+          :galleries => @galleries.to_a,
           :users => @users,
           :venues => @venues,
           :videos => @videos,
@@ -39,50 +45,6 @@ class Utils::SitemapsController < ApplicationController
         render :json => json
       end
     end
-  end
-
-  private
-
-  def pi_sitemap
-    @users = User.all
-    @tags = Tag.all
-    @meta = [
-      { :url => site_path(@site.domain) },
-      { :url => about_path },
-      { :url => privacy_path }
-    ]
-  end
-
-  def travel_guide_sitemap
-    @cities = City.all
-    @venues = Venue.all
-    @meta = [
-      { :url => site_path(@site.domain) },
-      { :url => cities_path }
-    ]
-  end
-
-  def bss_sitemap
-    @meta = []
-  end
-
-  def cac_sitemap
-    paths = [
-             '/',
-             '/news',
-             '/contact',
-             '/services',
-             '/portfolio',
-             '/about-us',
-             '/team'
-            ]
-    @meta = paths.map do |p|
-      { :url => p }
-    end
-  end
-
-  def default_sitemap
-    @meta = []
   end
 
 end

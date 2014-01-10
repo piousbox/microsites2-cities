@@ -1,5 +1,5 @@
 
-- content_for :left do
-  .all-cities
-    .all-cities-2
-      #cities_index_canvas
+%h3= t('cities.list')
+
+- @cities.each do |city|
+  %h4= link_to city.name, city_path( city.cityname )

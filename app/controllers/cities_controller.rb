@@ -1,6 +1,9 @@
+
 class CitiesController < ApplicationController
+
   skip_authorization_check
-  # caches_page :profile, :users, :venues, :index
+
+  layout 'application'
 
   def set_city
     next_cityname = params[:user][:cityname]
@@ -26,20 +29,23 @@ class CitiesController < ApplicationController
   def profile
     @city = City.where( :cityname => params[:cityname] ).first
     if @city.blank?
-      @city = City.find params[:cityname]
-      if @city.blank?
+      begin
+        @city = City.find params[:cityname]
+        if @city.blank?
+          render :action => :not_found
+        else
+          redirect_to city_path(@city.cityname)
+        end
+      rescue
         render :action => :not_found
-      else
-        redirect_to city_path(@city.cityname)
       end
     else
       @city.name = @city['name_'+@locale.to_s]
       @features = @city.features.all.sort_by{ |f| [ f.weight, f.created_at ] }.reverse[0...4]
       @newsitems = @city.newsitems.order_by( :created_at => :desc ).page( params[:newsitems_page] )
-      @reports = Report.all.where(
-                                  :lang => @locale,
-                                  :city => @city
-                                  ).order_by( :created_at => :desc ).page( params[:reports_page] )
+      @reports = Report.all.where( :lang => @locale,
+                                   :city => @city
+                                   ).order_by( :created_at => :desc ).page( params[:reports_page] )
       @galleries = []
       @greeter = @city.guide
       @today = {}
@@ -48,17 +54,46 @@ class CitiesController < ApplicationController
       @n_reports = @reports.length
       @n_galleries = @galleries.length
       @n_users = @city.current_users.length
-      @n_videos = 0
+      @n_videos = @city.videos.length
       @n_venues = @city.venues.length
       
       respond_to do |format|
-        format.html do
-          layout = (['organizer', 'cities'].include?(@layout))? 'cities' : 'application_cities'
-          render :layout => layout
-        end
+        format.html
         format.json do
-          @city[:n_galleries] = @city.galleries.length
-          @city[:n_reports] = @city.reports.length
+          @city[:events] = @city.events.to_a
+          # @city[:n_events] = @city.events.length
+
+          @city[:j_galleries] = []
+          @city[:j_users] = []
+
+          @city.galleries.each do |gallery|
+            if gallery.photos[0]
+              gallery[:photo_url] = gallery.photos[0].photo.url(:thumb)
+            else
+              gallery[:photo_url] = ''
+            end
+            @city[:j_galleries] << gallery
+          end
+
+          @city.current_users.order_by( :created_at => :desc ).each do |user|
+            if user.profile_photo.blank?
+              user[:profile_photo_path] =  '/assets/no_photo.png'
+            else
+              user[:profile_photo_path] = user.profile_photo.photo.url(:thumb)
+            end
+            @city[:j_users] << user
+          end
+
+          @city[:j_reports] = @city.j_reports
+
+          @city[:videos] = @city.videos.to_a
+          # @city[:n_videos] = @city.videos.length
+
+          @city[:venues] = @city.venues.to_a
+          # @city[:n_venues] = @city.venues.length
+
+          @city[:permalink] = city_path(@city.cityname)
+
           render :json => @city
         end
       end
@@ -66,28 +101,12 @@ class CitiesController < ApplicationController
   end
   
   def index
+    # @cities = City.for_homepage
+    @cities = City.all
+
     respond_to do |format|
-      format.html do
-        sett_empties
-        @feature_cities = City.where( :is_feature => true ).order_by( :name => :asc)
-        feature_city_ids = @feature_cities.map { |c| c._id }
-        @cities = City.not_in( :_id => feature_city_ids ).order_by( :name => :asc)
-        @cities = @cities.reject do |city|
-          0 == city.reports.length && 0 == city.galleries.length
-        end
-        
-        @feature_reports = Report.all.where( :lang => @locale, :is_feature => true ).page( params[:reports_page] )
-        @features = []
-        @feature_venues = []
-        @today = {}
-        @greeter = User.new
-        @galleries = []
-        @report = []
-        
-        render :layout => 'cities'
-      end
+      format.html
       format.json do
-        @cities = City.all
         render :json => @cities
       end
     end
@@ -95,13 +114,11 @@ class CitiesController < ApplicationController
 
   def venues
     @venues = Venue.all
-    sett_empties
     render :controller => :venues, :action => :index
   end
 
   def users
     @users = User.all
-    sett_empties
     render :controller => :users, :action => :index
   end
 
@@ -136,17 +153,24 @@ class CitiesController < ApplicationController
     end
     respond_to do |format|
       format.json do
-        render :json => @newsitems
+        newsitems = []
+        @newsitems.each_with_index do |item, idx|
+          unless item.report.blank?
+            report = Report.find item.report_id
+            n = item
+            n[:link_path] = report_path(report.name_seo)
+            n[:title] = report.name
+            newsitems << n
+          end
+          unless item.gallery.blank?
+            item[:link_path] = gallery_path( item.gallery.galleryname, 0 )
+            item[:title] = item.gallery.name
+            newsitems << item
+          end
+        end
+        render :json => newsitems
       end
     end
-  end
-
-  private
- 
-  def sett_empties
-    @cities = []
-    @feature_cities = []
-    @newsitems = Newsitem.all.page( params[:newsitems_page] )
   end
 
 end
