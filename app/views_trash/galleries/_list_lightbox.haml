@@ -1,4 +1,0 @@
-
-.galleries--lightbox
-  - photos.each do |photo|
-    = link_to image_tag(photo.photo.url(:thumb), :class => :thumb ), photo.photo.url(:large), :rel => 'lightbox[gallery]'
