@@ -68,7 +68,7 @@ CanvasOps.homepage_all_cities = function() {
       });
       marker.setMap(map);
       infowindow = new google.maps.InfoWindow({
-        content: '<a href="cities/travel-to/' + val['cityname'] + '">' + val['name'] + '</a>'
+        content: '<a href="/en/cities/travel-to/' + val['cityname'] + '">' + val['name'] + '</a>'
       });
       return google.maps.event.addListener(marker, 'click', function() {
         return infowindow.open(map, marker);

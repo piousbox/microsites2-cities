@@ -1,10 +1,19 @@
 
+<!--
+  -- partial cities/show.html
+  --
+  -->
+
 <div class="row">
   <div class="large-12 columns cities-show-header">
-    <h2 class="text-center">{{ city.name }}</h2>
+    <h2 class="text-center"><a href="{{ router.city_path(city) }}">{{ city.name }}</a></h2>
     <ul class="button-group cities-menu" >
-      <li><a href="" class="tiny button" >Map</a></li>
+      <li><a href="" class="tiny button" >Home</a></li>
+      <li><a href="" class="tiny button" >News</a></li>
       <li><a href="" class="tiny button" >Events</a></li>
+      <li><a href="" class="tiny button" >Venues</a></li>
+      <li><a href="" class="tiny button" >Hotels</a></li>
+      <li><a href="" class="tiny button" >Restaurants</a></li>
       <li><a href="" class="tiny button" >People</a></li>
       <li><a href="" class="tiny button" >Galleries</a></li>
       <li><a href="" class="tiny button" >Stories</a></li>
@@ -15,25 +24,27 @@
     <div id="cities_show_canvas"></div>
   </div>
   <div class="large-6 columns">
-    <!-- tabs: events, venues -->
-    <dl class="tabs" data-tab>
-      <dd class="active"><a href="#panel2-1">Events</a></dd>
-      <dd><a href="#panel2-2">Venues</a></dd> 
-    </dl>
-    <div class="tabs-content"> 
-      <div class="content active" id="panel2-1">
-        <ul class="events-list">
-          <li ng-repeat="event in city.events">{{ event.name }}</li>
-        </ul>
-      </div> 
-      <div class="content" id="panel2-2"> 
-        <p>
-          Venues please
-          <br /><br />
-          Second panel content goes here...
-        </p>
-      </div> 
-    </div>
+    <ul class="inline-list" >
+      <li>Show Events <input type="checkbox" ng-model="events_toggle" ></li>
+      <li>Show Venues <input type="checkbox" ng-model="venues_toggle" ></li>
+    </ul>
+    <div class="" ng-show="events_toggle" >
+      <h4 class="text-center">Events</h4>
+      <ul class="events-list">
+        <li ng-repeat="event in city.events">
+          <span class="date">{{ Meta.pretty_date( event.date ) }}</span>
+          <a href="{{ router.event_path( event ) }}">{{ event.name }}</a>
+        </li>
+      </ul>
+    </div> 
+    <div class="" ng-show="venues_toggle" > 
+      <h4 class="text-center">Venues</h4>
+      <ul class="venues-list">
+        <li ng-repeat="venue in city.venues">
+          {{ venue.name }}
+        </li>
+      </ul>
+    </div> 
   </div>
 </div>
   
@@ -50,8 +61,11 @@
     </ul>
   </div>
   <div class="large-6 columns">
-    newsitems?<br />
-    features?<br />
+    <div ng-include="router.partial('cities/make_announcement')"></div>
+
+    <ul class="cities-show-newsitems">
+      <li ng-repeat="n in city.newsitems">{{ n.descr }}</li>
+    </ul>
   </div>
 </div>
 
@@ -60,7 +74,7 @@
     <h3>Reports</h3>
     <ul>
       <li ng-repeat="r in city.j_reports">
-        <a href="reports/view/{{r.name_seo}}">{{ r.name }}</a>
+        <a href="{{ router.report_path(r) }}">{{ r.name }}</a>
       </li>
     </ul>
   </div>
@@ -68,7 +82,7 @@
     <h3>Galleries</h3>
     <ul>
       <li ng-repeat="g in city.j_galleries">
-        <a href="">{{ g.name }}</a>
+        <a href="{{ router.gallery_path(g) }}">{{ g.name }}</a>
       </li>
     </ul>
   </div>

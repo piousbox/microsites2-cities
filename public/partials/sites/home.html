@@ -1,4 +1,9 @@
 
+<!--
+  -- partial sites/home.html
+  --
+  -->
+
 <div class="row">
   <div class="large-6 small-12 columns">
 
@@ -72,14 +77,7 @@
 
     </div>
     <div class="row">
-      <form novalidate >
-        <div class="large-8 columns" >
-          <input type="text" placeholder="Post..." ng-model="newsitem.descr" />
-        </div>
-        <div class="large-4 columns">
-          <button class="button tiny" ng-click="create_newsitem(newsitem)">Announce</button>
-        </div>
-      </form>
+      <div ng-include="cities/make_announcement.html"></div>
     </div>
 
     <ul class="news-list">
