@@ -3,6 +3,9 @@
 /* Controllers */
 
 angular.module('myApp.controllers', []).
+  controller('CitiesCtrl', ['$scope', 'City', function($scope, City) {    
+
+  }]).
   controller('CitiesIndexCtrl', ['$scope', 'City', function($scope, City) {
     $scope.cities = City.list();
 
@@ -32,7 +35,12 @@ angular.module('myApp.controllers', []).
     $scope.feature_cities = City.feature();
     $scope.cities = City.list();
     $scope.newsitems = Newsitem.list();
-    
+    $scope.create_newsitem = function(newsitem) {
+      var result = City.create_newsitem( newsitem, function(n) {
+        $scope.newsitems = Newsitem.list();
+      });
+    };
+
   }]).
 
   controller('UsersMeetCtrl', ['$scope', 'City', function($scope, City) {

@@ -23,6 +23,9 @@ config(['$routeProvider', function($routeProvider) {
 }]).
 config(['$locationProvider', function($locationProvider) {
   $locationProvider.html5Mode(true).hashPrefix('!');
+}]).
+config(["$httpProvider", function($httpProvider) {
+  $httpProvider.defaults.headers.common['X-CSRF-Token'] = $('meta[name=csrf-token]').attr('content');
 }]);
 // .config(['$httpProvider', function(provider) {
 //   provider.defaults.headers.common['X-CSRF-Token'] = $('meta[name=csrf-token]').attr('content');

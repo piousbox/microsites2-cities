@@ -1,17 +1,12 @@
 !!!
 %html{ :lang => @lang, 'ng-app' => 'myApp', 'ng-controller' => 'MetaCtrl' }
   %head
-    %title
-      = yield :title
-      {{Meta.title() }}
-      
-    -# @TODO better title
-    -# @TODO description
-    -# @TODO author
-    -# @TODO keywords
-      
-    = stylesheet_link_tag "application", :media => "all"
-    = javascript_include_tag "application"
+    %title {{ Meta.title() }}
+    %meta{ :name => 'description', :content => "{{ Meta.description() }}" }
+    %meta{ :name => 'author', :content => "{{ Meta.author() }}" }
+    %meta{ :name => 'keywords', :content => "{{ Meta.keywords() }}" }
+    = stylesheet_link_tag "foundation", "app", :media => "all"
+    = javascript_include_tag "application2", "http://maps.googleapis.com/maps/api/js?key=AIzaSyCB7fDqgzdMPF6sE3t9XWpzcoGklVYihVA&sensor=false"
     = csrf_meta_tags
     %meta{ :content => "width=device-width, initial-scale=1.0", :name => "viewport" }
     %meta{ :charset => 'utf-8' }
@@ -23,8 +18,6 @@
   %body{ :id => @action_name, :class => @action_classes }
 
     .Lapplication-mini.container.content
-      Application Layout (Cities2)
-      -# = render 'application/header'
 
       - if flash[:notice]
         .notice= flash[:notice]
@@ -32,6 +25,28 @@
         .error= flash[:error]
       .c
 
+      %nav.top-bar{"data-topbar" => ""}
+        %ul.title-area
+          %li.name
+            %h1= link_to 'Travel-guide.mobi', '/en/cities'
+          %li.toggle-topbar.menu-icon
+            %a{href: "javascript:void(0);"}
+              %span Menu
+        %section.top-bar-section
+          = render 'login_register'
+          %ul.left
+            %li= link_to 'Cities', 'cities'
+            %li= link_to 'People', 'people'
+
+      .row
+        .large-12.small-12.columns
+          %div{"ng-view" => ""}
+    
       = yield
       .c
-      = render 'application/footer'
+      -# = render 'application/footer'
+      .main-footer{"ng-controller" => "MetaCtrl"}
+        %div{"ng-include" => "footer_partial_url"}
+
+
+      

@@ -30,6 +30,7 @@ app.factory('City', function($resource) {
     list: { method: 'GET', isArray: true, url: '/api/cities.json' }, // same as query
     get: { method: 'GET', isArray: false },
     create: { method: 'POST' }, // same as save
+    create_newsitem: { method: 'POST', url: '/api/newsitems.json' },
     update: { method: 'PUT' },
     feature: { method: 'GET', isArray: true, url: '/api/cities/feature.json' }
   });

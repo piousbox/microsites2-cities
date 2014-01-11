@@ -1,0 +1,37 @@
+!!!
+%html{ :lang => @lang, 'ng-app' => 'myApp', 'ng-controller' => 'MetaCtrl' }
+  %head
+    %title
+      = yield :title
+      {{Meta.title() }}
+      
+    -# @TODO better title
+    -# @TODO description
+    -# @TODO author
+    -# @TODO keywords
+      
+    = stylesheet_link_tag "application", :media => "all"
+    = javascript_include_tag "application"
+    = csrf_meta_tags
+    %meta{ :content => "width=device-width, initial-scale=1.0", :name => "viewport" }
+    %meta{ :charset => 'utf-8' }
+    %link{ :href => "/assets/favicon.gif", :rel => "shortcut icon" }
+    = render "application/analytics"
+    -# %link{ :href => 'http://fonts.googleapis.com/css?family=Kite+One|Oxygen', :rel => 'stylesheet', :type => 'text/css' }
+    %base{ :href => "/en/cities/" }
+      
+  %body{ :id => @action_name, :class => @action_classes }
+
+    .Lapplication-mini.container.content
+      Application Layout (Cities2)
+      -# = render 'application/header'
+
+      - if flash[:notice]
+        .notice= flash[:notice]
+      - if flash[:error]
+        .error= flash[:error]
+      .c
+
+      = yield
+      .c
+      = render 'application/footer'
