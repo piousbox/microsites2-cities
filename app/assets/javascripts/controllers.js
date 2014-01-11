@@ -6,12 +6,15 @@ angular.module('myApp.controllers', []).
   controller('CitiesCtrl', ['$scope', 'City', function($scope, City) {    
 
   }]).
-  controller('CitiesIndexCtrl', ['$scope', 'City', function($scope, City) {
+  controller('CitiesIndexCtrl', ['$scope', 'City', 'Router', function($scope, City, Router) {
     $scope.cities = City.list();
+    $scope.router = Router;
 
   }]).
   controller('CitiesProfileCtrl', ['$scope', 'City', '$routeParams', function($scope, City, $routeParams) {
-    $scope.city = City.get({ cityname: $routeParams.cityname });
+    $scope.city = City.get({ cityname: $routeParams.cityname }, function() {
+      console.log( $scope.city.j_users[0] );
+    });
 
   }]).
   controller('ReportsIndexCtrl', [ '$scope', 'Report', function($scope, Report) {

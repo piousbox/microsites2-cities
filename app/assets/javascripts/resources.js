@@ -67,6 +67,13 @@ app.factory('Meta', function() {
   };
 });
 
+app.factory('Router', function() {
+  return {
+    city_path: function(city) { return "travel-to/" + city.cityname; }
+  };
+});
+
+
 
 
 

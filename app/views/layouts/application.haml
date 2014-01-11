@@ -35,14 +35,13 @@
         %section.top-bar-section
           = render 'login_register'
           %ul.left
-            %li= link_to 'Cities', 'cities'
+            %li= link_to 'Cities', 'travel-to'
             %li= link_to 'People', 'people'
 
       .row
         .large-12.small-12.columns
           %div{"ng-view" => ""}
     
-      = yield
       .c
       -# = render 'application/footer'
       .main-footer{"ng-controller" => "MetaCtrl"}

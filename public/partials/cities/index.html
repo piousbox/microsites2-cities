@@ -1,10 +1,12 @@
 
 
+<!--
 <ul class="hide" >
   <li ng-repeat="city in cities">
-    <a href="cities/travel-to/{{city.cityname}}">{{city.name}}</a>
+    <a href="{{ router.city_path(city) }}">{{city.name}}</a>
   </li>
 </ul>
+-->
 
 <div class="row">
   <div class="large-12 columns">
@@ -14,6 +16,6 @@
 
 <div class="row cities-list">
   <div class="large-4 small-6 medium-4 columns" ng-repeat="city in cities">
-    <a href="cities/travel-to/{{city.cityname}}">{{city.name}}</a>
+    <a href="{{ router.city_path(city) }}">{{city.name}}</a>
   </div>
 </div>

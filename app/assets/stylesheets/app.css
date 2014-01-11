@@ -55,3 +55,20 @@ nav.top-bar {
 input.meet-people {
   margin: 0;
 }
+
+.cities-show-header h2 {
+  border: 1px solid #008CBA;
+  padding: .4em;
+}
+
+#cities_show_canvas {
+  width: 100%;
+  height: 300px;
+  background: yellow;
+}
+
+.profile-pic {
+  background: #cecece;
+  width: 100px;
+  height: 100px;
+}

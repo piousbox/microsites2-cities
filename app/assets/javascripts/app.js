@@ -13,11 +13,10 @@ angular.module('myApp', [
 config(['$routeProvider', function($routeProvider) {
   $routeProvider.when('/', {templateUrl: '/partials/sites/home.html', controller: 'SitesHomeCtrl'});
 
-  $routeProvider.when('/cities', {templateUrl: '/partials/cities_index.html', controller: 'CitiesIndexCtrl'});
-  $routeProvider.when('/cities/travel-to/:cityname', {templateUrl: '/partials/cities_profile.html', controller: 'CitiesProfileCtrl'});
-
-  $routeProvider.when('/reports', {templateUrl: '/partials/reports_index.html', controller: 'ReportsIndexCtrl'});
-  $routeProvider.when('/reports/view/:name_seo', {templateUrl: '/partials/reports_show.html', controller: 'ReportsShowCtrl'});
+  $routeProvider.when('/travel-to', {templateUrl: '/partials/cities/index.html', controller: 'CitiesIndexCtrl'});
+  $routeProvider.when('/travel-to/:cityname', {templateUrl: '/partials/cities/show.html', controller: 'CitiesProfileCtrl'});
+  $routeProvider.when('/travel-to/:cityname/reports', {templateUrl: '/partials/reports/index.html', controller: 'ReportsIndexCtrl'});
+  $routeProvider.when('/travel-to/:cityname/reports/view/:name_seo', {templateUrl: '/partials/reports/show.html', controller: 'ReportsShowCtrl'});
 
   $routeProvider.otherwise({redirectTo: '/'});
 }]).

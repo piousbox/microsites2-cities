@@ -7,7 +7,7 @@
     <div class="cities-feature row">
       <div class="large-6 medium-6 small-6 columns" ng-repeat="city in feature_cities">
         <div class="panel" >
-          <a href="cities/travel-to/{{city.cityname}}" class="" >{{ city.name }}</a>
+          <a href="travel-to/{{city.cityname}}" class="" >{{ city.name }}</a>
         </div>
       </div>
     </div>
@@ -63,12 +63,13 @@
     <div class="row">
       <div class="large-12 columns">
         <ul class="inline-list text-center" >
-          <li><a href="photos/new" class="button tiny" >New Photo</a></li>
+          <li><a href="#" class="radius button tiny" data-reveal-id="new_photo" >New Photo</a></li>
           <li><a href="reports/new" class="button tiny" >New Story</a></li>
           <li><a href="galleries/new" class="button tiny" >New Gallery</a></li>
           <li><a href="reviews/new" class="button tiny" >New Review</a></li>
         </ul>
       </div>
+
     </div>
     <div class="row">
       <form novalidate >
@@ -94,3 +95,16 @@
   </div>
 
 </div>
+
+<div id="new_photo" class="reveal-modal" data-reveal> 
+  <h2 class="text-center" >Add a photo</h2>
+  <form>
+    <input type="file"></input>
+    <button class="button tiny" >Send</button>
+  </form>
+  <a class="close-reveal-modal">&#215;</a>
+</div>
+
+<script type="text/javascript">
+  $(document).foundation();
+</script>

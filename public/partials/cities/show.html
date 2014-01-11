@@ -1,0 +1,75 @@
+
+<div class="row">
+  <div class="large-12 columns cities-show-header">
+    <h2 class="text-center">{{ city.name }}</h2>
+    <ul class="button-group cities-menu" >
+      <li><a href="" class="tiny button" >Map</a></li>
+      <li><a href="" class="tiny button" >Events</a></li>
+      <li><a href="" class="tiny button" >People</a></li>
+      <li><a href="" class="tiny button" >Galleries</a></li>
+      <li><a href="" class="tiny button" >Stories</a></li>
+    </ul>
+  </div>
+
+  <div class="large-6 columns">
+    <div id="cities_show_canvas"></div>
+  </div>
+  <div class="large-6 columns">
+    <!-- tabs: events, venues -->
+    <dl class="tabs" data-tab>
+      <dd class="active"><a href="#panel2-1">Events</a></dd>
+      <dd><a href="#panel2-2">Venues</a></dd> 
+    </dl>
+    <div class="tabs-content"> 
+      <div class="content active" id="panel2-1">
+        <ul class="events-list">
+          <li ng-repeat="event in city.events">{{ event.name }}</li>
+        </ul>
+      </div> 
+      <div class="content" id="panel2-2"> 
+        <p>
+          Venues please
+          <br /><br />
+          Second panel content goes here...
+        </p>
+      </div> 
+    </div>
+  </div>
+</div>
+  
+<div class="row">
+  <!-- {{ city.descr }} -->
+  <div class="large-6 columns">
+    <h3 class="text-center" >People</h3>
+    <ul class="inline-list" >
+      <li ng-repeat="person in city.j_users">
+        <img class="thumb profile-pic" src="{{ person.thumb_url }}" alt="{{ person.username }} profile pic" />
+        <br />
+        {{ person.username }}
+      </li>
+    </ul>
+  </div>
+  <div class="large-6 columns">
+    newsitems?<br />
+    features?<br />
+  </div>
+</div>
+
+<div class="row">
+  <div class="large-6 columns">
+    <h3>Reports</h3>
+    <ul>
+      <li ng-repeat="r in city.j_reports">
+        <a href="reports/view/{{r.name_seo}}">{{ r.name }}</a>
+      </li>
+    </ul>
+  </div>
+  <div class="large-6 columns">
+    <h3>Galleries</h3>
+    <ul>
+      <li ng-repeat="g in city.j_galleries">
+        <a href="">{{ g.name }}</a>
+      </li>
+    </ul>
+  </div>
+</div>

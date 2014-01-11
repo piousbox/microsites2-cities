@@ -13,6 +13,7 @@
 //= require foundation/foundation
 //= require foundation/foundation.tab
 //= require foundation/foundation.topbar
+//= require foundation/foundation.reveal
 // 
 //= require angular/angular
 //= require angular/angular-route
