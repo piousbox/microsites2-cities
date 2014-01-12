@@ -11,7 +11,7 @@ angular.module('myApp', [
   'myApp.controllers'
 ]).
 config(['$routeProvider', function($routeProvider) {
-  $routeProvider.when('/', {templateUrl: '/partials/sites/home.html', controller: 'SitesHomeCtrl'});
+  $routeProvider.when('/', {templateUrl: '/partials/meta/home.html', controller: 'SitesHomeCtrl'});
 
   $routeProvider.when('/travel-to', {templateUrl: '/partials/cities/index.html', controller: 'CitiesIndexCtrl'});
   $routeProvider.when('/travel-to/:cityname', {templateUrl: '/partials/cities/show.html', controller: 'CitiesProfileCtrl'});

@@ -4,42 +4,36 @@
 
 describe('my app', function() {
 
-  beforeEach(function() {
-    browser().navigateTo('app/index.html');
-  });
-
-
-  it('should automatically redirect to /view1 when location hash/fragment is empty', function() {
-    expect(browser().location().url()).toBe("/view1");
-  });
-
-
-  describe('view1', function() {
-
+  /**
+  describe('default redirect of the app', function() {
     beforeEach(function() {
-      browser().navigateTo('#/view1');
+      browser().navigateTo('/');
     });
-
-
-    it('should render view1 when user navigates to /view1', function() {
-      expect(element('[ng-view] p:first').text()).
-        toMatch(/partial for view 1/);
+    it('should automatically redirect to /en/cities when location hash/fragment is empty', function() {
+      expect(browser().location().url()).toBe("/en/cities");
     });
-
   });
+  */
 
-
-  describe('view2', function() {
-
+  describe('default view of the app', function() {
     beforeEach(function() {
-      browser().navigateTo('#/view2');
+      browser().navigateTo('/en/cities/');
     });
-
-
-    it('should render view2 when user navigates to /view2', function() {
-      expect(element('[ng-view] p:first').text()).
-        toMatch(/partial for view 2/);
+    it('should render partials/meta/home.html when user navigates to /', function() {
+      expect(element('.partial-name').text()).
+        toMatch("meta/home.html");
     });
-
   });
+
+
+  describe('view `cities/profile`', function() {
+    beforeEach(function() {
+      browser().navigateTo('/en/cities/travel-to/San_Diego');
+    });
+    it('should render partials/cities/profile.html when user navigates to a city profile', function() {
+      expect(element('.partial-name').text()).
+        toMatch("cities/show.html");
+    });
+  });
+
 });
