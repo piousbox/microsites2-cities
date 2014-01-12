@@ -13,9 +13,9 @@ app.factory('City', function($resource) {
 });
 
 app.factory('Newsitem', function($resource) {
-  return $resource('/api/newsitems.json', {}, {
-    create: { method: 'POST' },
-    list: { method: 'GET', isArray: true, url: '/api/cities/travel-to/:cityname/newsitems.json' }
+  return $resource('/api/cities/travel-to/:cityname/newsitems.json', { cityname: '@cityname' }, {
+    create: { method: 'POST', url: '/api/newsitems.json' },
+    list: { method: 'GET', isArray: true }
   });
 });
 
@@ -44,12 +44,20 @@ app.factory('Meta', function() {
   };
 });
 
-app.factory('Router', function() {
+app.factory('PathHelper', function() {
+  var report_path = function(report, city) {
+    cityname = ( 'undefined' == typeof(city) ) ? 'undefined' : city.cityname;
+    return "/en/cities/travel-to/" + cityname + "/reports/view/" + report.name_seo;
+  };
+
   return {
+    city: {
+      newsitems_path: function( city ) { return "travel-to/" + city.cityname + "/newsitems"; }
+    },
     city_path: function(city) { return "travel-to/" + city.cityname; },
     partial: function(which) { return "/partials/" + which + ".html"; },
     event_path: function(which) { return "/en/events/show/" + which.name_seo; },
-    report_path: function(r) { return "/en/reports/view/" + r.name_seo; },
+    report_path: report_path,
     gallery_path: function(g) { return "http://piousbox.com/en/galleries/show/" + g.galleryname + "/0"; }
   };
 });

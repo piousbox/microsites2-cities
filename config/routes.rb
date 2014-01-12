@@ -110,6 +110,7 @@ Microsites2::Application.routes.draw do
     # }
     # get "sites/:domainname.json", :to => "sites#show", :as => :site, :format => :json, :constraints => { :domainname => /.*/, :format => /json/ }
 
+    match '/' => redirect { |params, request| "/en/cities" }
     match '*other', :to => 'errors#five_hundred'
   end # end locale
 
@@ -170,6 +171,6 @@ Microsites2::Application.routes.draw do
 
   # add scope
   match '*other' => redirect { |params, request| "/en/#{params[:other]}" }
-  match '/' => redirect { |params, request| "/en/" }
+  match '/' => redirect { |params, request| "/en/cities" }
 
 end

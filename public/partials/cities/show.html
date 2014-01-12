@@ -9,7 +9,7 @@
     <h2 class="text-center"><a href="{{ router.city_path(city) }}">{{ city.name }}</a></h2>
     <ul class="button-group cities-menu" >
       <li><a href="" class="tiny button" >Home</a></li>
-      <li><a href="" class="tiny button" >News</a></li>
+      <li><a href="{{ router.city.newsitems_path( city ) }}" class="tiny button" >News</a></li>
       <li><a href="" class="tiny button" >Events</a></li>
       <li><a href="" class="tiny button" >Venues</a></li>
       <li><a href="" class="tiny button" >Hotels</a></li>
@@ -24,27 +24,13 @@
     <div id="cities_show_canvas"></div>
   </div>
   <div class="large-6 columns">
-    <ul class="inline-list" >
-      <li>Show Events <input type="checkbox" ng-model="events_toggle" ></li>
-      <li>Show Venues <input type="checkbox" ng-model="venues_toggle" ></li>
+    <h4 class="text-center">Events</h4>
+    <ul class="events-list">
+      <li ng-repeat="event in city.events">
+        <span class="date">{{ Meta.pretty_date( event.date ) }}</span>
+        <a href="{{ router.event_path( event ) }}">{{ event.name }}</a>
+      </li>
     </ul>
-    <div class="" ng-show="events_toggle" >
-      <h4 class="text-center">Events</h4>
-      <ul class="events-list">
-        <li ng-repeat="event in city.events">
-          <span class="date">{{ Meta.pretty_date( event.date ) }}</span>
-          <a href="{{ router.event_path( event ) }}">{{ event.name }}</a>
-        </li>
-      </ul>
-    </div> 
-    <div class="" ng-show="venues_toggle" > 
-      <h4 class="text-center">Venues</h4>
-      <ul class="venues-list">
-        <li ng-repeat="venue in city.venues">
-          {{ venue.name }}
-        </li>
-      </ul>
-    </div> 
   </div>
 </div>
   
@@ -59,13 +45,17 @@
         {{ person.username }}
       </li>
     </ul>
+
+    <h3 class="text-center">Features</h3>
+    <ul class="features-list">
+      <li ng-repeat="feature in city.features" >
+        {{ feature.name }}
+      <li>
+    </ul>
+
   </div>
   <div class="large-6 columns">
-    <div ng-include="router.partial('cities/make_announcement')"></div>
-
-    <ul class="cities-show-newsitems">
-      <li ng-repeat="n in city.newsitems">{{ n.descr }}</li>
-    </ul>
+    <div ng-include="router.partial('cities/newsitems')"></div>
   </div>
 </div>
 
@@ -74,7 +64,7 @@
     <h3>Reports</h3>
     <ul>
       <li ng-repeat="r in city.j_reports">
-        <a href="{{ router.report_path(r) }}">{{ r.name }}</a>
+        <a href="{{ router.report_path(r,city) }}">{{ r.name }}</a>
       </li>
     </ul>
   </div>

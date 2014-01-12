@@ -15,6 +15,7 @@ config(['$routeProvider', function($routeProvider) {
 
   $routeProvider.when('/travel-to', {templateUrl: '/partials/cities/index.html', controller: 'CitiesIndexCtrl'});
   $routeProvider.when('/travel-to/:cityname', {templateUrl: '/partials/cities/show.html', controller: 'CitiesProfileCtrl'});
+  $routeProvider.when('/travel-to/:cityname/newsitems', { templateUrl: '/partials/cities/newsitems.html' });
   $routeProvider.when('/travel-to/:cityname/reports', {templateUrl: '/partials/reports/index.html', controller: 'ReportsIndexCtrl'});
   $routeProvider.when('/travel-to/:cityname/reports/view/:name_seo', {templateUrl: '/partials/reports/show.html', controller: 'ReportsShowCtrl'});
 

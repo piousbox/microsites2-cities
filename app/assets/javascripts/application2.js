@@ -1,14 +1,14 @@
 // 
 //
 //= require jquery-1.7.1
-// require jquery_ujs
-// require jquery-ui.min
+//= require jquery_ujs
+//= require jquery-ui.min
 //
-// require tinymce
-// require tinymce/langs/en
-// require tinymce/themes/advanced/editor_template
+//= require tinymce
+//= require tinymce/langs/en
+//= require tinymce/themes/advanced/editor_template
 //
-// require lightbox
+//= require lightbox
 //
 //= require foundation/foundation
 //= require foundation/foundation.tab
@@ -21,10 +21,13 @@
 //= require angular/angular-sanitize
 // 
 //= require_self
+// 
 //= require ./app
 //= require ./canvas_ops
 //= require ./services
 //= require ./controllers
+//= require ./ctrl/cities_ctrl
+// require_tree ./ctrl
 //= require ./filters
 //= require ./resources
 //= require ./directives

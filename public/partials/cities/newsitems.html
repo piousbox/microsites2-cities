@@ -1,0 +1,41 @@
+
+<!--
+  -- app     M2Cities
+  -- partial cities/newsitems
+  -- 20140111
+  --
+  -->
+
+<div ng-controller="CitiesNewsitemsCtrl">
+  <div class="row">
+    <div class="large-2 large-offset-3 columns text-right">
+      <h5>News in</h5>
+    </div>
+    <div class="large-4 columns">
+      <select ng-model="cityname" ng-change="update()" >
+        <option ng-repeat="city in cities" value="{{ city.cityname }}" >{{ city.name }}</option>
+      </select>
+    </div>
+    <div class="large-2 large-pull-1 columns">
+      <input type="button" value="Update Feed" class="tiny button" ng-click="update()"></input>
+    </div>
+  </div>
+
+  <div class="row">
+    <form novalidate >
+      <div class="large-9 columns" >
+        <input type="text" placeholder="Post..." ng-model="newsitem.descr" />
+      </div>
+      <div class="large-3 columns">
+        <button class="button tiny" ng-click="create_newsitem(newsitem)">Announce in {{city.name}}</button>
+      </div>
+    </form>
+  </div>
+
+  <div class="row"> 
+    <ul class="cities-show-newsitems">
+      <li ng-repeat="n in newsitems">{{ n.created_at }} - {{ n.descr }}</li>
+    </ul>
+  </div>
+
+</div>
