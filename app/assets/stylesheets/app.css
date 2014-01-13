@@ -72,3 +72,8 @@ input.meet-people {
   width: 100px;
   height: 100px;
 }
+
+#events_list {
+  border: 1px solid gray;
+  min-height: 300px;
+}

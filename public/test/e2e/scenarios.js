@@ -26,13 +26,23 @@ describe('my app', function() {
   });
 
 
-  describe('view `cities/profile`', function() {
+  describe('view cities/profile', function() {
     beforeEach(function() {
       browser().navigateTo('/en/cities/travel-to/San_Diego');
     });
     it('should render partials/cities/profile.html when user navigates to a city profile', function() {
       expect(element('.partial-name').text()).
         toMatch("cities/show.html");
+    });
+  });
+
+  describe('view cities/index', function() {
+    beforeEach(function() {
+      browser().navigateTo('/en/cities/travel-to');
+    });
+    it('should render partials/cities/index.html when user navigates to a city profile', function() {
+      expect(element('.partial-name').text()).
+        toMatch("cities/index.html");
     });
   });
 

@@ -1,12 +1,5 @@
 
-
-<!--
-<ul class="hide" >
-  <li ng-repeat="city in cities">
-    <a href="{{ router.city_path(city) }}">{{city.name}}</a>
-  </li>
-</ul>
--->
+<!-- testing --><div class="hide partial-name">cities/index.html</div>
 
 <div class="row">
   <div class="large-12 columns">
@@ -14,8 +7,16 @@
   </div>
 </div>
 
+<div ng-controller="CitiesIndexCtrl">
+  <div id="homepage_canvas" ></div>
+</div>
+
 <div class="row cities-list">
   <div class="large-4 small-6 medium-4 columns" ng-repeat="city in cities">
     <a href="{{ router.city_path(city) }}">{{city.name}}</a>
   </div>
 </div>
+
+<script type="text/javascript">
+  $(document).foundation();
+</script>

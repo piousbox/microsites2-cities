@@ -3,7 +3,7 @@
 /* Controllers */
 var myApp = angular.module('myApp.controllers', []);
 
-myApp.controller('SitesHomeCtrl', ['$scope', '$interval', 'City', 'Meta', 'Newsitem', function($scope, $interval, City, Meta, Newsitem) {
+myApp.controller('MetaHomeCtrl', ['$scope', '$interval', 'City', 'Meta', 'Newsitem', function($scope, $interval, City, Meta, Newsitem) {
   $scope.Meta = Meta;
   CanvasOps.homepage_all_cities();
   $scope.feature_cities = City.feature();

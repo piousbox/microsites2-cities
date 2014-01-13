@@ -3,10 +3,6 @@
 /* Controllers */
 var myApp = angular.module('myApp.controllers');
 
-myApp.controller('CitiesCtrl', ['$scope', 'City', function($scope, City) {    
-  
-}]);
-
 myApp.controller('CitiesNewsitemsCtrl', ['$scope', 'City', 'Newsitem', 'PathHelper', '$routeParams', function(
                                           $scope,   City,   Newsitem,   PathHelper,   $routeParams) {
   $scope.cities = City.list();
@@ -30,13 +26,13 @@ myApp.controller('CitiesNewsitemsCtrl', ['$scope', 'City', 'Newsitem', 'PathHelp
 
   };
 
-
 }]);
 
 myApp.controller('CitiesIndexCtrl', ['$scope', 'City', 'PathHelper', function(
                                       $scope,   City,   PathHelper) {
   $scope.cities = City.list();
   $scope.router = PathHelper;
+  CanvasOps.homepage_all_cities();
 
 }]);
 

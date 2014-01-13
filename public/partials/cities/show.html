@@ -21,8 +21,8 @@
   <div class="large-6 columns">
     <div id="cities_show_canvas"></div>
   </div>
-  <div class="large-6 columns">
-    <h4 class="text-center">Events</h4>
+  <div class="large-6 columns" id="events_list">
+    <h4 class="text-center" >Events</h4>
     <ul class="events-list">
       <li ng-repeat="event in city.events">
         <span class="date">{{ Meta.pretty_date( event.date ) }}</span>
@@ -33,7 +33,6 @@
 </div>
   
 <div class="row">
-  <!-- {{ city.descr }} -->
   <div class="large-6 columns">
     <h3 class="text-center" >People</h3>
     <ul class="inline-list" >
@@ -43,20 +42,34 @@
         {{ person.username }}
       </li>
     </ul>
-
-    <h3 class="text-center">Features</h3>
-    <ul class="features-list">
-      <li ng-repeat="feature in city.features" >
-        {{ feature.name }}
-      <li>
-    </ul>
-
   </div>
   <div class="large-6 columns">
-    <div ng-include="router.partial('cities/newsitems')"></div>
+    <h4 class="text-center">Add in this city</h4>
+    <ul class="inline-list">
+      <li><a href="" class="tiny button">New Photo</a></li>
+      <li><a href="" class="tiny button">New Story</a></li>
+      <li><a href="" class="tiny button">New Gallery</a></li>
+      <li><a href="" class="tiny button">New Video</a></li>
+      <li><a href="" class="tiny button">New Review</a></li>
+      <li><a href="" class="tiny button">New Event</a></li>
+      <li><a href="" class="tiny button">New Venue</a></li>
+    </ul>
+    <!--<div ng-include="router.partial('cities/newsitems')"></div>-->
   </div>
 </div>
 
+<div class="row">
+  <div class="large-10 large-push-1 columns">
+    <h5 class="text-center">Newsitems <a>[main]</a> <a>[realtime]</a> <a>[unmoderated]</a></h5>
+    <div ng-repeat="n in newsitems" class="panel" >
+      <h5><a href="{{ n.link_path }}">{{ n.name }}</a> <small>{{ Meta.pretty_date(n.created_at) }}</small></h5>
+      {{ n.descr }}
+      <img src="{{ n.image_path }}" alt="{{ n.name }} {{ n.descr }}" />
+    </div>
+  </div>
+</div>
+
+<!--
 <div class="row">
   <div class="large-6 columns">
     <h3>Reports</h3>
@@ -75,3 +88,4 @@
     </ul>
   </div>
 </div>
+-->
