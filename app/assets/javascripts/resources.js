@@ -12,20 +12,6 @@ app.factory('City', function($resource) {
   });
 });
 
-app.factory('Newsitem', function($resource) {
-  return $resource('/api/cities/travel-to/:cityname/newsitems.json', { cityname: '@cityname' }, {
-    create: { method: 'POST', url: '/api/newsitems.json' },
-    list: { method: 'GET', isArray: true }
-  });
-});
-
-app.factory('Report', function($resource) {
-  return $resource('/api/reports/view/:name_seo.json', { name_seo: '@name_seo' }, {
-    list: { method: 'GET', isArray: true, url: '/api/reports.json' },
-    get: { method: 'GET', isArray: false }
-  });
-});
-
 app.factory('Meta', function() {
   var title = 'Travel Guide Mobi';
   var description = 'The travel guide to major cities in the world.';
@@ -44,6 +30,13 @@ app.factory('Meta', function() {
   };
 });
 
+app.factory('Newsitem', function($resource) {
+  return $resource('/api/cities/travel-to/:cityname/newsitems.json', { cityname: '@cityname' }, {
+    create: { method: 'POST', url: '/api/newsitems.json' },
+    list: { method: 'GET', isArray: true }
+  });
+});
+
 app.factory('PathHelper', function() {
   var report_path = function(report, city) {
     cityname = ( 'undefined' == typeof(city) ) ? 'undefined' : city.cityname;
@@ -58,9 +51,27 @@ app.factory('PathHelper', function() {
     partial: function(which) { return "/partials/" + which + ".html"; },
     event_path: function(which) { return "/en/events/show/" + which.name_seo; },
     report_path: report_path,
-    gallery_path: function(g) { return "http://piousbox.com/en/galleries/show/" + g.galleryname + "/0"; }
+    gallery_path: function(g) { return "http://piousbox.com/en/galleries/show/" + g.galleryname + "/0"; },
+    upload_photo_path: function() { return "/photos"; }
   };
 });
+
+app.factory('Photo', function($resource) {
+  return $resource('/api/photos.json', {}, {
+    create: { method: 'POST' }
+  });
+});
+
+app.factory('Report', function($resource) {
+  return $resource('/api/reports/view/:name_seo.json', { name_seo: '@name_seo' }, {
+    list: { method: 'GET', isArray: true, url: '/api/reports.json' },
+    get: { method: 'GET', isArray: false }
+  });
+});
+
+//
+// Router is PathHelper
+//
 
 
 

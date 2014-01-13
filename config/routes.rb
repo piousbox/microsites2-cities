@@ -87,6 +87,8 @@ Microsites2::Application.routes.draw do
     # get 'videos/in-tag/:tagname', :to => 'videos#index', :as => :videos_in_tag
     # resources :videos
     
+    get 'photos/new', :to => 'photos#new'
+
     # get 'set_locale', :to => 'welcome#set_locale', :as => :set_locale
     post 'set_city', :to => 'welcome#set_city', :as => :set_city
 
@@ -129,6 +131,7 @@ Microsites2::Application.routes.draw do
   # new non-localed stuff
   #
   # get 'sitemap', :to => 'utils/sitemaps#sitemap', :as => :sitemap
+  post 'photos', :to => 'photos#create'
 
   #
   # important non-locale-scoped stuff

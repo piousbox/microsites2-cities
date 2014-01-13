@@ -29,3 +29,10 @@ myApp.controller('MetaCtrl', ['$scope', 'Meta', function($scope, Meta) {
 
 }]);
 
+myApp.controller('PhotosNewCtrl', ['$scope', 'Photo', function($scope, Photo) {
+  $scope.create = function(photo) {
+    Photo.create( photo );
+  };
+  
+}]);
+
