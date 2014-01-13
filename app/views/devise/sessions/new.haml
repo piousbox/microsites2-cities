@@ -1,43 +1,28 @@
 
--# = render 'ads/src/leaderboard'
-
-.logo
-  = link_to image_tag('logos/ish.png'), root_path
-
 = render 'devise/messages'
 
-.sign-up
-  %h2= t('users.sign_up')
+.row
+  .large-6.small-6.columns
+    .sign-up
+      %h5.text-center= t('users.sign_up')
+      = render 'devise/registrations/new'
+        
+  .large-6.small-6.columns
+    .sign-in
+      %h5.text-center= t('users.sign_in')
 
-  %ul
-    %li.hide= link_to image_tag('login_with_facebook.png'), 'javascript:void(0);'
-    %li
-      = link_to t('users.new'), 'javascript:void(0);', :class => :addToggle
-      .inline-registration= render 'devise/registrations/new'
-  .clear
+      = form_for(resource, :as => resource_name, :url => session_path(resource_name)) do |f|
+        .row
+          .large-2.small-2.columns= f.label :email
+          .large-10.small-10.columns= f.email_field :email
+        .row
+          .large-2.small-2.columns= f.label :password
+          .large-10.small-10.columns= f.password_field :password
 
-.sign-in
-  %h2= t('users.sign_in')
+        - if devise_mapping.rememberable?
+          .row
+            = f.check_box :remember_me
+            = f.label :remember_me
 
-  = form_for(resource, :as => resource_name, :url => session_path(resource_name)) do |f|
-    .row
-      = f.label :email
-      %br
-      = f.email_field :email
-
-    .row
-      = f.label :password
-      %br
-      = f.password_field :password
-
-    - if devise_mapping.rememberable?
-      .row
-        = f.check_box :remember_me
-        = f.label :remember_me
-
-    = link_to t('users.register'), new_user_registration_path, :class => :register
-    .actions= f.submit t('users.sign_in')
-    .c
-  .c
-    
--# = render 'ads/src/leaderboard'
+        .row
+          .large-10.large-push-2.small-10.small-push-2.columns= f.submit t('users.sign_in')

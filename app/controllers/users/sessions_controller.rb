@@ -8,6 +8,6 @@ class Users::SessionsController < Devise::SessionsController
 
   # respond_to :mobile, :tablet, :html
 
-  layout 'application'
+  layout 'application-rails'
 
 end
