@@ -46,13 +46,13 @@
   <div class="large-6 columns">
     <h4 class="text-center">Add in this city</h4>
     <ul class="inline-list">
-      <li><a href="" class="tiny button" data-reveal-id="firstModal" >New Photo</a></li>
-      <li><a href="" class="tiny button">New Story</a></li>
-      <li><a href="" class="tiny button">New Gallery</a></li>
-      <li><a href="" class="tiny button">New Video</a></li>
-      <li><a href="" class="tiny button">New Review</a></li>
-      <li><a href="" class="tiny button">New Event</a></li>
-      <li><a href="" class="tiny button">New Venue</a></li>
+      <li><a href="javascript:void(0);" class="tiny button" data-reveal-id="new_photo_modal" >New Photo</a></li>
+      <li><a href="javascript:void(0);" class="tiny button" data-reveal-id="new_report_modal" >New Story</a></li>
+      <li><a href="javascript:void(0);" class="tiny button" data-reveal-id="new_gallery_modal" >New Gallery</a></li>
+      <!--<li><a href="javascript:void(0);" class="tiny button" data-reveal-id="new_video_modal" >New Video</a></li>-->
+      <li><a href="javascript:void(0);" class="tiny button" data-reveal-id="new_review_modal" >New Review</a></li>
+      <li><a href="javascript:void(0);" class="tiny button" data-reveal-id="new_event_modal" >New Event</a></li>
+      <li><a href="javascript:void(0);" class="tiny button" data-reveal-id="new_venue_modal" >New Venue</a></li>
     </ul>
     <!--<div ng-include="router.partial('cities/newsitems')"></div>-->
   </div>
@@ -89,9 +89,39 @@
   </div>
 </div>
 -->
-<div id="firstModal" class="reveal-modal" data-reveal> 
+<div id="new_photo_modal" class="reveal-modal" data-reveal> 
   <h3 class="text-center">New Photo</h3>
   <div ng-include="'/en/photos/new'"></div>
+  <a class="close-reveal-modal">&#215;</a>
+</div>
+<div id="new_report_modal" class="reveal-modal" data-reveal> 
+  <h3 class="text-center">New Story</h3>
+  <div ng-include="'/en/photos/new'"></div>
+  <a class="close-reveal-modal">&#215;</a>
+</div>
+<div id="new_gallery_modal" class="reveal-modal" data-reveal> 
+  <h3 class="text-center">New Gallery</h3>
+  <div ng-include="'/en/photos/new'"></div>
+  <a class="close-reveal-modal">&#215;</a>
+</div>
+<!-- @TODO only desktop! -->
+<!-- <div id="new_video_modal" class="reveal-modal" data-reveal> 
+  <h3 class="text-center">New Video</h3>
+  <div ng-include="'/en/photos/new'"></div>
+  <a class="close-reveal-modal">&#215;</a>
+</div> -->
+<div id="new_review_modal" class="reveal-modal" data-reveal> 
+  <h3 class="text-center">New Review</h3>
+  <div ng-include="'/en/photos/new'"></div>
+  <a class="close-reveal-modal">&#215;</a>
+</div>
+<div id="new_event_modal" class="reveal-modal" data-reveal> 
+  <h3 class="text-center">New Event</h3>
+  <div ng-include="'/en/photos/new'"></div>
+  <a class="close-reveal-modal">&#215;</a>
+</div>
+<div id="new_venue_modal" class="reveal-modal" data-reveal> 
+  <div ng-include="'/en/venues/new'"></div>
   <a class="close-reveal-modal">&#215;</a>
 </div>
 

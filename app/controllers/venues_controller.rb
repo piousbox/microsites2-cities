@@ -1,6 +1,12 @@
 
 class VenuesController < ApplicationController
 
+  def new
+    @venue = Venue.new
+    authorize! :new, @venue
+    render :layout => false
+  end
+
   def show
     if @venue = Venue.where( :name_seo => params[:venuename] ).first
       authorize! :show, @venue

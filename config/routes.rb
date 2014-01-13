@@ -101,6 +101,8 @@ Microsites2::Application.routes.draw do
 
     get 'v', :to => 'utils/utils#version', :as => :version
 
+    get 'venues/new', :to => 'venues#new'
+
     get 'sitemap', :to => 'utils/sitemaps#sitemap'
 
     # sites

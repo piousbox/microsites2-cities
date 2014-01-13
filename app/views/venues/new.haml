@@ -1,0 +1,29 @@
+
+.row
+  .large-12.columns
+    %h4.text-center New Venue
+
+    = form_for @venue do |f|
+      .row
+        .large-2.small-2.columns= f.label :name
+        .large-10.small-10.columns= f.text_field :name
+
+      .row
+        .large-2.small-2.columns= f.label :descr
+        .large-10.small-10.columns= f.text_area :descr
+
+      .row
+        .large-2.small-2.columns= f.label :x
+        .large-4.small-4.columns= f.text_field :x
+        .large-2.small-2.columns= f.label :y
+        .large-4.small-4.columns= f.text_field :y
+
+      .row
+        Type of Venue
+
+      .row
+        Address
+
+      .row
+        .large-10.large-push-2.small-10.small-push-2.columns= f.submit :class => [ :tiny, :button ]
+  
