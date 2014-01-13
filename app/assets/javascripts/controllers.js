@@ -24,15 +24,11 @@ myApp.controller('UsersMeetCtrl', ['$scope', 'City', function($scope, City) {
 }]);
 
 myApp.controller('MetaCtrl', ['$scope', 'Meta', 'PathHelper', function($scope, Meta, PathHelper) {
-  var breadcrumbs = [
-    { link_path: '/en/cities', link_name: 'Home' },
-    { link_path: '/en/cities/travel-to', link_name: 'Cities' }
-  ];
+  
   CanvasOps.homepage_all_cities();
 
   $scope.footer_partial_url = '/partials/meta/main-footer.html';
   $scope.Meta = Meta;
-  $scope.breadcrumbs = breadcrumbs;
   $scope.router = PathHelper;
 
 }]);
@@ -44,3 +40,22 @@ myApp.controller('PhotosNewCtrl', ['$scope', 'Photo', function($scope, Photo) {
   
 }]);
 
+myApp.controller('BreadcrumbsCtrl', ['$scope', 'PathHelper', '$routeParams', function(
+                                      $scope,   PathHelper,   $routeParams) {
+  var breadcrumbs = [
+    { link_path: '/en/cities', link_name: 'Home' },
+    { link_path: '/en/cities/travel-to', link_name: 'Cities' }
+  ];
+  var cityname = $routeParams.cityname;
+  var name_seo = $routeParams.name_seo;
+  if ( 'undefined' != typeof(cityname) ) {
+    breadcrumbs.push({ link_path: PathHelper.city_path(cityname), link_name: cityname });
+  }
+  if ( 'undefined' != typeof(name_seo) ) {
+    breadcrumbs.push({ link_path: PathHelper.city_reports_path(cityname), link_name: 'Reports' });
+    breadcrumbs.push({ link_path: PathHelper.city_report_path(cityname, name_seo), link_name: name_seo });
+  }
+  $scope.breadcrumbs = breadcrumbs;
+  $scope.router = PathHelper;
+
+}]);

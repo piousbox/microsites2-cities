@@ -1,9 +1,10 @@
 
 <!-- testing --><div class="hide partial-name">reports/show.html</div>
+<!-- not having this causes error? --><div class="hide" id="cities_show_canvas" ></div>
 
 <div ng-controller="CitiesProfileCtrl" ng-include="router.partial('cities/header')"></div>
 
-<div ng-include="router.partial('meta/breadcrumbs')"></div>
+<div ng-controller="BreadcrumbsCtrl" ng-include="router.partial('meta/breadcrumbs')"></div>
 
 <div class="row">
   <div class="large-12 columns">

@@ -7,7 +7,8 @@ myApp.controller('ReportsIndexCtrl', [ '$scope', 'Report', function($scope, Repo
 
 }]);
 
-myApp.controller('ReportsShowCtrl', [ '$scope', 'Report', '$routeParams', 'Meta', function($scope, Report, $routeParams, Meta) {
+myApp.controller('ReportsShowCtrl', [ '$scope', 'Report', '$routeParams', 'Meta', 'PathHelper', function(
+                                       $scope,   Report,   $routeParams,   Meta,   PathHelper) {  
   $scope.Meta = Meta;
   $scope.report = Report.get({ name_seo: $routeParams.name_seo }, function(r, headers) {
     $scope.Meta.setTitle( $scope.report.name );

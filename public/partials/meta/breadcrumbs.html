@@ -1,7 +1,4 @@
 
 <ul class="breadcrumbs">
-  <li><a href="#">Cities</a></li>
-  <li><a href="#">Chicago</a></li> 
-  <li><a href="#">Reports</a></li> 
-  <li class="current"><a href="#">Travel to Chicago</a></li> 
+  <li ng-repeat="crumb in breadcrumbs"><a href="{{ crumb.link_path }}">{{ crumb.link_name }}</a></li>
 </ul>

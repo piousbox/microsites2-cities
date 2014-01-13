@@ -47,7 +47,7 @@ app.factory('PathHelper', function() {
     city: {
       newsitems_path: function( city ) { return "travel-to/" + city.cityname + "/newsitems"; }
     },
-    city_path: function(city) { return "travel-to/" + city.cityname; },
+    city_path: function(cityname) { return "travel-to/" + cityname; },
     event_path: function(which) { return "/en/events/show/" + which.name_seo; },
     gallery_path: function(g) { return "http://piousbox.com/en/galleries/show/" + g.galleryname + "/0"; },
     partial: function(which) { return "/partials/" + which + ".html"; },
