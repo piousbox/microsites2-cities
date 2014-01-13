@@ -1,6 +1,8 @@
 
 class EventsController < ApplicationController
 
+  layout false
+
   def index
     authorize! :index, Event.new
 
@@ -10,6 +12,12 @@ class EventsController < ApplicationController
       end
     end
   end
+
+  def new
+    @event = Event.new
+    authorize! :new, @event
+  end
+
   
   def show
     @event = Event.where( :name_seo => params[:eventname] ).first

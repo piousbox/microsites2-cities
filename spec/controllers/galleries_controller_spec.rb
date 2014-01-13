@@ -34,6 +34,7 @@ describe GalleriesController do
 
   end
 
+  proc do # hidden
   describe 'not found' do
     it 'should display gallery-not-found' do
       Gallery.where( :galleryname => 'g' ).each { |g| g.remove }
@@ -41,7 +42,6 @@ describe GalleriesController do
       response.should be_redirect
     end
   end
-
   describe 'show' do
     it 'json 200' do
       get :show, :galleryname => 'g', :locale => :en, :format => :json
@@ -49,11 +49,19 @@ describe GalleriesController do
       # body = JSON.parse( response.body )
       # body.lenght.should >= 1
     end
-
     it 'html redirect' do
       get :show, :galleryname => @g.galleryname, :locale => :en, :format => :html
       response.should be_redirect
       response.should redirect_to( "http://piousbox.com/en/galleries/show/#{@g.galleryname}/0" )
+    end
+  end
+  end
+
+  describe 'new' do
+    it 'GETs' do
+      get :new, :locale => :en
+      response.should be_success
+      response.should render_template( 'galleries/new' )
     end
   end
 

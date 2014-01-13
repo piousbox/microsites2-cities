@@ -48,10 +48,11 @@ app.factory('PathHelper', function() {
       newsitems_path: function( city ) { return "travel-to/" + city.cityname + "/newsitems"; }
     },
     city_path: function(city) { return "travel-to/" + city.cityname; },
-    partial: function(which) { return "/partials/" + which + ".html"; },
     event_path: function(which) { return "/en/events/show/" + which.name_seo; },
-    report_path: report_path,
     gallery_path: function(g) { return "http://piousbox.com/en/galleries/show/" + g.galleryname + "/0"; },
+    partial: function(which) { return "/partials/" + which + ".html"; },
+    partial_compiled: function(which) { return "/en/" + which; },    
+    report_path: report_path,
     upload_photo_path: function() { return "/photos"; }
   };
 });

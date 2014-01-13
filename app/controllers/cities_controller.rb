@@ -105,7 +105,9 @@ class CitiesController < ApplicationController
     @cities = City.all
 
     respond_to do |format|
-      format.html
+      format.html do
+        render :layout => 'application-angular'
+      end
       format.json do
         render :json => @cities
       end

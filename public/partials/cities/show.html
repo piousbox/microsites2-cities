@@ -89,19 +89,34 @@
   </div>
 </div>
 -->
-<div id="new_photo_modal" class="reveal-modal" data-reveal> 
-  <h3 class="text-center">New Photo</h3>
-  <div ng-include="'/en/photos/new'"></div>
-  <a class="close-reveal-modal">&#215;</a>
-</div>
-<div id="new_report_modal" class="reveal-modal" data-reveal> 
-  <h3 class="text-center">New Story</h3>
-  <div ng-include="'/en/photos/new'"></div>
+<div id="new_event_modal" class="reveal-modal" data-reveal> 
+  <h3 class="text-center">New Event</h3>
+  <div ng-include="router.partial_compiled('events/new')"></div>
   <a class="close-reveal-modal">&#215;</a>
 </div>
 <div id="new_gallery_modal" class="reveal-modal" data-reveal> 
   <h3 class="text-center">New Gallery</h3>
-  <div ng-include="'/en/photos/new'"></div>
+  <div ng-include="router.partial_compiled('galleries/new')"></div>
+  <a class="close-reveal-modal">&#215;</a>
+</div>
+<div id="new_photo_modal" class="reveal-modal" data-reveal> 
+  <h3 class="text-center">New Photo</h3>
+  <div ng-include="router.partial_compiled('photos/new')"></div>
+  <a class="close-reveal-modal">&#215;</a>
+</div>
+<div id="new_review_modal" class="reveal-modal" data-reveal> 
+  <h3 class="text-center">New Review</h3>
+  <div ng-include="router.partial_compiled('reviews/new')"></div>
+  <a class="close-reveal-modal">&#215;</a>
+</div>
+<div id="new_report_modal" class="reveal-modal" data-reveal> 
+  <h3 class="text-center">New Story</h3>
+  <div ng-include="router.partial_compiled('reports/new')"></div>
+  <a class="close-reveal-modal">&#215;</a>
+</div>
+<div id="new_venue_modal" class="reveal-modal" data-reveal>
+  <h3 class="text-center">New Venue</h3>
+  <div ng-include="router.partial_compiled('venues/new')"></div>
   <a class="close-reveal-modal">&#215;</a>
 </div>
 <!-- @TODO only desktop! -->
@@ -110,21 +125,7 @@
   <div ng-include="'/en/photos/new'"></div>
   <a class="close-reveal-modal">&#215;</a>
 </div> -->
-<div id="new_review_modal" class="reveal-modal" data-reveal> 
-  <h3 class="text-center">New Review</h3>
-  <div ng-include="'/en/photos/new'"></div>
-  <a class="close-reveal-modal">&#215;</a>
-</div>
-<div id="new_event_modal" class="reveal-modal" data-reveal> 
-  <h3 class="text-center">New Event</h3>
-  <div ng-include="'/en/photos/new'"></div>
-  <a class="close-reveal-modal">&#215;</a>
-</div>
-<div id="new_venue_modal" class="reveal-modal" data-reveal> 
-  <div ng-include="'/en/venues/new'"></div>
-  <a class="close-reveal-modal">&#215;</a>
-</div>
 
 <script type="text/javascript">
-  $(document).foundation();
+  // $(document).foundation();
 </script>

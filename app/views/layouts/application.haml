@@ -1,7 +1,7 @@
 !!!
-%html{ :lang => @lang, 'ng-app' => 'myApp', 'ng-controller' => 'MetaCtrl' }
+%html{ :lang => @lang }
   %head
-    %title {{ Meta.title() }}
+    %title= @title
     %meta{ :name => 'description', :content => "{{ Meta.description() }}" }
     %meta{ :name => 'author', :content => "{{ Meta.author() }}" }
     %meta{ :name => 'keywords', :content => "{{ Meta.keywords() }}" }
@@ -13,7 +13,6 @@
     %link{ :href => "/assets/favicon.gif", :rel => "shortcut icon" }
     = render "application/analytics"
     -# %link{ :href => 'http://fonts.googleapis.com/css?family=Kite+One|Oxygen', :rel => 'stylesheet', :type => 'text/css' }
-    %base{ :href => "/en/cities/" }
       
   %body{ :id => @action_name, :class => @action_classes }
 
@@ -37,10 +36,8 @@
           %ul.left
             %li= link_to 'Cities', 'travel-to'
             %li= link_to 'People', 'people'
-
-      .row
-        .large-12.small-12.columns
-          %div{"ng-view" => ""}
+            
+      = yield
     
       .c
       -# = render 'application/footer'

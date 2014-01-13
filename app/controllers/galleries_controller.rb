@@ -92,6 +92,12 @@ class GalleriesController < ApplicationController
     @galleries = Gallery.where( :user => current_user, :name => /#{params[:q]}/i ).page( params[:galleries_page] )
     render :action => :index
   end
+ 
+  def new
+    @gallery = Gallery.new
+    authorize! :new, @gallery
+    render :layout => false
+  end
 
 end
 
