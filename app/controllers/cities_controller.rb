@@ -101,12 +101,9 @@ class CitiesController < ApplicationController
   end
   
   def index
-    # @cities = City.for_homepage
-    @cities = City.all
-
     respond_to do |format|
       format.html do
-        render :layout => 'application-angular'
+        render 'empty', :layout => 'application-angular' # this layout does not yield
       end
       format.json do
         render :json => @cities

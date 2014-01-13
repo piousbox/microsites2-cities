@@ -3,7 +3,8 @@ Microsites2::Application.routes.draw do
   match '/' => redirect { |params, request| "/en/cities" } # angular
 
   scope "/:locale", :constraints => { :locale => /en|ru|pt/ } do
-    root :to => 'welcome#home'
+    # root :to => 'welcome#home'
+    match '/' => redirect { |params, request| "/en/cities" } # angular
 
     devise_for :users, :controllers => {
       :sessions => "users/sessions",

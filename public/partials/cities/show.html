@@ -2,22 +2,9 @@
 <!-- testing -->
 <div class="hide partial-name">cities/show.html</div>
 
-<div class="row">
-  <div class="large-12 columns cities-show-header">
-    <h2 class="text-center"><a href="{{ router.city_path(city) }}">{{ city.name }}</a></h2>
-    <ul class="button-group cities-menu" >
-      <li><a href="" class="tiny button" >Home</a></li>
-      <li><a href="{{ router.city.newsitems_path( city ) }}" class="tiny button" >News</a></li>
-      <li><a href="" class="tiny button" >Events</a></li>
-      <li><a href="" class="tiny button" >Venues</a></li>
-      <li><a href="" class="tiny button" >Hotels</a></li>
-      <li><a href="" class="tiny button" >Restaurants</a></li>
-      <li><a href="" class="tiny button" >People</a></li>
-      <li><a href="" class="tiny button" >Galleries</a></li>
-      <li><a href="" class="tiny button" >Stories</a></li>
-    </ul>
-  </div>
+<div ng-include="router.partial('cities/header')"></div>
 
+<div class="row">
   <div class="large-6 columns">
     <div id="cities_show_canvas"></div>
   </div>
@@ -37,7 +24,7 @@
     <h3 class="text-center" >People</h3>
     <ul class="inline-list" >
       <li ng-repeat="person in city.j_users">
-        <img class="thumb profile-pic" src="{{ person.thumb_url }}" alt="{{ person.username }} profile pic" />
+        <img class="thumb profile-pic" ng-src="{{ person.profile_photo_path }}" alt="{{ person.username }} profile pic" />
         <br />
         {{ person.username }}
       </li>
@@ -54,7 +41,6 @@
       <li><a href="javascript:void(0);" class="tiny button" data-reveal-id="new_event_modal" >New Event</a></li>
       <li><a href="javascript:void(0);" class="tiny button" data-reveal-id="new_venue_modal" >New Venue</a></li>
     </ul>
-    <!--<div ng-include="router.partial('cities/newsitems')"></div>-->
   </div>
 </div>
 
@@ -64,7 +50,7 @@
     <div ng-repeat="n in newsitems" class="panel" >
       <h5><a href="{{ n.link_path }}">{{ n.name }}</a> <small>{{ Meta.pretty_date(n.created_at) }}</small></h5>
       {{ n.descr }}
-      <img src="{{ n.image_path }}" alt="{{ n.name }} {{ n.descr }}" />
+      <img ng-src="{{ n.image_path }}" alt="{{ n.name }} {{ n.descr }}" />
     </div>
   </div>
 </div>

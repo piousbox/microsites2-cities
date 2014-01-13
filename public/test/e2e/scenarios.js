@@ -4,18 +4,7 @@
 
 describe('my app', function() {
 
-  /**
-  describe('default redirect of the app', function() {
-    beforeEach(function() {
-      browser().navigateTo('/');
-    });
-    it('should automatically redirect to /en/cities when location hash/fragment is empty', function() {
-      expect(browser().location().url()).toBe("/en/cities");
-    });
-  });
-  */
-
-  describe('default view of the app', function() {
+  describe('default view', function() {
     beforeEach(function() {
       browser().navigateTo('/en/cities/');
     });
@@ -43,6 +32,16 @@ describe('my app', function() {
     it('should render partials/cities/index.html when user navigates to a city profile', function() {
       expect(element('.partial-name').text()).
         toMatch("cities/index.html");
+    });
+  });
+
+  describe('reports/view inside cities', function() {
+    beforeEach(function() {
+      browser().navigateTo('/en/cities/travel-to/San_Diego/reports/view/engineer');
+    });
+    it('should render partials/reports/view.html', function() {
+      expect(element('.partial-name').text()).
+        toMatch("reports/show.html");
     });
   });
 
