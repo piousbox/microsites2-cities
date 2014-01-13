@@ -44,12 +44,10 @@ Microsites2::Application.routes.draw do
     get 'photos/new', :to => 'photos#new'
 
     get 'reports/new', :to => 'reports#new'
-    get 'reports/view/:name_seo', :to => 'reports#show', :as => :report
-    get 'reports/show/:name_seo' => redirect { |request, params| "#{params[:locale]}/reports/view/#{params[:name_sep]}" }
-    put 'reports/:id', :to => 'reports#update', :as => :update_report
+    get 'reports/view/:name_seo', :to => 'reports#show'
+    get 'reports/show/:name_seo', :to => 'reports#show'
+    put 'reports/:id', :to => 'reports#update', :as => :reports_update
     get 'reports', :to => 'reports#index', :as => :reports
-    # match 'reports/promo/:name_seo' => redirect { |params, request| "reports/view/#{params[:name_seo]}" }
-    # get 'reports/page/:reports_page', :to => 'reports#index'
     # resources :reports
             
     get 'reviews/new', :to => 'reviews#new'
@@ -97,8 +95,7 @@ Microsites2::Application.routes.draw do
   get "piousbox" => redirect { |params, request| "/en/users/show/piousbox" }
 
   get 'reports', :to => 'reports#index', :as => :reports
-  get 'reports/view/:name_seo', :to => 'reports#show', :as => :report
-  # get "reports/view/:name_seo" => redirect { |params, request| "/en/reports/view/#{params[:name_seo]}" }
+  # get 'reports/view/:name_seo', :to => 'reports#show', :as => :report
 
   # get 'sitemap', :to => 'utils/sitemaps#sitemap', :as => :sitemap
 

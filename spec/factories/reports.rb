@@ -1,4 +1,6 @@
+
 FactoryGirl.define do
+
   factory :report do  
     name 'Report name'
     name_seo 'Report-name'
@@ -22,7 +24,6 @@ FactoryGirl.define do
       r.tag = Tag.where( :name_seo => 'cac' ).first
       r.user = User.first
     end
-    
   end 
   
   factory :r1, :class => Report do
@@ -37,7 +38,6 @@ FactoryGirl.define do
       r.tag = Tag.where( :domain => 'test.local' ).first
       r.user = User.first
     end
-    
   end 
 
   factory :r2, :class => Report do
@@ -53,7 +53,6 @@ FactoryGirl.define do
       r.user = User.first
       r.save
     end
-    
   end 
 
   factory :r3, :class => Report do
@@ -93,8 +92,8 @@ FactoryGirl.define do
       r.tag = Tag.where( :name => 'Tag 2' ).first
       r.user = User.first
     end
-    
   end
+
   factory :r6, :class => Report do
     name 'blah 2-'
     name_seo 'blah_2'
@@ -104,8 +103,7 @@ FactoryGirl.define do
     after(:build) do |r|
       r.tag = Tag.where( :name => 'Tag 2' ).first
       r.user = User.first
-    end
-    
+    end    
   end
 
   factory :r7, :class => Report do
@@ -118,8 +116,8 @@ FactoryGirl.define do
       r.tag = Tag.where( :name => 'Tag 2' ).first
       r.user = User.first
     end
-    
   end
+
   factory :r8, :class => Report do
     name 'blah 4-'
     name_seo 'blah_4'
@@ -129,8 +127,7 @@ FactoryGirl.define do
     after(:build) do |r|
       r.tag = Tag.where( :name => 'Tag 2' ).first
       r.user = User.first
-    end
-    
+    end    
   end
   
   factory :r9, :class => Report do
@@ -145,7 +142,6 @@ FactoryGirl.define do
       r.city = City.where( :cityname => 'rio' ).first
       r.user = User.first
     end
-    
   end
   
   factory :r11, :class => Report do
@@ -160,7 +156,6 @@ FactoryGirl.define do
       r.city = City.where( :cityname => 'rio' ).first
       r.user = User.first
     end
-    
   end
 
   factory :r12, :class => Report do
@@ -176,7 +171,6 @@ FactoryGirl.define do
       r.user = User.first
       r.tag = Tag.where( :domain => 'blog.test.local' ).first
     end
-
   end
 
   factory :r13, :class => Report do
@@ -192,7 +186,6 @@ FactoryGirl.define do
       r.user = User.first
       r.tag = Tag.where( :domain => 'blog.test.local' ).first
     end
-
   end
 
   factory :r_pt_1, :class => Report do
@@ -275,7 +268,6 @@ FactoryGirl.define do
     after :build do |r|
       r.user = User.first
     end
-
   end
 
   factory :feature_ru_1, :class => Report do
@@ -290,7 +282,6 @@ FactoryGirl.define do
     after :build do |r|
       r.user = User.first
     end
-
   end
 
   factory :feature_1, :class => Report do
@@ -337,6 +328,19 @@ FactoryGirl.define do
     name_seo '114'
     is_trash false
     is_feature true
+    is_public true
+    lang 'en'
+    username 'username'
+    after :build do |r|
+      r.user = User.first
+    end
+  end
+
+  factory :city_report, :class => Report do
+    name 'Nocity Report'
+    name_seo 'nocity-report'
+    is_trash false
+    is_feature false
     is_public true
     lang 'en'
     username 'username'

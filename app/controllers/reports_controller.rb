@@ -1,8 +1,6 @@
 
 class ReportsController < ApplicationController
 
-  layout 'application'
-
   def index
     authorize! :index, Report.new
     @reports = Report.all
@@ -40,22 +38,17 @@ class ReportsController < ApplicationController
         format.html do
           render :empty
         end
-        format.json do
-          render :json => {}
-        end
-        format.tablet do
-          render :empty
-        end
-        format.mobile do
-          render :empty
-        end
       end
 
     else
       authorize! :show, @report
       respond_to do |format|
         format.html do
-          @report_name_seo = @report.name_seo
+          if @report.city
+            redirect_to "/#{@report.lang}/cities/#{@report.city.cityname}/reports/view/#{@report.name_seo}"
+          else
+            redirect_to "/#{@report.lang}/cities/undefined/reports/view/#{@report.name_seo}"
+          end
         end
         format.json do
           if @report.photo
