@@ -101,6 +101,8 @@ Microsites2::Application.routes.draw do
   # get 'reports/view/:name_seo', :to => 'reports#show', :as => :report
 
   # get 'sitemap', :to => 'utils/sitemaps#sitemap', :as => :sitemap
+  get 'spec_runner', :to => 'spec_runner#which'
+  get 'spec_runner/:w', :to => 'spec_runner#which'
 
   get 'users/show/:username' => redirect { |params, request| "/en/users/show/#{params[:username]}" }
 
