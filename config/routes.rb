@@ -1,5 +1,7 @@
 Microsites2::Application.routes.draw do
 
+  match '/' => redirect { |params, request| "/en/cities" } # angular
+
   scope "/:locale", :constraints => { :locale => /en|ru|pt/ } do
     root :to => 'welcome#home'
 
@@ -123,6 +125,5 @@ Microsites2::Application.routes.draw do
   match 'helps/*everything' => redirect { |params, request| '/' }
   match 'helps' => redirect { |params, request| '/' }
   match '*other' => redirect { |params, request| "/en/#{params[:other]}" }
-  match '/' => redirect { |params, request| "/en/cities" }
 
 end

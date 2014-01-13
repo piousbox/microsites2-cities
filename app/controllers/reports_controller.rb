@@ -45,9 +45,9 @@ class ReportsController < ApplicationController
       respond_to do |format|
         format.html do
           if @report.city
-            redirect_to "/#{@report.lang}/cities/#{@report.city.cityname}/reports/view/#{@report.name_seo}"
+            redirect_to "/#{@report.lang}/cities/travel-to/#{@report.city.cityname}/reports/view/#{@report.name_seo}"
           else
-            redirect_to "/#{@report.lang}/cities/undefined/reports/view/#{@report.name_seo}"
+            redirect_to "/#{@report.lang}/cities/travel-to/undefined/reports/view/#{@report.name_seo}"
           end
         end
         format.json do
