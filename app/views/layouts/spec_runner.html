@@ -1,0 +1,14 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <title>End2end Test Runner</title>
+    <meta charset="utf-8">
+    <script src="/assets/angular/angular-scenario.js" ng-autotest></script>
+    <%= javascript_include_tag "application2" %>
+    <% @files.each do |file| %>
+    <script src="/assets/spec/<%= file %>"></script>
+    <% end %>
+  </head>
+  <body>
+  </body>
+</html>
