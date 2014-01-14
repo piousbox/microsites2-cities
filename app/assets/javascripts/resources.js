@@ -39,8 +39,19 @@ app.factory('Newsitem', function($resource) {
 
 app.factory('PathHelper', function() {
   var report_path = function(report, city) {
-    cityname = ( 'undefined' == typeof(city) ) ? 'undefined' : city.cityname;
-    return "/en/cities/travel-to/" + cityname + "/reports/view/" + report.name_seo;
+    if( 'undefined' == typeof(city) ) {
+      cityname = 'undefined';
+    } else if ( 'string' == typeof(city) ) {
+      cityname = city;
+    } else {
+      cityname = city.cityname;
+    }
+    if( 'undefined' == typeof(report.name_seo) ) {
+      reportname = report;
+    } else {
+      reportname = report.name_seo;
+    }
+    return cityname + "/reports/view/" + reportname;
   };
 
   return {
@@ -48,8 +59,8 @@ app.factory('PathHelper', function() {
       newsitems_path: function( cityname ) { return "travel-to/" + cityname + "/newsitems"; }
     },
     city_path: function(cityname) { return "travel-to/" + cityname; },
-    event_path: function(which) { return "/en/events/show/" + which.name_seo; },
-    gallery_path: function(g) { return "http://piousbox.com/en/galleries/show/" + g.galleryname + "/0"; },
+    event_path: function(cityname, eventname) { return cityname + "/events/show/" + eventname; },
+    gallery_path: function(galleryname) { return "http://piousbox.com/en/galleries/show/" + galleryname + "/0"; },
     partial: function(which) { return "/partials/" + which + ".html"; },
     partial_compiled: function(which) { return "/en/" + which; },    
     report_path: report_path,
@@ -57,6 +68,7 @@ app.factory('PathHelper', function() {
   };
 });
 
+// @TODO this does not work for shit.
 app.factory('Photo', function($resource) {
   return $resource('/api/photos.json', {}, {
     create: { method: 'POST' }
