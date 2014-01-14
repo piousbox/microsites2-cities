@@ -1,19 +1,19 @@
 
 class SpecRunnerController < ApplicationController
-
-  layout 'spec_runner'
   
+  def e2e
+    authorize! :spec_runner, Manager.new
+    render 'empty', :layout => 'spec_runner_e2e'
+  end
+
+  def all
+    authorize! :spec_runner, Manager.new
+    render 'empty', :layout => 'spec_runner_jasmine'
+  end
+
   def which
     authorize! :spec_runner, Manager.new
-    
-    case params[:w]
-    when 'resources'
-      @files = [ 'unit/resources_spec.js' ]
-    else
-      @files = [ 'e2e/scenarios.js' ]
-    end
-
-    render 'all'
+    render 'empty', :layout => 'spec_runner_jasmin'
   end
 
 end
