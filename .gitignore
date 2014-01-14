@@ -2,7 +2,7 @@ tmp
 log
 *.DS_Store
 *~
-vendor/ruby
 coverage
 lib
 app/models
+vendor/assets
