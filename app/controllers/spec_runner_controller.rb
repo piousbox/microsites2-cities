@@ -13,7 +13,7 @@ class SpecRunnerController < ApplicationController
 
   def which
     authorize! :spec_runner, Manager.new
-    render 'empty', :layout => 'spec_runner_jasmin'
+    render 'empty', :layout => 'spec_runner_jasmine'
   end
 
 end
