@@ -1,14 +1,31 @@
 'use strict';
 
-describe('controllers', function(){
+describe('Resources', function(){
 
-  // beforeEach(angular.mock.module('myApp'))
-  beforeEach(module('myApp'));
-
-  it('should be sane', function() {
-    excect( 1 ).toEqual( 1 );
+  beforeEach(function() {
+    // angular.module('myApp');
+    var myApp = angular.module('myApp.controllers');
   });
 
+  beforeEach(module('myApp'));
+
+  it( 'tests PathHelper', inject(function(PathHelper) {
+    expect( PathHelper.city.newsitems_path('ch') ).toEqual( 'travel-to/ch/newsitems' );
+    expect( PathHelper.city_path('which city') ).toEqual( 'travel-to/which city' );
+    expect( PathHelper.event_path('cityname', 'eventname') ).toEqual( 'travel-to/cityname/events/show/eventname' );
+    expect( PathHelper.gallery_path('g') ).toEqual( 'http://piousbox.com/en/galleries/show/g/0' );
+    expect( PathHelper.partial('da') ).toEqual( 'partials/da.html' );
+    expect( PathHelper.partial_compiled('daa') ).toEqual( '/en/daa' );
+    expect( PathHelper.report_path( 'reportname', 'cityname' ) ).toEqual( 'travel-to/cityname/reports/view/reportname' );
+  }));
+
+  it( 'sanity 2', inject( function( $rootScope, $controller) {
+    var scope = $rootScope.new();
+    var ctrl = $controller('MetaCtrl', {$scope: scope});
+    expect( scope.Meta ).toBeTruthy();
+  }));
+
+  /*
   // Store references to $rootScope and $compile
   // so they are available to all tests in this describe block
   beforeEach(inject(function(_$compile_, _$rootScope_){
@@ -16,10 +33,9 @@ describe('controllers', function(){
     $compile = _$compile_;
     $rootScope = _$rootScope_;
   }));
+   */
 
   /*
-  beforeEach(module('myApp.controllers'));
-
   it('should ....', inject(function() {
     var $scope = {};
     var pc = $controller('PasswordCtrl', { $scope: $scope });

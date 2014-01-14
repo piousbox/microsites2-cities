@@ -45,7 +45,7 @@ app.factory('PathHelper', function() {
 
   return {
     city: {
-      newsitems_path: function( city ) { return "travel-to/" + city.cityname + "/newsitems"; }
+      newsitems_path: function( cityname ) { return "travel-to/" + cityname + "/newsitems"; }
     },
     city_path: function(cityname) { return "travel-to/" + cityname; },
     event_path: function(which) { return "/en/events/show/" + which.name_seo; },
@@ -53,7 +53,7 @@ app.factory('PathHelper', function() {
     partial: function(which) { return "/partials/" + which + ".html"; },
     partial_compiled: function(which) { return "/en/" + which; },    
     report_path: report_path,
-    upload_photo_path: function() { return "/photos"; }
+    // upload_photo_path: function() { return "/photos"; }
   };
 });
 

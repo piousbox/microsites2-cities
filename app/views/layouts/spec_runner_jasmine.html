@@ -3,13 +3,11 @@
 <html>
 <head>
   <title>Jasmine Spec Runner</title>
-
   <link rel="shortcut icon" type="image/png" href="libs/jasmine-1.3.1/jasmine_favicon.png">
-  <link rel="stylesheet" type="text/css" href="jasmine-1.3.1/jasmine.css">
-
-  <%= javascript_include_tag "jasmine-1.3.1/jasmine", "jarmine-1.3.1/jasmine-html", "angular-1.1.1/angular", "angular-1.1.1/angular-mocks" %>
+  <%= stylesheet_link_tag    "jasmine-1.3.1/jasmine" %>
   <%= javascript_include_tag "application2" %>
-  <%= javascript_include_tag "spec/example_spec" %>
+  <%= javascript_include_tag "jasmine-1.3.1/jasmine", "jasmine-1.3.1/jasmine-html", "angular/angular-mocks" %>
+  <%= javascript_include_tag "spec/#{params[:w]}_spec" %>
 
   <script type="text/javascript">
     (function() {
