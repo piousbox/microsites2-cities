@@ -6,6 +6,7 @@ describe('Resources', function(){
 
   it( 'tests PathHelper', inject(function(PathHelper) {
     expect( PathHelper.city.newsitems_path('ch') ).toEqual( 'travel-to/ch/newsitems' );
+    expect( PathHelper.city.reports_path('ciity') ).toEqual( 'travel-to/ciity/reports' );
     expect( PathHelper.city_path('which city') ).toEqual( 'travel-to/which city' );
     expect( PathHelper.event_path('cityname', 'eventname') ).toEqual( 'cityname/events/show/eventname' );
     expect( PathHelper.gallery_path('g') ).toEqual( 'http://piousbox.com/en/galleries/show/g/0' );

@@ -52,8 +52,8 @@ myApp.controller('BreadcrumbsCtrl', ['$scope', 'PathHelper', '$routeParams', fun
     breadcrumbs.push({ link_path: PathHelper.city_path(cityname), link_name: cityname });
   }
   if ( 'undefined' != typeof(name_seo) ) {
-    breadcrumbs.push({ link_path: PathHelper.city_reports_path(cityname), link_name: 'Reports' });
-    breadcrumbs.push({ link_path: PathHelper.city_report_path(cityname, name_seo), link_name: name_seo });
+    breadcrumbs.push({ link_path: PathHelper.city.reports_path(cityname), link_name: 'Reports' });
+    breadcrumbs.push({ link_path: PathHelper.city.report_path(cityname, name_seo), link_name: name_seo });
   }
   $scope.breadcrumbs = breadcrumbs;
   $scope.router = PathHelper;

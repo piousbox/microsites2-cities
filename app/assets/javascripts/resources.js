@@ -56,14 +56,16 @@ app.factory('PathHelper', function() {
 
   return {
     city: {
-      newsitems_path: function( cityname ) { return "travel-to/" + cityname + "/newsitems"; }
+      newsitems_path: function( cityname ) { return "travel-to/" + cityname + "/newsitems"; },
+      reports_path: function( cityname ) { return "travel-to/" + cityname + "/reports"; },
+      report_path: function( cityname, name_seo ) { return "travel-to/" + cityname + "/reports/view/" + name_seo; }
     },
     city_path: function(cityname) { return "travel-to/" + cityname; },
     event_path: function(cityname, eventname) { return cityname + "/events/show/" + eventname; },
     gallery_path: function(galleryname) { return "http://piousbox.com/en/galleries/show/" + galleryname + "/0"; },
     partial: function(which) { return "/partials/" + which + ".html"; },
     partial_compiled: function(which) { return "/en/" + which; },    
-    report_path: report_path,
+    report_path: report_path
     // upload_photo_path: function() { return "/photos"; }
   };
 });

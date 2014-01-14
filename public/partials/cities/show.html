@@ -49,8 +49,8 @@
     <h5 class="text-center">Newsitems <a>[main]</a> <a>[realtime]</a> <a>[unmoderated]</a></h5>
     <div ng-repeat="n in newsitems" class="panel" >
       <h5><a href="{{ n.link_path }}">{{ n.name }}</a> <small>{{ Meta.pretty_date(n.created_at) }}</small></h5>
-      {{ n.descr }}
-      <img ng-src="{{ n.image_path }}" alt="{{ n.name }} {{ n.descr }}" />
+      <div class="descr">{{ n.descr }}</div>
+      <img class="thumb" ng-src="{{ n.image_path }}" alt="{{ n.name }}" />
     </div>
   </div>
 </div>
@@ -75,6 +75,7 @@
   </div>
 </div>
 -->
+
 <div id="new_event_modal" class="reveal-modal" data-reveal> 
   <h3 class="text-center">New Event</h3>
   <div ng-include="router.partial_compiled('events/new')"></div>
@@ -113,5 +114,6 @@
 </div> -->
 
 <script type="text/javascript">
-  // $(document).foundation();
+  // Is actually required for new-something callouts.
+  $(document).foundation();
 </script>
